@@ -1,36 +1,33 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# aipolicyfile.com
 
-## Getting Started
+Free AI disclosure law checker + founding-member waitlist. Phase 1 validation
+MVP: the checker drives traffic, the waitlist measures willingness to pay
+(role + price-band segments arrive via Telegram, nothing is stored).
 
-First, run the development server:
+## Stack
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Next.js (App Router, TypeScript, Tailwind v4). No database. The only dynamic
+piece is `src/app/api/waitlist/route.ts`, which forwards signups to Telegram.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Deploy (Vercel)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Import the `raiderj77/aipolicyfile` repo in Vercel (framework preset:
+   Next.js, no special settings needed).
+2. Set two environment variables (Production):
+   - `TELEGRAM_BOT_TOKEN` — same bot rex2 uses
+   - `TELEGRAM_CHAT_ID` — same chat id rex2 uses
+   Without them the site still works; signups land in Vercel function logs
+   instead of Telegram.
+3. Add the domain `aipolicyfile.com` to the Vercel project, then at Namecheap
+   switch the domain from parking to Vercel: an `A` record for `@` pointing to
+   `76.76.21.21` and a `CNAME` for `www` pointing to
+   `cname.vercel-dns.com` (Vercel's domain screen shows the exact values).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Content facts
 
-## Learn More
+All law facts live in one file: `src/lib/laws.ts` (names, dates, penalties,
+official URLs, and the `evaluate()` rules the checker runs). Verified July
+2026. When a law changes, edit that file only.
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Standing rule for this site: it gives educational information, never legal
+advice, and every page that shows results must say so.

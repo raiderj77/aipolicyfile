@@ -1,0 +1,21 @@
+# AI Policy File
+
+> Free 2-minute checker that tells creators and small businesses which AI
+> disclosure laws apply to them, with plain-English explanations, sample
+> disclosure wording, and links to every official law text. Educational
+> information, not legal advice.
+
+## Laws covered (current as of July 2026)
+
+- FTC Endorsement Guides AI disclosure guidance (United States, enforcement active)
+- EU AI Act Article 50 transparency obligations (effective August 2, 2026)
+- New York Synthetic Performer Disclosure Law S.8420-A (effective June 9, 2026)
+- California B.O.T. Act SB 1001 (in force since July 1, 2019)
+- California SB 942 AI Transparency Act (effective August 2, 2026)
+
+## Pages
+
+- [Home](https://aipolicyfile.com/): overview of all five laws with official links
+- [Checker](https://aipolicyfile.com/checker): the free 8-question checker
+- [About](https://aipolicyfile.com/about): why the site exists
+- [Disclaimer](https://aipolicyfile.com/disclaimer): educational information, not legal advice
