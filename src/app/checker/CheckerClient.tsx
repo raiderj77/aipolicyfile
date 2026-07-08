@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { evaluate, type CheckerAnswers, type LawResult, type LawStatus } from "@/lib/laws";
+import { LAW_PAGE_SLUGS } from "@/lib/lawPageSlugs";
 import WaitlistForm from "@/components/WaitlistForm";
 
 interface Question {
@@ -178,13 +179,19 @@ export default function CheckerClient() {
                 </div>
               )}
               <div className="mt-4 flex flex-wrap items-center gap-4 text-sm">
+                <Link
+                  href={`/laws/${LAW_PAGE_SLUGS[r.law.id]}`}
+                  className="font-medium text-indigo-700 underline underline-offset-2 hover:text-indigo-900"
+                >
+                  Plain-English guide
+                </Link>
                 <a
                   href={r.law.officialUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="font-medium text-indigo-700 underline underline-offset-2 hover:text-indigo-900"
                 >
-                  Read the official text: {r.law.officialLabel}
+                  Official text: {r.law.officialLabel}
                 </a>
                 <span className="text-slate-400">Penalty: {r.law.penalty}</span>
               </div>

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { LAWS } from "@/lib/laws";
+import { LAW_PAGE_SLUGS } from "@/lib/lawPageSlugs";
 import WaitlistForm from "@/components/WaitlistForm";
 
 export default function Home() {
@@ -58,14 +59,22 @@ export default function Home() {
                 <span className="font-semibold text-slate-700">Penalty:</span>{" "}
                 {law.penalty}
               </p>
-              <a
-                href={law.officialUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-4 inline-block text-sm font-medium text-indigo-700 underline underline-offset-2 hover:text-indigo-900"
-              >
-                {law.officialLabel}
-              </a>
+              <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm">
+                <Link
+                  href={`/laws/${LAW_PAGE_SLUGS[law.id]}`}
+                  className="font-medium text-indigo-700 underline underline-offset-2 hover:text-indigo-900"
+                >
+                  Plain-English guide
+                </Link>
+                <a
+                  href={law.officialUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-medium text-slate-500 underline underline-offset-2 hover:text-slate-700"
+                >
+                  {law.officialLabel}
+                </a>
+              </div>
             </div>
           ))}
         </div>

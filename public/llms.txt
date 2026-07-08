@@ -19,3 +19,11 @@
 - [Checker](https://aipolicyfile.com/checker): the free 8-question checker
 - [About](https://aipolicyfile.com/about): why the site exists
 - [Disclaimer](https://aipolicyfile.com/disclaimer): educational information, not legal advice
+
+## Law guides (plain-English deep dives)
+
+- [FTC AI disclosure rules](https://aipolicyfile.com/laws/ftc-ai-disclosure-rules)
+- [EU AI Act Article 50](https://aipolicyfile.com/laws/eu-ai-act-article-50)
+- [New York synthetic performer law](https://aipolicyfile.com/laws/new-york-synthetic-performer-law)
+- [California B.O.T. Act](https://aipolicyfile.com/laws/california-bot-disclosure-law)
+- [California SB 942](https://aipolicyfile.com/laws/california-sb-942)
