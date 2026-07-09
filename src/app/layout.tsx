@@ -69,6 +69,12 @@ export default function RootLayout({
             <p className="mt-4 text-xs text-slate-400">
               © {new Date().getFullYear()} AI Policy File. All rights reserved.
             </p>
+            <p className="mt-1 text-xs text-slate-400">
+              Built by{" "}
+              <a href="https://automation-services-eta.vercel.app/" target="_blank" rel="noopener noreferrer" className="underline hover:text-slate-600">
+                Jason Ramirez
+              </a>
+            </p>
           </div>
         </footer>
       </body>
