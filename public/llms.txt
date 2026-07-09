@@ -27,3 +27,10 @@
 - [New York synthetic performer law](https://aipolicyfile.com/laws/new-york-synthetic-performer-law)
 - [California B.O.T. Act](https://aipolicyfile.com/laws/california-bot-disclosure-law)
 - [California SB 942](https://aipolicyfile.com/laws/california-sb-942)
+
+## Common questions, answered
+
+- [Do I have to disclose AI-generated content?](https://aipolicyfile.com/answers/do-i-have-to-disclose-ai-generated-content)
+- [AI disclosure rules for influencers and sponsored content](https://aipolicyfile.com/answers/ai-disclosure-rules-for-sponsored-content-influencers)
+- [EU AI Act Article 50 checklist for small businesses](https://aipolicyfile.com/answers/eu-ai-act-article-50-checklist-small-business)
+- [Do chatbots have to say they are bots?](https://aipolicyfile.com/answers/do-chatbots-have-to-say-they-are-bots)
