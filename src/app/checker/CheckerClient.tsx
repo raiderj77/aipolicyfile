@@ -56,19 +56,19 @@ const QUESTIONS: Question[] = [
 ];
 
 const STATUS_STYLES: Record<LawStatus, { pill: string; label: string; ring: string }> = {
-  action: {
+  review: {
     pill: "bg-amber-100 text-amber-900",
-    label: "Action needed",
+    label: "Possible relevance",
     ring: "border-amber-300",
   },
-  watch: {
+  monitor: {
     pill: "bg-sky-100 text-sky-900",
-    label: "Worth watching",
+    label: "Rules worth reviewing",
     ring: "border-sky-200",
   },
-  clear: {
+  lower: {
     pill: "bg-emerald-100 text-emerald-900",
-    label: "Probably not you",
+    label: "Lower apparent relevance",
     ring: "border-emerald-200",
   },
 };
@@ -125,7 +125,7 @@ export default function CheckerClient() {
   };
 
   if (results) {
-    const actions = results.filter((r) => r.status === "action").length;
+    const possible = results.filter((r) => r.status === "review").length;
     return (
       <div className="space-y-6">
         <div className="rounded-2xl border border-slate-200 bg-white p-6">
@@ -133,14 +133,15 @@ export default function CheckerClient() {
             Your results
           </h2>
           <p className="mt-2 text-slate-600">
-            {actions === 0
-              ? "Nothing needs immediate action based on your answers. Keep an eye on the items marked worth watching."
-              : `${actions} ${actions === 1 ? "law needs" : "laws need"} action based on your answers. Each card below tells you exactly what to do and links the official text.`}
+            {possible === 0
+              ? "No high-relevance screening signals appeared. Review the items below before relying on that result."
+              : `${possible} ${possible === 1 ? "area has" : "areas have"} possible relevance based on your answers. This is a starting point for reviewing the official text, not a legal conclusion.`}
           </p>
           <p className="mt-3 text-sm text-slate-500">
             This is educational information based on the law texts linked below,
-            current as of July 2026. It is not legal advice. Rules change, and your
-            situation may differ. Confirm with the official sources or a lawyer.
+            last reviewed July 12, 2026. It does not determine jurisdiction,
+            coverage, compliance, or what you must do. Confirm with the official
+            sources and a qualified lawyer for your circumstances.
           </p>
         </div>
 
@@ -158,7 +159,7 @@ export default function CheckerClient() {
                 {r.headline}
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-slate-600">{r.detail}</p>
-              {r.status === "action" && (
+              {r.status === "review" && (
                 <ul className="mt-3 space-y-1.5">
                   {r.law.requires.map((req, i) => (
                     <li key={i} className="flex gap-2 text-sm text-slate-700">
@@ -193,7 +194,7 @@ export default function CheckerClient() {
                 >
                   Official text: {r.law.officialLabel}
                 </a>
-                <span className="text-slate-400">Penalty: {r.law.penalty}</span>
+                  <span className="text-slate-400">Enforcement note: {r.law.penalty}</span>
               </div>
             </div>
           );

@@ -12,7 +12,7 @@ export default function TermsPage() {
       <h1 className="font-display text-3xl font-bold tracking-tight text-slate-900">
         Terms of Use
       </h1>
-      <p className="mt-2 text-sm text-slate-500">Last updated: July 7, 2026</p>
+      <p className="mt-2 text-sm text-slate-500">Last updated: July 12, 2026</p>
       <div className="mt-6 space-y-4 leading-relaxed text-slate-700">
         <p>
           By using aipolicyfile.com you agree to these terms. If you do not
@@ -28,6 +28,11 @@ export default function TermsPage() {
           it. You are responsible for verifying anything you rely on against the
           official sources we link and, where appropriate, with a licensed
           attorney.
+        </p>
+        <p>
+          The checker flags possible relevance only. It does not determine
+          jurisdiction, coverage, compliance, legal duties, defenses, or likely
+          enforcement outcomes.
         </p>
         <h2 className="font-display text-xl font-semibold text-slate-900">
           Acceptable use

@@ -1,5 +1,5 @@
 // Deep-dive law page content. Facts reviewed against src/lib/laws.ts and primary
-// sources 2026-07-07. When a law changes, update laws.ts first, then this file.
+// sources 2026-07-12. When a law changes, update laws.ts first, then this file.
 
 export interface LawPageSection {
   heading: string;
@@ -21,81 +21,73 @@ export const LAW_PAGES: LawPage[] = [
   {
     "lawId": "ftc",
     "slug": "ftc-ai-disclosure-rules",
-    "title": "FTC Endorsement Guides and AI Disclosure Rules (2026)",
-    "metaDescription": "The FTC requires clear disclosure of AI involvement in sponsored content and endorsements. Penalties up to $53,088 per violation. Learn what the rules require.",
-    "intro": "The FTC's Endorsement Guides require disclosure of both paid relationships and AI involvement in content. Under this guidance, when substantive content is generated with AI, creators must inform their audience. The 2026 guidance update is now being enforced across all account sizes, regardless of follower count.",
+    "title": "FTC Endorsement Guides and AI-Assisted Advertising (2026)",
+    "metaDescription": "Review FTC rules for material connections and truthful endorsements when AI assists with advertising. The FTC sources do not create a standalone AI-use label.",
+    "intro": "The FTC's Endorsement Guides help explain how Section 5 applies to endorsements and testimonials. They focus on truthful advertising and disclosure of material connections that consumers would not otherwise expect. The official sources reviewed July 12, 2026 do not create a separate rule requiring a label merely because AI assisted with content.",
     "sections": [
       {
-        "heading": "Who this law covers",
+        "heading": "When the guidance may be relevant",
         "paragraphs": [
-          "This law applies to any creator, influencer, or business publishing sponsored content, ads, endorsements, or reviews that involved meaningful AI help. It covers YouTube videos, Instagram posts, TikTok content, blog reviews, email newsletters, and any other channel where content reaches an audience.",
-          "The law does not cover routine tool use. Spell-checkers, grammar tools, autocomplete suggestions, and basic image resizing are not considered substantive content generation.",
-          "Account size does not create an exemption. The FTC applies the same disclosure rules to small accounts as to large brands, and the same penalties apply regardless of follower count.",
-          "The law applies to creators in the United States and to content that reaches U.S. audiences under FTC jurisdiction."
+          "The key screening question is whether a message is an advertising endorsement made on behalf of a marketer and whether a material connection could affect the weight or credibility consumers give it.",
+          "Payment, free products, affiliate commissions, employment, family relationships, and other benefits can be relevant. Audience expectations and the overall context matter, so the FTC describes these decisions as case specific.",
+          "For a creator outside the United States, the FTC says U.S. law may be relevant when it is reasonably foreseeable that content will be seen by and affect U.S. consumers. That is still a fact-specific jurisdiction question."
         ]
       },
       {
-        "heading": "What the law requires",
+        "heading": "What the official FTC sources say",
         "paragraphs": [
-          "The FTC requires two separate disclosures. First, the paid or sponsored relationship must be disclosed (that payment or product was received). Second, AI involvement must be disclosed when AI generated substantive content for that post or video.",
-          "Substantive content is generally understood as material that shapes the endorsement message. When AI wrote a product review, created a caption, generated an image, or produced video content, the FTC considers this substantive. When AI only proofread or formatted content created by the human, this is typically considered routine tool use and does not require disclosure.",
-          "The disclosure must be clear and conspicuous. Readers must see the disclosure without clicking, scrolling, or expanding hidden text, and the disclosure must be easy to understand in plain language.",
-          "For video content, the disclosure must appear on screen within the first few seconds. Placing it only at the end or in a description does not meet this requirement.",
-          "Direct language is required. Examples include 'This review was written with AI help,' 'AI generated the copy for this post,' or 'Made with AI.' Vague phrases like 'created with technology' do not satisfy the requirement."
+          "An endorsement must reflect the honest opinion, finding, belief, or experience of the endorser. Using AI-generated wording does not excuse a false experience or an unsupported advertising claim.",
+          "When a material connection is not reasonably expected by the audience and could affect credibility, a clear and conspicuous disclosure may be needed. The FTC's examples focus on explaining that relationship, such as payment, a free product, or an affiliate commission.",
+          "The cited Endorsement Guides and Q&A do not say that every AI-assisted endorsement requires a second, AI-specific disclosure. Other laws, platform rules, or the risk of a deceptive overall impression may still make AI transparency relevant in a particular situation."
         ]
       },
       {
-        "heading": "Deadlines and penalties",
+        "heading": "Enforcement limits",
         "paragraphs": [
-          "The updated AI disclosure guidance was issued in May 2026, and enforcement is currently active.",
-          "Civil penalties can reach $53,088 per violation, adjusted annually for inflation. Each non-compliant post can count as a separate violation, so exposure adds up quickly across a campaign.",
-          "The FTC enforces these rules through civil action. Violations can be reported, and the FTC may investigate, demand corrective action, or pursue settlements and fines."
+          "The Endorsement Guides were revised in June 2023. The Guides themselves do not have the force of law and do not establish an automatic per-post civil penalty.",
+          "The FTC may bring a Section 5 enforcement action when it believes advertising is deceptive. Available remedies depend on the legal theory, facts, prior orders or notices, and procedural path. This checker cannot estimate a penalty or enforcement outcome."
         ]
       },
       {
-        "heading": "How to comply in practice",
+        "heading": "Questions to review in practice",
         "paragraphs": [
-          "Before posting sponsored or endorsed content, the question to assess is whether AI generated substantive content. If yes, disclosure is required. If no, the paid-relationship disclosure is still required, but not an AI-specific disclosure.",
-          "The paid-relationship disclosure should be placed near the beginning of the post or video. On Instagram or TikTok, the platform's built-in paid-partnership labels should be used if available. For blog posts, a note at the top is appropriate. For videos, the disclosure should appear on screen within the first few seconds.",
-          "The AI disclosure should appear immediately after or alongside the paid-relationship disclosure. Both must be clear and visible, though they can appear in the same sentence.",
-          "Examples of disclosure wordings that comply with the standard: 'Sponsored: [Company name]. This review was written with AI help.' For video: on-screen text in the first few seconds stating 'Paid partnership with [Company]. Content written with AI assistance.' For a blog post: 'I received a free product from [Company] in exchange for this review, which was drafted with AI help.'",
-          "Documentation of the process is advisable. Records showing which posts used AI and how demonstrate good-faith compliance if questions arise."
+          "Identify the advertiser, any material connection, what claims the message communicates, and whether the person presented as the endorser actually holds the stated opinion or had the represented experience.",
+          "Review whether the relationship disclosure is understandable, unavoidable in the relevant format, and close enough to the endorsement to be noticed. Platform tools may help but should be evaluated in the context of the entire message.",
+          "If AI materially changes the identity of a speaker, fabricates an experience, or makes the advertisement misleading, the issue is broader than disclosure wording. A lawyer can assess the full advertisement and any other applicable AI-specific rule."
         ]
       },
       {
-        "heading": "Common misconceptions",
+        "heading": "Important limitations",
         "paragraphs": [
-          "Misconception: 'I only used AI for a small part, so I do not need to disclose.' The FTC requires disclosure if AI generated any substantive portion of the content. The size of the AI contribution does not affect the requirement.",
-          "Misconception: 'If I do not mention the sponsorship, I do not need to disclose AI use.' Both disclosures are required separately. Neither the sponsorship nor the AI involvement can be hidden. Both must be disclosed.",
-          "Misconception: 'My followers know I use AI, so I do not need to say it explicitly.' The law requires explicit disclosure. Assuming the audience already knows is not compliance. The requirement is to state it plainly in each post.",
-          "Misconception: 'The penalty only applies if the FTC sues me.' The FTC can enforce the rules against individual creators. Account size does not provide protection. Compliance is required regardless of visibility."
+          "This page cannot determine whether a particular connection is material, what an audience understands, whether a disclosure is clear and conspicuous, or whether an advertisement is deceptive.",
+          "Do not use the sample relationship wording as a universal safe harbor. The FTC states that context matters and its staff guidance cannot give a definitive answer for every endorsement."
         ]
       }
     ],
     "faq": [
       {
-        "q": "Does using ChatGPT to write a product review require disclosure?",
-        "a": "When AI-generated text becomes substantive content in a review, disclosure is required under the FTC rules. If ChatGPT drafted the review and was posted with minimal changes, the FTC requires disclosure of AI involvement. If AI was only used to check grammar on an existing review, this is typically considered routine tool use and does not require disclosure."
+        "q": "Do the FTC Endorsement Guides independently require an AI-use label?",
+        "a": "The official Guides and Q&A reviewed July 12, 2026 do not state a standalone rule requiring an AI-use label. They focus on truthful endorsements and material connections. AI use could still contribute to a deceptive message, and another law or platform policy may require separate transparency."
       },
       {
-        "q": "What if I use AI to create images but write my own caption?",
-        "a": "In sponsored or endorsement content, AI-generated images count as substantive content, so the AI disclosure is required for them. A separate disclosure is not needed for a caption written without AI help. The paid-relationship disclosure is still required at the start of the post."
+        "q": "What should I review when AI helps create an endorsement?",
+        "a": "Confirm that the endorsement is truthful, the represented person or experience is genuine, advertising claims are supported, and any material connection is clearly disclosed when needed. Then check separate AI-specific laws and platform rules."
       },
       {
         "q": "Do I need to disclose AI if it was not sponsored or paid?",
-        "a": "The Endorsement Guides are about endorsements and advertising, so they turn on when there is a material connection: payment, free product, affiliate links, or a business relationship. A purely personal, unpaid post is generally outside their scope. Other laws can still apply to unpaid AI content, though. EU AI Act Article 50, for example, covers AI-generated content shown to EU audiences whether or not it is sponsored."
+        "a": "The Endorsement Guides concern advertising endorsements. A personal recommendation with no sponsoring advertiser is different, but other consumer-protection, AI, intellectual-property, privacy, or platform rules may still be relevant."
       },
       {
-        "q": "Where exactly should I put the disclosure on TikTok or Instagram?",
-        "a": "The platform's built-in paid-partnership label should be used if applicable. For the AI disclosure, it should appear as text on screen in the first few seconds, or prominently in the caption above the fold, so viewers see it without scrolling. Both disclosures must be visible without tapping or clicking."
+        "q": "Where should a material-connection disclosure appear?",
+        "a": "The FTC uses a clear-and-conspicuous standard and evaluates the format and overall context. Review the current FTC platform examples and do not assume a profile-page statement or hidden text reaches every viewer."
       },
       {
-        "q": "What happens if a post lacks proper AI disclosure?",
-        "a": "Each non-compliant post can count as a separate violation under the FTC rules, with civil penalties of up to $53,088 per violation. The practical fix when a miss is discovered is to correct the post: edit it to add the proper disclosures, or take it down and repost it compliant."
+        "q": "Is there an automatic FTC fine for each post?",
+        "a": "No automatic fine is created by the Endorsement Guides themselves. Enforcement and remedies depend on the FTC Act, facts, prior orders or notices, and the procedural route."
       },
       {
         "q": "Does this apply to private accounts or small local businesses?",
-        "a": "The FTC does not formally exempt small accounts or local businesses. If content reaches an audience and AI generated substantive content in a sponsored post, the disclosure requirement applies under the rules."
+        "a": "Small size is not a general exemption from truthful-advertising principles, but coverage and disclosure still depend on the advertising relationship, audience understanding, and facts."
       }
     ],
     "sources": [
@@ -113,7 +105,7 @@ export const LAW_PAGES: LawPage[] = [
     "lawId": "euArt50",
     "slug": "eu-ai-act-article-50",
     "title": "EU AI Act Article 50: Transparency for AI-Generated and Manipulated Content (2026)",
-    "metaDescription": "EU AI Act Article 50 requires disclosing AI-generated or manipulated content, deepfakes, and AI-generated text published publicly. Applies August 2, 2026.",
+    "metaDescription": "Review EU AI Act Article 50 provider and deployer transparency duties, scope, exceptions, and the August 2, 2026 application date.",
     "intro": "Starting August 2, 2026, certain providers and deployers of AI systems must disclose when they use artificial intelligence to generate or manipulate content, or when people are interacting with AI systems. The regulation aims to help people distinguish between human-created and machine-generated content online.",
     "sections": [
       {
@@ -121,22 +113,22 @@ export const LAW_PAGES: LawPage[] = [
         "paragraphs": [
           "Article 50 applies to specific categories of AI systems and their providers or deployers. These include AI systems designed to interact directly with people, systems that generate synthetic text or audio, image or video content, deepfake-generating systems, emotion recognition systems, and systems that perform biometric categorization. The regulation does not apply universally to all publishers of AI-generated content.",
           "If you develop or deploy one of these specific systems, Article 50 applies. If you use consumer generative AI tools (like ChatGPT or Midjourney) to create content you publish, you can count as a deployer for some outputs: publishing AI-generated deepfakes, or AI-written text meant to inform the public, carries disclosure obligations of its own.",
-          "The law does not apply to content generated purely for internal use, private communication between individuals, or systems used exclusively outside EU jurisdiction. Content that is artistic, satirical, or creative and undergoes human editorial review has exemptions. Law enforcement agencies using AI systems authorized by law for detecting, preventing, investigating, or prosecuting crimes have limited exemptions."
+          "Article 2 contains the scope rules and exclusions. For a non-EU provider or deployer, a relevant question is whether the AI output is used in the Union; public accessibility alone is not the full statutory test. Article 50 also contains specific law-enforcement and creative-work qualifications."
         ]
       },
       {
         "heading": "Transparency requirements",
         "paragraphs": [
           "Article 50 has three core transparency requirements. First, providers of AI systems designed to interact directly with people must ensure users know they are interacting with an AI system, unless it is obvious from context. Second, providers creating synthetic audio, image, video, or text must mark outputs in machine-readable format so the content can be detected as artificially generated.",
-          "Third, deepfakes (synthetic video or audio of real people) must be disclosed as artificially generated or manipulated. The marking should be technically robust, though the regulation acknowledges that technical limitations may exist.",
+          "Third, deployers of covered deepfake image, audio, or video content must disclose that it was artificially generated or manipulated. The provider's machine-readable marking duty in paragraph 2 is separate from the deployer's disclosure duty in paragraph 4.",
           "Disclosures must be clear and made at the time of first interaction or exposure. For text published to inform the public on matters of public interest, an exception exists if the content is subject to human editorial review with editorial responsibility assigned. The scope of what qualifies as sufficient editorial review remains under development and may be clarified through future guidance from regulators."
         ]
       },
       {
         "heading": "Effective date and enforcement",
         "paragraphs": [
-          "The obligations apply from August 2, 2026. Generative AI systems already on the market before that date have until December 2, 2026. EU member state authorities and the European Commission handle enforcement.",
-          "Failure to comply can result in penalties of up to 15 million EUR or 3% of total worldwide annual turnover, whichever is higher. The specific penalty tiers, and which violations trigger which penalties, are set in the broader EU AI Act framework rather than in Article 50 alone."
+          "Article 50 applies from August 2, 2026. The Act does not state the December 2, 2026 transition date previously shown on this site for Article 50.",
+          "Article 99 contains maximum administrative-fine tiers and rules for undertakings and SMEs. The applicable tier and amount depend on the violated obligation and case facts, so this page does not present the statutory maximum as an expected penalty."
         ]
       },
       {
@@ -159,11 +151,11 @@ export const LAW_PAGES: LawPage[] = [
     "faq": [
       {
         "q": "Does Article 50 apply to me if I use ChatGPT to write a blog post?",
-        "a": "Article 50 applies to providers and deployers of specific AI systems. If you use ChatGPT as a consumer to generate text, OpenAI (the provider) has obligations, but your obligations as a publisher depend on the specific system category and whether the content fits exemptions like editorial review. The regulation does not universally require disclosure for all consumer-generated AI content."
+        "a": "Article 50 distinguishes provider and deployer duties. A publisher should review Article 2 scope and Article 50(4), especially for deepfakes or AI-generated or manipulated text published to inform the public on matters of public interest. Human review and editorial responsibility are relevant to the stated text exception."
       },
       {
         "q": "What counts as 'machine-readable format' for marking images?",
-        "a": "Article 50 requires marking in machine-readable format, but the regulation does not enumerate specific technical formats. Metadata embedded in files, alt text, structured data markup, and other approaches may qualify. The EU AI Office is expected to publish codes of practice with more detailed guidance on acceptable marking methods."
+        "a": "Article 50(2) assigns the machine-readable marking duty to providers and does not enumerate a universal file format. This page cannot confirm that alt text, schema, or ordinary metadata satisfies the technical standard. Review current official implementation materials."
       },
       {
         "q": "If I run a news website and publish AI-assisted articles, what do I need to do?",
@@ -175,17 +167,17 @@ export const LAW_PAGES: LawPage[] = [
       },
       {
         "q": "What if my audience is partly in the EU and partly outside?",
-        "a": "If EU audiences can access your content, Article 50 applies to the extent you are a provider or deployer of covered AI systems. The regulation applies based on what EU people can access, not on where you are located."
+        "a": "Accessibility alone is not the complete test. Article 2 covers, among others, certain non-EU providers and deployers where AI output is used in the Union. The facts and your operator role need review."
       },
       {
         "q": "Are there exemptions for creative or artistic work?",
-        "a": "Yes. Content that is artistic, satirical, or creative and undergoes human editorial review has exemptions from certain Article 50 requirements. The scope of this exemption and what qualifies as sufficient editorial review are still being clarified by regulators."
+        "a": "Article 50(4) limits how the deepfake disclosure must be made for evidently artistic, creative, satirical, fictional, or analogous works; it does not simply erase the disclosure duty. Human review and editorial responsibility are a separate exception for covered public-interest text."
       }
     ],
     "sources": [
       {
         "label": "EU AI Act Article 50 text",
-        "url": "https://artificialintelligenceact.eu/article/50/"
+        "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj?locale=en"
       }
     ]
   },
@@ -193,13 +185,13 @@ export const LAW_PAGES: LawPage[] = [
     "lawId": "nySynthetic",
     "slug": "new-york-synthetic-performer-law",
     "title": "New York Synthetic Performer Disclosure Law (2026)",
-    "metaDescription": "New York's Synthetic Performer Disclosure Law (2026) requires conspicuous disclosure of AI-generated performers in ads reaching NY consumers. Effective June 9, 2026. $1,000+ penalties.",
-    "intro": "New York's Synthetic Performer Disclosure Law, effective June 9, 2026, requires anyone producing advertisements featuring AI-generated synthetic performers to include a conspicuous disclosure identifying them. A synthetic performer is an AI-created asset that creates the impression of a human performance. Where your company is based does not matter, only whether your ads reach New York consumers. Violations can result in civil penalties starting at $1,000 for the first offense and $5,000 for each subsequent offense.",
+    "metaDescription": "Review New York's enacted synthetic-performer advertising disclosure rule, definitions, exceptions, knowledge provisions, and civil penalties.",
+    "intro": "New York amended General Business Law section 396-b to address covered advertisements using synthetic performers. The enacted text includes definitions, a conspicuous-disclosure rule, actual-knowledge provisions, publisher protections, and exceptions. This page flags issues to review; it does not decide whether a particular advertiser, publisher, or asset is covered.",
     "sections": [
       {
         "heading": "Who this law covers",
         "paragraphs": [
-          "This law covers anyone producing an advertisement that reaches New York consumers and features a synthetic performer. Your company's location does not matter. If you advertise on social media, search engines, streaming platforms, or any other channel that reaches New York, you must comply.",
+          "Start with the enacted definitions and the roles of the person producing the advertisement and any medium publishing or disseminating it. Geographic reach can be relevant, but company location or technical availability alone does not resolve every statutory element.",
           "A synthetic performer is defined as a digitally created asset intended to create the impression that the asset is engaging in an audiovisual or visual performance of a human performer who is not recognizable as an actual person. In practical terms, this means an AI-generated video, image, or avatar that looks like a human performing an action or speaking.",
           "The law does not cover certain situations. The law includes an exemption for audio-only advertisements. Advertisements using AI solely for language translation are also exempt. Additionally, ads for creative works like films, TV programs, and video games are exempt if the synthetic performer use in the ad matches what actually appears in the work. Finally, the law does not apply to advertising media platforms themselves, such as newspapers, TV stations, or streaming services that are displaying ads from other advertisers."
         ]
@@ -215,7 +207,7 @@ export const LAW_PAGES: LawPage[] = [
       {
         "heading": "Deadlines and penalties",
         "paragraphs": [
-          "The law became effective on June 9, 2026, exactly 180 days after the Governor signed it on December 11, 2025. Any advertisements featuring synthetic performers displayed on or after June 9, 2026 must comply.",
+          "The bill was signed December 11, 2025 and states that it takes effect on the 180th day after becoming law, June 9, 2026. Coverage after that date still depends on the definitions, knowledge provisions, and exceptions.",
           "Violations are civil penalties, not criminal charges. The first violation for failing to disclose a synthetic performer results in a $1,000 penalty. Each subsequent violation results in a $5,000 penalty per violation. These penalties can accumulate if multiple advertisements violate the law."
         ]
       },
@@ -230,7 +222,7 @@ export const LAW_PAGES: LawPage[] = [
       {
         "heading": "Common misconceptions",
         "paragraphs": [
-          "Misconception: 'I only have to disclose synthetic performers if my company is based in New York.' Correction: The law applies based on where the ad is displayed, not where your company is located. If your ad reaches New York consumers on any platform, you must comply, even if you operate from another state or country.",
+          "A business outside New York should not assume location alone resolves coverage. Review the enacted text, where the advertisement is disseminated, who produced or published it, the actual-knowledge provisions, and the statutory exceptions.",
           "Misconception: 'Editing a real person's photo or video to make them look better means I have to disclose it as a synthetic performer.' Correction: The law applies to synthetic performers, which are entirely AI-created assets intended to look like human performances. Minor edits to a real person's existing media, such as retouching skin or adjusting colors, do not trigger the disclosure requirement. The boundary between minor editing and a fully synthetic performer can be fact-specific; when in doubt, consult legal counsel.",
           "Misconception: 'I can disclose the synthetic performer in fine print or in my terms and conditions.' Correction: The law requires a conspicuous disclosure in the advertisement itself. Hiding the disclosure in legal documents or metadata is not sufficient.",
           "Misconception: 'If I use a synthetic performer in an ad for a film or game, I always have to disclose it.' Correction: Ads for creative works like movies, TV shows, and video games are exempt if the synthetic performer use in the ad matches what actually appears in the work itself. If your ad shows what's genuinely in the film, no disclosure is required."
@@ -248,7 +240,7 @@ export const LAW_PAGES: LawPage[] = [
       },
       {
         "q": "I'm based in California. Does this law affect me?",
-        "a": "Yes, if your advertisements reach New York consumers. The law applies based on where the ad is shown, not where your company is located. If you advertise on social media, search engines, or streaming platforms that reach New York, you must comply."
+        "a": "Do not decide coverage from company location or technical reach alone. Review the enacted text and the facts concerning production, publication, dissemination, knowledge, audience, and exceptions."
       },
       {
         "q": "What if I use a synthetic performer in a voice-only ad?",
@@ -280,10 +272,10 @@ export const LAW_PAGES: LawPage[] = [
       {
         "heading": "Who This Law Covers",
         "paragraphs": [
-          "The California B.O.T. Act applies to any individual or company that operates a bot or automated account to communicate online with people in California. The law specifically targets bots used for two purposes: (1) to mislead people into buying goods or services, or (2) to mislead people about voting in elections.",
+          "The California B.O.T. Act addresses a person using a bot to communicate or interact online with another person in California with intent to mislead that person about the bot's artificial identity for specified commercial or electoral purposes. Each element matters.",
           "The law covers anyone who owns or operates the bot, regardless of whether they built it themselves or hired someone else to build it. If you are using a bot to interact with California residents, you are responsible for complying with the disclosure requirement.",
           "The law does NOT apply to internet service providers or web hosting companies just because they host bot software. The responsibility falls on the person or business actually running the bot. Banks, financial institutions, and other entities offering legitimate customer service through bots are not the target of this law if their purpose is not deception.",
-          "If you operate a bot that does not interact with people in California, or if your bot is not used for commercial sales or election influence, this law does not apply to you."
+          "A lower-risk answer on one element does not by itself establish that no California or other rule applies. This checker only flags the statute for review."
         ]
       },
       {
@@ -298,7 +290,7 @@ export const LAW_PAGES: LawPage[] = [
       {
         "heading": "Deadlines and Penalties",
         "paragraphs": [
-          "The law took effect on July 1, 2019, and has been in force ever since. There is no grace period or future deadline to prepare. The law applies immediately to bots currently communicating with people in California.",
+          "The section became operative July 1, 2019. Whether it governs a current bot still depends on the communication, location, intent, and purpose elements in the statute.",
           "Violations are enforced under California's unfair competition law. The statute itself does not specify a fixed dollar amount per violation. Instead, enforcement is handled through the state's broader consumer protection framework, which means penalties can vary depending on the nature and severity of the violation.",
           "Because the law lacks a specific dollar penalty in its text, enforcement typically falls to California's Attorney General or consumers themselves through civil lawsuits. Businesses that violate the disclosure requirement may face legal action, but the exact financial consequence depends on how a court or regulatory authority evaluates the specific violation."
         ]
@@ -325,7 +317,7 @@ export const LAW_PAGES: LawPage[] = [
     "faq": [
       {
         "q": "Do I need to comply with this law if my bot only talks to people outside of California?",
-        "a": "No. The law only applies to bots communicating with people in California. If your bot only serves customers in other states or countries, California's B.O.T. Act does not apply. However, other states and countries may have similar laws."
+        "a": "Communication with a person in California is one statutory element. Location evidence and other laws still require review; this page cannot give a definitive jurisdiction conclusion."
       },
       {
         "q": "Where should I place the disclosure that my system is a bot?",
@@ -363,15 +355,15 @@ export const LAW_PAGES: LawPage[] = [
     "lawId": "caSb942",
     "slug": "california-sb-942",
     "title": "California SB 942 (AI Transparency Act) 2026",
-    "metaDescription": "California SB 942 requires AI providers with over 1 million users to disclose AI-generated content and offer free detection tools. Effective August 2, 2026.",
+    "metaDescription": "California SB 942 sets detection and provenance duties for defined covered providers of public generative AI systems. Operative January 1, 2026.",
     "intro": "California SB 942, the AI Transparency Act, is a law that requires large AI providers to be transparent about AI-generated content. It specifically targets companies that build and publish generative AI systems with over 1 million monthly users. The law does not apply to small businesses or individuals who use AI tools created by others. It requires providers to offer free detection tools and clearly label AI-generated content.",
     "sections": [
       {
         "heading": "Who this law covers",
         "paragraphs": [
-          "This law applies to \"covered providers.\" A covered provider is a company that creates and publicly offers a generative AI system with over 1 million monthly users that people in California can access. This is a high bar. It targets the largest AI companies that build systems like ChatGPT or similar platforms.",
+          "This law defines a \"covered provider\" as a person that creates, codes, or otherwise produces a generative AI system with over 1 million monthly visitors or users that is publicly accessible within California. Applying that definition requires the actual product and usage facts.",
           "This law generally does not apply to small businesses, freelancers, or creators who use AI tools created by others. If you use ChatGPT to write content, or a design tool's AI features to make graphics, this law is generally understood not to apply to you. However, you should consult with a legal professional if you are unsure whether your specific situation qualifies as a covered provider.",
-          "The law also does not apply if your AI system has fewer than 1 million monthly users in California. It does not apply to private or internal AI systems. It only applies to systems that are publicly accessible."
+          "The statutory definition uses more than 1 million monthly visitors or users and public accessibility within California. It does not say the million users must all be in California. Private or internal systems may fall outside the definition, but the full facts should be reviewed."
         ]
       },
       {
@@ -379,15 +371,15 @@ export const LAW_PAGES: LawPage[] = [
         "paragraphs": [
           "Covered providers must offer a free, publicly accessible AI detection tool. This tool must allow users to upload content and check whether that content was created or altered by the provider's AI system. The tool must include an API so developers can integrate it into their own software. Providers may collect contact information from users who voluntarily choose to share feedback, but only for the purpose of improving the tool.",
           "Providers must give users the ability to add visible labels to AI-generated content. These labels must be permanent or extraordinarily difficult to remove to the extent that is technically feasible, and understandable to a reasonable person. For example, a label might say \"Generated by [AI system name]\" or similar wording.",
-          "Providers must also include hidden, machine-readable disclosures in AI-generated content. These disclosures must contain the provider's name, the system name and version number, the date and time the content was created, and a unique identifier. These hidden labels should be detectable by the provider's own AI detection tool.",
+          "Providers must also include latent disclosures in covered AI-generated image, video, or audio content. To the extent technically feasible and reasonable, the disclosure conveys the provider, system name and version, creation or alteration time and date, and a unique identifier, and must meet the other statutory conditions.",
           "If a provider licenses its AI system to third parties (like a company that builds a chatbot using another company's AI), the provider must require those third parties to maintain the disclosure capabilities in their contracts. Providers must also revoke licenses within 96 hours of discovering that a licensee has disabled these disclosure features."
         ]
       },
       {
         "heading": "Deadlines and penalties",
         "paragraphs": [
-          "The law was originally set to take effect on January 1, 2026, but the date was pushed back to August 2, 2026 to line up with the EU AI Act's timeline. Covered providers must be compliant by that date.",
-          "The penalty for violating this law is $5,000 per day of non-compliance. Each day of violation counts as a separate violation and adds to the total penalties owed.",
+          "The enacted text states that the chapter became operative January 1, 2026. The prior August 2, 2026 date shown on this site was incorrect.",
+          "The statute provides $5,000 per violation and states that each day a covered provider is in violation is a discrete violation. Whether conduct is a violation depends on the statutory definitions and facts.",
           "Violations can be enforced through civil action by the California Attorney General, a city attorney, or a county counsel. Whoever brings the enforcement action can also recover attorney's fees and court costs if they win. Courts can also issue injunctions, meaning a judge can order a provider to immediately stop the violation."
         ]
       },
@@ -395,7 +387,7 @@ export const LAW_PAGES: LawPage[] = [
         "heading": "What the law requires of providers",
         "paragraphs": [
           "Under this law, covered providers are required to build or integrate a detection tool that can scan content and identify whether it was created by their system. The tool must be free and easy for the public to use, and published on the provider's website or made widely available.",
-          "For every piece of AI-generated content a system produces, the law requires two types of labels. First, a visible label that humans can see and understand at a glance. Second, hidden metadata embedded in the content that machines can detect. Both must clearly identify the provider's company and system.",
+          "The manifest-disclosure provision requires covered providers to offer users an option for covered image, video, and audio content. The latent-disclosure provision requires the provider to include provenance information in that covered content. The text provisions previously described on this page were overbroad.",
           "When licensing systems to other companies, the law requires providers to include contractual terms that maintain these disclosure features. Providers should build in automated checks or monitoring to verify compliance and have a clear process to revoke licenses within 96 hours of discovering non-compliance.",
           "Example visible label wording: \"This image was generated by [Your AI System Name].\" Or: \"Content created by [Provider Name] AI System v2.1.\" Example metadata might include: provider name, system name and version, a creation timestamp, and a unique identifier. A provider's detection tool should be able to read this metadata."
         ]
@@ -403,7 +395,7 @@ export const LAW_PAGES: LawPage[] = [
       {
         "heading": "Common misconceptions",
         "paragraphs": [
-          "Misconception: \"This law applies to any business that uses AI.\" What the law actually says: The law only applies to companies that build and publicly offer AI systems with over 1 million users. If you run a small business and use ChatGPT to draft emails, this law generally does not apply to you.",
+          "The statute's covered-provider duties are not automatically assigned to every business that uses a third-party AI tool. Confirm whether the business creates, codes, or otherwise produces the system and meets the remaining definition.",
           "Misconception: \"I need to label every AI-generated image on my website.\" What the law actually says: This law only applies if you built the AI system that generated the image. If you used someone else's tool, that tool's provider is responsible for compliance, not you.",
           "Misconception: \"The penalty is $5,000 total.\" What the law actually says: The penalty is $5,000 per day of non-compliance. If a provider is out of compliance for 30 days, the penalties could add up to $150,000 or more, plus attorney's fees.",
           "Misconception: \"This law requires me to tell people whenever they interact with AI.\" What the law actually says: The law only requires disclosures for content that was actually created or altered by the provider's AI system. Not all interactions with AI systems require separate disclosure labels."
@@ -413,15 +405,15 @@ export const LAW_PAGES: LawPage[] = [
     "faq": [
       {
         "q": "Does this law apply to my business?",
-        "a": "This law generally applies only if your business built an AI system with over 1 million monthly users and you publicly offer it. If you are using AI tools created by other companies, this law generally does not apply to you. Consult a legal professional if you are unsure of your status."
+        "a": "Start with the statutory covered-provider definition: who creates, codes, or otherwise produces the system, monthly visitors or users, and public accessibility within California. This page cannot decide your status."
       },
       {
         "q": "What counts as a 'covered provider'?",
-        "a": "A covered provider is a company that creates a generative AI system and makes it publicly accessible, and that system has more than 1 million monthly users in California. The law targets large AI companies that offer chatbots, image generators, or similar products directly to the public."
+        "a": "The statute defines a covered provider as a person that creates, codes, or otherwise produces a generative AI system with over 1 million monthly visitors or users that is publicly accessible within California. It does not say all 1 million users must be California users."
       },
       {
         "q": "Do I have to label all AI content, or just some of it?",
-        "a": "Under this law, providers must label content that their AI system created or altered. If a system generates an image or writes text, that must be labeled. If a human writes something and never uses the AI, no label is required."
+        "a": "The enacted manifest and latent disclosure provisions address image, video, and audio content, or combinations of those media. Review Sections 22757.2 and 22757.3 for the exact detection and provenance requirements."
       },
       {
         "q": "What happens if a provider does not comply?",
@@ -433,7 +425,7 @@ export const LAW_PAGES: LawPage[] = [
       },
       {
         "q": "When does the law take effect?",
-        "a": "The law takes effect on August 2, 2026, pushed back from the original January 1, 2026 date to align with the EU AI Act. Covered providers must be fully compliant by that date."
+        "a": "The enacted text states that the chapter became operative January 1, 2026."
       }
     ],
     "sources": [

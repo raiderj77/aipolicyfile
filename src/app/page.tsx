@@ -10,17 +10,16 @@ export default function Home() {
       {/* Hero */}
       <section className="py-16 sm:py-20">
         <p className="text-sm font-semibold uppercase tracking-wide text-indigo-600">
-          Five AI disclosure laws are live or landing in 2026
+          Five AI disclosure frameworks reviewed from official sources
         </p>
         <h1 className="mt-3 max-w-3xl font-display text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
-          Find out which AI disclosure laws apply to you, in two minutes.
+          Find the AI disclosure rules worth reviewing, in two minutes.
         </h1>
         <p className="mt-5 max-w-2xl text-lg leading-relaxed text-slate-600">
-          If you publish AI-assisted content, run ads, or use a chatbot, at least
-          one of these rules probably touches you: FTC endorsement guidance, EU AI
-          Act Article 50, New York&apos;s synthetic performer law, and two
-          California laws. Answer eight yes-or-no questions and get a plain-English
-          answer with links to every official text.
+          If you publish AI-assisted content, run ads, or use a chatbot, these
+          federal, EU, New York, and California frameworks may deserve review.
+          Answer eight yes-or-no questions to identify possible relevance and
+          open every official text. The checker does not make a legal conclusion.
         </p>
         <div className="mt-8 flex flex-wrap items-center gap-4">
           <Link
@@ -41,7 +40,7 @@ export default function Home() {
           The five laws the checker covers
         </h2>
         <p className="mt-2 max-w-2xl text-slate-600">
-          Every card links the official text. Current as of July 2026.
+          Every card links the official text. Last reviewed July 12, 2026.
         </p>
         <div className="mt-8 grid gap-5 sm:grid-cols-2">
           {laws.map((law) => (

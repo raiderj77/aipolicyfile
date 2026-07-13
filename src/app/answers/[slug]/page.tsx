@@ -59,7 +59,8 @@ export default async function AnswerPage({
       </h1>
       <p className="mt-2 text-sm text-slate-500">
         Educational information, not legal advice. Facts checked against the
-        official law texts, current as of July 2026.
+        official law texts, last reviewed July 12, 2026. This page does not
+        determine jurisdiction, coverage, or compliance.
       </p>
 
       <p className="mt-6 text-lg leading-relaxed text-slate-700">{page.intro}</p>
@@ -95,12 +96,11 @@ export default async function AnswerPage({
 
       <div className="mt-12 rounded-2xl border border-indigo-200 bg-indigo-50 p-6">
         <h2 className="font-display text-xl font-bold text-slate-900">
-          Which of these laws apply to you?
+          Which rules may be worth reviewing?
         </h2>
         <p className="mt-2 text-slate-700">
-          The free checker asks eight yes-or-no questions and maps your answers
-          to all five AI disclosure laws, with sample wording for anything that
-          needs action.
+          The free checker flags possible relevance across five legal
+          frameworks. It cannot decide which law applies to your situation.
         </p>
         <Link
           href="/checker"

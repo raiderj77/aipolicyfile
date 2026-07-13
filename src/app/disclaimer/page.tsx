@@ -20,10 +20,12 @@ export default function DisclaimerPage() {
           not a law firm and do not practice law.
         </p>
         <p>
-          The checker maps your answers to published law texts using fixed,
-          transparent rules. It cannot account for the full facts of your
-          situation, and laws change. The information here reflects our reading of
-          the official sources linked on each result as of July 2026.
+          The checker flags facts that may make a published legal framework worth
+          reviewing. It does not determine jurisdiction, coverage, compliance,
+          legal duties, or available defenses. It cannot account for the full
+          facts of your situation, and laws change. The information here reflects
+          our reading of the official sources linked on each result as last
+          reviewed July 12, 2026.
         </p>
         <p>
           Always verify against the official law texts we link, and consult a

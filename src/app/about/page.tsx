@@ -16,22 +16,22 @@ export default function AboutPage() {
       </h1>
       <div className="mt-6 space-y-4 leading-relaxed text-slate-700">
         <p>
-          In 2026, five separate AI disclosure rules became relevant to ordinary
-          creators and small businesses: updated FTC endorsement guidance, EU AI
+          AI-related advertising and transparency rules can raise questions for
+          creators and small businesses: FTC endorsement guidance, EU AI
           Act Article 50, New York&apos;s synthetic performer disclosure law, the
           California B.O.T. Act, and California SB 942. They were written for
           different audiences, use different definitions, and take effect on
-          different dates. Almost nobody publishing AI-assisted content can name
-          which ones apply to them.
+          different dates. Determining which one governs a particular activity
+          requires more facts than a short online checker can collect.
         </p>
         <p>
           AI Policy File exists to close that gap. The{" "}
           <Link href="/checker" className="text-indigo-700 underline underline-offset-2">
             free checker
           </Link>{" "}
-          asks eight yes-or-no questions and maps your answers to each law, with
-          plain-English explanations, sample disclosure wording, and a link to
-          every official text so you can verify everything yourself.
+          asks eight yes-or-no questions and flags frameworks that may deserve
+          review, with plain-English limitations, sample wording, and a link to
+          every official text. It does not decide what law applies.
         </p>
         <p>
           We are building the full product next: platform-ready disclosure text

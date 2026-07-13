@@ -5,7 +5,7 @@ import { ANSWER_PAGES } from "@/lib/answerPages";
 const BASE = "https://aipolicyfile.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const lastModified = new Date("2026-07-08");
+  const lastModified = new Date("2026-07-12");
   const lawPages: MetadataRoute.Sitemap = Object.values(LAW_PAGE_SLUGS).map((slug) => ({
     url: `${BASE}/laws/${slug}`,
     lastModified,
