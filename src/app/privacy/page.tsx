@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description:
-    "AI Policy File stores nothing. Checker answers never leave your browser; waitlist emails are forwarded once and not retained.",
+    "How AI Policy File handles checker answers, founding-list submissions, Telegram delivery, hosting logs, retention, and deletion requests.",
   alternates: { canonical: "/privacy" },
 };
 
@@ -13,42 +13,57 @@ export default function PrivacyPage() {
       <h1 className="font-display text-3xl font-bold tracking-tight text-slate-900">
         Privacy Policy
       </h1>
-      <p className="mt-2 text-sm text-slate-500">Last updated: July 7, 2026</p>
+      <p className="mt-2 text-sm text-slate-500">Last updated: July 12, 2026</p>
       <div className="mt-6 space-y-4 leading-relaxed text-slate-700">
-        <h2 className="font-display text-xl font-semibold text-slate-900">
-          The checker
-        </h2>
+        <h2 className="font-display text-xl font-semibold text-slate-900">The checker</h2>
         <p>
-          Your answers to the checker questions are processed entirely in your
-          browser. They are never sent to our servers, never stored, and never
-          shared. Closing the page erases them.
+          Checker answers and results are calculated in your browser. The checker does not send
+          those answers or results to our waitlist endpoint. Closing or refreshing the checker
+          clears its in-memory state.
         </p>
-        <h2 className="font-display text-xl font-semibold text-slate-900">
-          The waitlist
-        </h2>
+
+        <h2 className="font-display text-xl font-semibold text-slate-900">The founding list</h2>
         <p>
-          If you join the founding list, we collect your email address and the two
-          optional answers you choose (your role and what the product would be
-          worth to you). This is forwarded once to the site owner as a private
-          notification so we can email you at launch. We do not run a mailing
-          list database, do not sell or share your email, and do not use it for
-          anything except the launch announcement. To be removed before launch,
-          use the contact page and we will discard your notification.
+          If you choose to join, we collect your email address, your optional role selection, your
+          optional product-value selection, and whether you submitted from the home page or checker.
+          We also record your affirmative consent. Do not include legal or other sensitive personal
+          information; the form has no free-text field.
         </p>
-        <h2 className="font-display text-xl font-semibold text-slate-900">
-          Analytics and advertising
-        </h2>
         <p>
-          We may use privacy-respecting, aggregate analytics to understand page
-          traffic. If advertising is enabled on this site, ad partners such as
-          Google may use cookies subject to their own policies; any such use will
-          be disclosed here.
+          The server sends those fields through the Telegram Bot API to a private Telegram chat
+          controlled by the site owner. Telegram is a service provider for this delivery and stores
+          the resulting message under its own systems and policies. Authorized access is limited to
+          the site owner and Telegram personnel or systems as needed to provide the service.
         </p>
-        <h2 className="font-display text-xl font-semibold text-slate-900">
-          Contact
-        </h2>
         <p>
-          Questions about this policy: see the contact page for how to reach us.
+          We use the submission for one launch announcement and related administration. We do not
+          sell it or share it for advertising. There is no separate waitlist database, but the
+          Telegram message is stored until it is deleted or no longer needed. To request deletion,
+          email hello@aipolicyfile.com from the address you submitted. We will delete the accessible
+          message when we can verify the request. Telegram or hosting providers may retain limited
+          backup, security, or legal records, so we do not promise immediate deletion from every
+          system.
+        </p>
+
+        <h2 className="font-display text-xl font-semibold text-slate-900">Hosting and logs</h2>
+        <p>
+          Vercel hosts the site and may process standard request data such as IP address, request
+          time, route, browser or network information, and operational logs. Our waitlist code does
+          not intentionally write submission fields, Telegram messages, or Telegram credentials to
+          application logs. Hosting and security records follow Vercel&apos;s configured and contractual
+          retention behavior; we do not promise zero retention.
+        </p>
+
+        <h2 className="font-display text-xl font-semibold text-slate-900">Analytics and advertising</h2>
+        <p>
+          The current application code does not load a third-party analytics or advertising script.
+          If that changes, this policy must be updated before collection begins.
+        </p>
+
+        <h2 className="font-display text-xl font-semibold text-slate-900">Contact</h2>
+        <p>
+          Privacy questions or deletion requests: hello@aipolicyfile.com. We may need to verify that
+          you control the submitted email address before acting on a request.
         </p>
       </div>
     </div>

@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     template: "%s | AI Policy File",
   },
   description:
-    "Free 2-minute checker that tells creators and small businesses which AI disclosure laws apply to them: FTC guidance, EU AI Act Article 50, New York synthetic performer disclosure, California bot and AI transparency laws.",
+    "Free educational checker that flags AI disclosure rules creators and small businesses may want to review, with links to official sources.",
   alternates: { canonical: "/" },
   openGraph: {
     siteName: "AI Policy File",

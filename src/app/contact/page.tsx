@@ -24,8 +24,9 @@ export default function ContactPage() {
           .
         </p>
         <p>
-          If you joined the founding list and want your signup discarded before
-          launch, email the same address from the address you signed up with.
+          If you joined the founding list and want your submission deleted,
+          email the same address from the address you signed up with. We may
+          need to verify control of that address.
         </p>
         <p className="text-sm text-slate-500">
           We cannot answer questions about your specific legal situation. For

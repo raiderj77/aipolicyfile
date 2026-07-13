@@ -4,7 +4,7 @@ import CheckerClient from "./CheckerClient";
 export const metadata: Metadata = {
   title: "Free AI disclosure law checker",
   description:
-    "Answer 8 yes-or-no questions and find out which AI disclosure laws apply to you: FTC guidance, EU AI Act Article 50, New York S.8420-A, California B.O.T. Act, and California SB 942.",
+    "Answer 8 yes-or-no questions to flag AI disclosure frameworks that may warrant review, with links to current official sources.",
   alternates: { canonical: "/checker" },
 };
 
@@ -19,7 +19,8 @@ export default function CheckerPage() {
         or sent anywhere.
       </p>
       <p className="mt-2 text-sm text-slate-500">
-        Educational information, not legal advice.
+        Educational screening only. This does not determine jurisdiction,
+        coverage, compliance, or legal duties.
       </p>
       <div className="mt-8">
         <CheckerClient />

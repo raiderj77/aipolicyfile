@@ -82,7 +82,8 @@ export default async function LawPage({
       </h1>
       <p className="mt-2 text-sm text-slate-500">
         Educational information, not legal advice. Facts checked against the
-        official text linked below, current as of July 2026.
+        official text linked below, last reviewed July 12, 2026. This page does
+        not determine whether the rule applies to you.
       </p>
 
       <p className="mt-6 text-lg leading-relaxed text-slate-700">{page.intro}</p>
@@ -102,7 +103,7 @@ export default async function LawPage({
             <dd className="inline text-slate-600">{law.effective}</dd>
           </div>
           <div>
-            <dt className="inline font-semibold text-slate-700">Penalty: </dt>
+            <dt className="inline font-semibold text-slate-700">Enforcement note: </dt>
             <dd className="inline text-slate-600">{law.penalty}</dd>
           </div>
           <div>
@@ -174,12 +175,11 @@ export default async function LawPage({
       {/* Checker CTA */}
       <div className="mt-12 rounded-2xl border border-indigo-200 bg-indigo-50 p-6">
         <h2 className="font-display text-xl font-bold text-slate-900">
-          Does this law apply to you?
+          Could this rule be relevant to you?
         </h2>
         <p className="mt-2 text-slate-700">
-          The free checker asks eight yes-or-no questions and maps your answers
-          to this law and four others, with sample disclosure wording for
-          anything that needs action.
+          The free checker flags facts that may warrant review across five legal
+          frameworks. It does not decide jurisdiction, coverage, or compliance.
         </p>
         <Link
           href="/checker"
