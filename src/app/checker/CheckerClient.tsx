@@ -139,7 +139,7 @@ export default function CheckerClient() {
           </p>
           <p className="mt-3 text-sm text-slate-500">
             This is educational information based on the law texts linked below,
-            last reviewed July 12, 2026. It does not determine jurisdiction,
+            last reviewed July 13, 2026. It does not determine jurisdiction,
             coverage, compliance, or what you must do. Confirm with the official
             sources and a qualified lawyer for your circumstances.
           </p>

@@ -8,6 +8,12 @@ import {
 const TELEGRAM_ENDPOINT = "https://api.telegram.org";
 
 export async function POST(request: NextRequest) {
+  const origin = request.headers.get("origin");
+  const fetchSite = request.headers.get("sec-fetch-site");
+  if (origin !== new URL(request.url).origin || (fetchSite && fetchSite !== "same-origin")) {
+    return NextResponse.json({ ok: false }, { status: 403 });
+  }
+
   if (request.headers.get("content-type")?.split(";", 1)[0].trim() !== "application/json") {
     return NextResponse.json({ ok: false }, { status: 415 });
   }
@@ -32,6 +38,7 @@ export async function POST(request: NextRequest) {
     const response = await fetch(`${TELEGRAM_ENDPOINT}/bot${token}/sendMessage`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
+      referrerPolicy: "no-referrer",
       body: JSON.stringify({
         chat_id: chatId,
         text: buildTelegramMessage(parsed.data),

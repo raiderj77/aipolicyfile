@@ -59,7 +59,7 @@ export default async function AnswerPage({
       </h1>
       <p className="mt-2 text-sm text-slate-500">
         Educational information, not legal advice. Facts checked against the
-        official law texts, last reviewed July 12, 2026. This page does not
+        official law texts, last reviewed July 13, 2026. This page does not
         determine jurisdiction, coverage, or compliance.
       </p>
 

@@ -25,7 +25,7 @@ export default function DisclaimerPage() {
           legal duties, or available defenses. It cannot account for the full
           facts of your situation, and laws change. The information here reflects
           our reading of the official sources linked on each result as last
-          reviewed July 12, 2026.
+          reviewed July 13, 2026.
         </p>
         <p>
           Always verify against the official law texts we link, and consult a
