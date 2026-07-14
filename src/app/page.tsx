@@ -40,7 +40,7 @@ export default function Home() {
           The five laws the checker covers
         </h2>
         <p className="mt-2 max-w-2xl text-slate-600">
-          Every card links the official text. Last reviewed July 12, 2026.
+          Every card links the official text. Last reviewed July 13, 2026.
         </p>
         <div className="mt-8 grid gap-5 sm:grid-cols-2">
           {laws.map((law) => (
@@ -94,7 +94,7 @@ export default function Home() {
             {
               step: "2",
               title: "Get a card per law",
-              body: "Action needed, worth watching, or probably not you. Each card explains why in plain English.",
+              body: "Possible relevance, monitor, or lower apparent relevance. Each card explains which facts are worth reviewing.",
             },
             {
               step: "3",

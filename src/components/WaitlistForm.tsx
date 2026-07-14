@@ -18,6 +18,8 @@ export default function WaitlistForm({ source }: { source: "home" | "checker" })
       const response = await fetch("/api/waitlist", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        credentials: "same-origin",
+        referrerPolicy: "no-referrer",
         body: JSON.stringify({ email, role, worth, source, website, consent }),
       });
       setState(response.ok ? "done" : "error");

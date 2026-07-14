@@ -16,8 +16,8 @@ piece is `src/app/api/waitlist/route.ts`, which forwards signups to Telegram.
 2. Set two environment variables (Production):
    - `TELEGRAM_BOT_TOKEN` — same bot rex2 uses
    - `TELEGRAM_CHAT_ID` — same chat id rex2 uses
-   Without them the site still works; signups land in Vercel function logs
-   instead of Telegram.
+   Without them the public pages still work, but the waitlist endpoint returns
+   a service-unavailable response and does not log the submitted fields.
 3. Add the domain `aipolicyfile.com` to the Vercel project, then at Namecheap
    switch the domain from parking to Vercel: an `A` record for `@` pointing to
    `76.76.21.21` and a `CNAME` for `www` pointing to

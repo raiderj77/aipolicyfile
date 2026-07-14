@@ -82,7 +82,7 @@ export default async function LawPage({
       </h1>
       <p className="mt-2 text-sm text-slate-500">
         Educational information, not legal advice. Facts checked against the
-        official text linked below, last reviewed July 12, 2026. This page does
+        official text linked below, last reviewed July 13, 2026. This page does
         not determine whether the rule applies to you.
       </p>
 
