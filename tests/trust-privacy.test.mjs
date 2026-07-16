@@ -64,6 +64,14 @@ test("checker uses screening labels rather than legal conclusions", async () => 
   assert.doesNotMatch(`${checker}\n${home}`, /Action needed|exactly what to do|laws need action/);
 });
 
+test("checker result printing stays local and isolates the educational result", async () => {
+  const checker = await readFile(new URL("../src/app/checker/CheckerClient.tsx", import.meta.url), "utf8");
+  assert.match(checker, /window\.print\(\)/);
+  assert.match(checker, /data-printable-results/);
+  assert.match(checker, /Print Results/);
+  assert.doesNotMatch(checker, /sendBeacon|localStorage|sessionStorage/);
+});
+
 test("known false legal claims do not return", async () => {
   const files = await Promise.all(
     ["../src/lib/laws.ts", "../src/lib/lawPages.ts"].map((path) =>
