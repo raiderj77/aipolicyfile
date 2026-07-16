@@ -128,7 +128,8 @@ export default function CheckerClient() {
     const possible = results.filter((r) => r.status === "review").length;
     return (
       <div className="space-y-6">
-        <div className="rounded-2xl border border-slate-200 bg-white p-6">
+        <div data-printable-results className="space-y-6">
+          <div className="rounded-2xl border border-slate-200 bg-white p-6">
           <h2 className="font-display text-2xl font-bold text-slate-900">
             Your results
           </h2>
@@ -143,12 +144,12 @@ export default function CheckerClient() {
             coverage, compliance, or what you must do. Confirm with the official
             sources and a qualified lawyer for your circumstances.
           </p>
-        </div>
+          </div>
 
-        {results.map((r) => {
-          const s = STATUS_STYLES[r.status];
-          return (
-            <div key={r.law.id} className={`rounded-2xl border ${s.ring} bg-white p-6`}>
+          {results.map((r) => {
+            const s = STATUS_STYLES[r.status];
+            return (
+              <div key={r.law.id} className={`rounded-2xl border ${s.ring} bg-white p-6`}>
               <div className="flex flex-wrap items-center gap-3">
                 <span className={`rounded-full px-3 py-1 text-xs font-semibold ${s.pill}`}>
                   {s.label}
@@ -196,11 +197,21 @@ export default function CheckerClient() {
                 </a>
                   <span className="text-slate-400">Enforcement note: {r.law.penalty}</span>
               </div>
-            </div>
-          );
-        })}
+              </div>
+            );
+          })}
+        </div>
 
-        <div className="rounded-2xl border border-indigo-200 bg-indigo-50 p-6">
+        <button
+          type="button"
+          onClick={() => window.print()}
+          className="no-print inline-flex min-h-11 items-center justify-center rounded-lg border border-indigo-600 bg-white px-5 py-2.5 text-sm font-semibold text-indigo-700 hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+          title="Print these results or save them as a PDF"
+        >
+          Print Results
+        </button>
+
+        <div className="no-print rounded-2xl border border-indigo-200 bg-indigo-50 p-6">
           <h3 className="font-display text-xl font-bold text-slate-900">
             Want the full version to write these for you?
           </h3>
@@ -216,7 +227,7 @@ export default function CheckerClient() {
           </div>
         </div>
 
-        <div className="flex gap-4">
+        <div className="no-print flex gap-4">
           <button
             onClick={restart}
             className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
