@@ -4,7 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Why AI Policy File exists: AI disclosure rules arrived faster than the tools to comply with them.",
+    "Why AI Policy File provides source-linked educational screening for five AI disclosure frameworks.",
   alternates: { canonical: "/about" },
 };
 
@@ -34,11 +34,11 @@ export default function AboutPage() {
           every official text. It does not decide what law applies.
         </p>
         <p>
-          We are building the full product next: platform-ready disclosure text
-          for every channel you publish on, a site-wide AI disclosure policy page,
+          The planned full product would add platform-ready disclosure text for
+          multiple publishing channels, a site-wide AI disclosure policy page,
           and alerts when any of these laws change.
         </p>
-        <p className="text-sm text-slate-500">
+        <p className="text-sm text-slate-600">
           AI Policy File is educational information, not legal advice. We are not
           a law firm. For advice about your specific situation, consult a licensed
           attorney.

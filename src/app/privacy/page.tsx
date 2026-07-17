@@ -13,7 +13,7 @@ export default function PrivacyPage() {
       <h1 className="font-display text-3xl font-bold tracking-tight text-slate-900">
         Privacy Policy
       </h1>
-      <p className="mt-2 text-sm text-slate-500">Last updated: July 13, 2026</p>
+      <p className="mt-2 text-sm text-slate-600">Last updated: July 13, 2026</p>
       <div className="mt-6 space-y-4 leading-relaxed text-slate-700">
         <h2 className="font-display text-xl font-semibold text-slate-900">The checker</h2>
         <p>

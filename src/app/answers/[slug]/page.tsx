@@ -48,7 +48,7 @@ export default async function AnswerPage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
 
-      <nav aria-label="Breadcrumb" className="text-sm text-slate-500">
+      <nav aria-label="Breadcrumb" className="text-sm text-slate-600">
         <Link href="/" className="hover:text-slate-900">Home</Link>
         <span className="mx-2">/</span>
         <span className="text-slate-700">Answers</span>
@@ -57,7 +57,7 @@ export default async function AnswerPage({
       <h1 className="mt-4 font-display text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
         {page.title}
       </h1>
-      <p className="mt-2 text-sm text-slate-500">
+      <p className="mt-2 text-sm text-slate-600">
         Educational information, not legal advice. Facts checked against the
         official law texts, last reviewed July 13, 2026. This page does not
         determine jurisdiction, coverage, or compliance.
@@ -110,7 +110,7 @@ export default async function AnswerPage({
         </Link>
       </div>
 
-      <p className="mt-8 text-sm text-slate-500">
+      <p className="mt-8 text-sm text-slate-600">
         This page is educational information, not legal advice. Laws change and
         your situation may differ. See the{" "}
         <Link href="/#laws" className="underline">

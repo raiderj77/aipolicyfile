@@ -28,7 +28,7 @@ export default function ContactPage() {
           email the same address from the address you signed up with. We may
           need to verify control of that address.
         </p>
-        <p className="text-sm text-slate-500">
+        <p className="text-sm text-slate-600">
           We cannot answer questions about your specific legal situation. For
           that, consult a licensed attorney.
         </p>

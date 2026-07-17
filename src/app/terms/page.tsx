@@ -12,7 +12,7 @@ export default function TermsPage() {
       <h1 className="font-display text-3xl font-bold tracking-tight text-slate-900">
         Terms of Use
       </h1>
-      <p className="mt-2 text-sm text-slate-500">Last updated: July 13, 2026</p>
+      <p className="mt-2 text-sm text-slate-600">Last updated: July 13, 2026</p>
       <div className="mt-6 space-y-4 leading-relaxed text-slate-700">
         <p>
           By using aipolicyfile.com you agree to these terms. If you do not

@@ -138,7 +138,7 @@ export default function CheckerClient() {
               ? "No high-relevance screening signals appeared. Review the items below before relying on that result."
               : `${possible} ${possible === 1 ? "area has" : "areas have"} possible relevance based on your answers. This is a starting point for reviewing the official text, not a legal conclusion.`}
           </p>
-          <p className="mt-3 text-sm text-slate-500">
+          <p className="mt-3 text-sm text-slate-600">
             This is educational information based on the law texts linked below,
             last reviewed July 13, 2026. It does not determine jurisdiction,
             coverage, compliance, or what you must do. Confirm with the official
@@ -154,7 +154,7 @@ export default function CheckerClient() {
                 <span className={`rounded-full px-3 py-1 text-xs font-semibold ${s.pill}`}>
                   {s.label}
                 </span>
-                <span className="text-sm font-medium text-slate-500">{r.law.shortName}</span>
+                <span className="text-sm font-medium text-slate-600">{r.law.shortName}</span>
               </div>
               <h3 className="mt-3 font-display text-lg font-semibold text-slate-900">
                 {r.headline}
@@ -172,7 +172,7 @@ export default function CheckerClient() {
               )}
               {r.sampleDisclosure && (
                 <div className="mt-4 rounded-lg bg-slate-50 p-4">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-slate-600">
                     Example disclosure you could adapt
                   </p>
                   <p className="mt-1 font-mono text-sm text-slate-800">
@@ -195,7 +195,7 @@ export default function CheckerClient() {
                 >
                   Official text: {r.law.officialLabel}
                 </a>
-                  <span className="text-slate-400">Enforcement note: {r.law.penalty}</span>
+                  <span className="text-slate-600">Enforcement note: {r.law.penalty}</span>
               </div>
               </div>
             );
@@ -219,8 +219,8 @@ export default function CheckerClient() {
             We are building the full AI Policy File: platform-ready disclosure text for
             every channel you publish on (captions, video overlays, blog footers, chatbot
             greetings), a site-wide AI disclosure policy page, and update alerts when any
-            of these laws change. Join the founding list and lock in founding-member
-            pricing.
+            of these laws change. Join the founding list to receive one launch email and
+            tell us what the planned product would be worth to you.
           </p>
           <div className="mt-4">
             <WaitlistForm source="checker" />
@@ -249,7 +249,7 @@ export default function CheckerClient() {
   return (
     <div className="rounded-2xl border border-slate-200 bg-white p-8">
       <div className="mb-6 flex items-center justify-between">
-        <span className="text-sm font-medium text-slate-500">
+        <span className="text-sm font-medium text-slate-600">
           Question {step + 1} of {QUESTIONS.length}
         </span>
         <div className="flex gap-1">
@@ -264,7 +264,7 @@ export default function CheckerClient() {
       <h2 className="font-display text-xl font-semibold leading-snug text-slate-900">
         {q.text}
       </h2>
-      <p className="mt-2 text-sm leading-relaxed text-slate-500">{q.help}</p>
+      <p className="mt-2 text-sm leading-relaxed text-slate-600">{q.help}</p>
       <div className="mt-6 flex gap-3">
         <button
           onClick={() => answer(true)}
