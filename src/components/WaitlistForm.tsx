@@ -60,7 +60,7 @@ export default function WaitlistForm({ source }: { source: "home" | "checker" })
           value={email}
           onChange={(event) => setEmail(event.target.value)}
           placeholder="you@example.com"
-          className="rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:border-indigo-500 focus:outline-none"
+          className="rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 placeholder-slate-500 focus:border-indigo-500 focus:outline-none"
         />
         <select
           aria-label="Your role (optional)"
@@ -115,7 +115,7 @@ export default function WaitlistForm({ source }: { source: "home" | "checker" })
           </span>
         )}
       </div>
-      <p className="text-xs text-slate-500">
+      <p className="text-xs text-slate-600">
         One launch email. No newsletter. We do not sell the submission or use it for advertising.
       </p>
     </form>

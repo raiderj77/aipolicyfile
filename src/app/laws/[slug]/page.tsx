@@ -69,7 +69,7 @@ export default async function LawPage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
 
-      <nav aria-label="Breadcrumb" className="text-sm text-slate-500">
+      <nav aria-label="Breadcrumb" className="text-sm text-slate-600">
         <Link href="/" className="hover:text-slate-900">Home</Link>
         <span className="mx-2">/</span>
         <Link href="/#laws" className="hover:text-slate-900">The laws</Link>
@@ -80,7 +80,7 @@ export default async function LawPage({
       <h1 className="mt-4 font-display text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
         {page.title}
       </h1>
-      <p className="mt-2 text-sm text-slate-500">
+      <p className="mt-2 text-sm text-slate-600">
         Educational information, not legal advice. Facts checked against the
         official text linked below, last reviewed July 13, 2026. This page does
         not determine whether the rule applies to you.
@@ -90,7 +90,7 @@ export default async function LawPage({
 
       {/* Key facts box */}
       <div className="mt-8 rounded-2xl border border-slate-200 bg-white p-6">
-        <h2 className="font-display text-sm font-semibold uppercase tracking-wide text-slate-500">
+        <h2 className="font-display text-sm font-semibold uppercase tracking-wide text-slate-600">
           Key facts
         </h2>
         <dl className="mt-3 space-y-2 text-sm">
@@ -189,7 +189,7 @@ export default async function LawPage({
         </Link>
       </div>
 
-      <p className="mt-8 text-sm text-slate-500">
+      <p className="mt-8 text-sm text-slate-600">
         This page is educational information, not legal advice. Laws change and
         your situation may differ. Verify against the official text linked above
         and consult a licensed attorney for advice about your specific

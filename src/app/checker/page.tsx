@@ -18,7 +18,7 @@ export default function CheckerPage() {
         Eight quick questions. Free, anonymous, and nothing you answer is stored
         or sent anywhere.
       </p>
-      <p className="mt-2 text-sm text-slate-500">
+      <p className="mt-2 text-sm text-slate-600">
         Educational screening only. This does not determine jurisdiction,
         coverage, compliance, or legal duties.
       </p>

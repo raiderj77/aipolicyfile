@@ -13,7 +13,7 @@ export default function Home() {
           Five AI disclosure frameworks reviewed from official sources
         </p>
         <h1 className="mt-3 max-w-3xl font-display text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
-          Find the AI disclosure rules worth reviewing, in two minutes.
+          Find the AI disclosure rules worth reviewing.
         </h1>
         <p className="mt-5 max-w-2xl text-lg leading-relaxed text-slate-600">
           If you publish AI-assisted content, run ads, or use a chatbot, these
@@ -28,7 +28,7 @@ export default function Home() {
           >
             Run the free check
           </Link>
-          <span className="text-sm text-slate-500">
+          <span className="text-sm text-slate-600">
             Free. No signup. Nothing stored.
           </span>
         </div>
@@ -48,13 +48,13 @@ export default function Home() {
               <h3 className="font-display text-lg font-semibold text-slate-900">
                 {law.shortName}
               </h3>
-              <p className="mt-1 text-xs font-medium uppercase tracking-wide text-slate-400">
+              <p className="mt-1 text-xs font-medium uppercase tracking-wide text-slate-600">
                 {law.effective}
               </p>
               <p className="mt-3 text-sm leading-relaxed text-slate-600">
                 {law.whoItHits}
               </p>
-              <p className="mt-3 text-sm text-slate-500">
+              <p className="mt-3 text-sm text-slate-600">
                 <span className="font-semibold text-slate-700">Penalty:</span>{" "}
                 {law.penalty}
               </p>
@@ -69,7 +69,7 @@ export default function Home() {
                   href={law.officialUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-medium text-slate-500 underline underline-offset-2 hover:text-slate-700"
+                  className="font-medium text-slate-600 underline underline-offset-2 hover:text-slate-900"
                 >
                   {law.officialLabel}
                 </a>
@@ -124,8 +124,8 @@ export default function Home() {
           <p className="mt-3 max-w-2xl text-slate-700">
             Platform-ready disclosure text for every channel you publish on, a
             site-wide AI disclosure policy page, and an alert when any of these
-            laws change. Join the founding list to lock in founding-member pricing
-            and tell us what it is worth to you.
+            laws change. Join the founding list to receive one launch email and
+            tell us what the planned product would be worth to you.
           </p>
           <div className="mt-6">
             <WaitlistForm source="home" />

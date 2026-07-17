@@ -128,3 +128,20 @@ test("baseline browser security headers remain configured", async () => {
   assert.doesNotMatch(config, /unsafe-eval/);
   assert.match(config, /frame-ancestors 'none'/);
 });
+
+test("public trust copy and contrast safeguards remain in place", async () => {
+  const [layout, home, about, waitlist, checker] = await Promise.all(
+    [
+      "../src/app/layout.tsx",
+      "../src/app/page.tsx",
+      "../src/app/about/page.tsx",
+      "../src/components/WaitlistForm.tsx",
+      "../src/app/checker/CheckerClient.tsx",
+    ].map((path) => readFile(new URL(path, import.meta.url), "utf8")),
+  );
+  const publicCopy = [layout, home, about, waitlist, checker].join("\n");
+  assert.doesNotMatch(publicCopy, /text-slate-400|placeholder-slate-400/);
+  assert.doesNotMatch(publicCopy, /in two minutes|lock in founding-member pricing/i);
+  assert.match(layout, /<Link href="\/about" className="underline hover:text-slate-900">/);
+  assert.match(home, /planned product would be worth to you/i);
+});
