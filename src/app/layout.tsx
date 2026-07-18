@@ -18,6 +18,9 @@ export const metadata: Metadata = {
   description:
     "Free educational checker that flags AI disclosure rules creators and small businesses may want to review, with links to official sources.",
   alternates: { canonical: "/" },
+  verification: {
+    google: "ozOeVL-jcqo8z6PPEKzQaXFENpf5nTXFOsPxEqfVUoU",
+  },
   openGraph: {
     siteName: "AI Policy File",
     type: "website",
