@@ -129,6 +129,11 @@ test("baseline browser security headers remain configured", async () => {
   assert.match(config, /frame-ancestors 'none'/);
 });
 
+test("site publishes the Search Console ownership tag", async () => {
+  const layout = await readFile(new URL("../src/app/layout.tsx", import.meta.url), "utf8");
+  assert.match(layout, /verification:\s*{\s*google:\s*"[^"]+"/s);
+});
+
 test("public trust copy and contrast safeguards remain in place", async () => {
   const [layout, home, about, waitlist, checker] = await Promise.all(
     [
