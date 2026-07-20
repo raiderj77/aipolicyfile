@@ -129,6 +129,19 @@ test("baseline browser security headers remain configured", async () => {
   assert.match(config, /frame-ancestors 'none'/);
 });
 
+test("analytics is opt-in and excludes checker and form content", async () => {
+  const analytics = await readFile(new URL("../src/components/AnalyticsConsent.tsx", import.meta.url), "utf8");
+  const layout = await readFile(new URL("../src/app/layout.tsx", import.meta.url), "utf8");
+  const privacy = await readFile(new URL("../src/app/privacy/page.tsx", import.meta.url), "utf8");
+  assert.match(layout, /<AnalyticsConsent \/>/);
+  assert.match(analytics, /consent !== "granted"/);
+  assert.match(analytics, /send_page_view: false/);
+  assert.match(analytics, /page_location: `\$\{window\.location\.origin\}\$\{window\.location\.pathname\}`/);
+  assert.doesNotMatch(analytics, /FormData|request\.json|WaitlistForm|CheckerClient/);
+  assert.match(privacy, /does not send checker answers/);
+  assert.match(privacy, /script is not downloaded/);
+});
+
 test("site publishes the Search Console ownership tag", async () => {
   const layout = await readFile(new URL("../src/app/layout.tsx", import.meta.url), "utf8");
   assert.match(layout, /verification:\s*{\s*google:\s*"[^"]+"/s);
