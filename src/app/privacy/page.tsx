@@ -13,7 +13,7 @@ export default function PrivacyPage() {
       <h1 className="font-display text-3xl font-bold tracking-tight text-slate-900">
         Privacy Policy
       </h1>
-      <p className="mt-2 text-sm text-slate-600">Last updated: July 13, 2026</p>
+      <p className="mt-2 text-sm text-slate-600">Last updated: July 19, 2026</p>
       <div className="mt-6 space-y-4 leading-relaxed text-slate-700">
         <h2 className="font-display text-xl font-semibold text-slate-900">The checker</h2>
         <p>
@@ -59,8 +59,16 @@ export default function PrivacyPage() {
 
         <h2 className="font-display text-xl font-semibold text-slate-900">Analytics and advertising</h2>
         <p>
-          The current application code does not load a third-party analytics or advertising script.
-          If that changes, this policy must be updated before collection begins.
+          Google Analytics remains blocked unless you select &quot;Allow analytics.&quot; If allowed,
+          the site sends a page view containing only the page title and path after removing the URL
+          query string. It does not send checker answers, checker results, email addresses, role or
+          product-value selections, or other founding-list form values. Advertising storage, ad
+          personalization, Google Signals, and enhanced measurement are disabled.
+        </p>
+        <p>
+          Your choice is stored in your browser so it can be honored on later visits. You can change
+          it through the persistent Privacy choices button. If you continue without analytics, the
+          Google Analytics script is not downloaded.
         </p>
 
         <h2 className="font-display text-xl font-semibold text-slate-900">Contact</h2>

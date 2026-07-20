@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Space_Grotesk } from "next/font/google";
 import Link from "next/link";
+import { AnalyticsConsent } from "@/components/AnalyticsConsent";
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -80,6 +81,7 @@ export default function RootLayout({
             </p>
           </div>
         </footer>
+        <AnalyticsConsent />
       </body>
     </html>
   );
