@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { LAW_PAGES } from "@/lib/lawPages";
-import { LAWS } from "@/lib/laws";
+import { LAWS, LEGAL_REVIEW_LABEL } from "@/lib/laws";
 
 export function generateStaticParams() {
   return LAW_PAGES.map((p) => ({ slug: p.slug }));
@@ -82,7 +82,7 @@ export default async function LawPage({
       </h1>
       <p className="mt-2 text-sm text-slate-600">
         Educational information, not legal advice. Facts checked against the
-        official text linked below, last reviewed July 13, 2026. This page does
+        official text linked below, last reviewed {LEGAL_REVIEW_LABEL}. This page does
         not determine whether the rule applies to you.
       </p>
 

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { LEGAL_REVIEW_LABEL } from "@/lib/laws";
 
 export const metadata: Metadata = {
   title: "Disclaimer",
@@ -25,7 +26,7 @@ export default function DisclaimerPage() {
           legal duties, or available defenses. It cannot account for the full
           facts of your situation, and laws change. The information here reflects
           our reading of the official sources linked on each result as last
-          reviewed July 24, 2026.
+          reviewed {LEGAL_REVIEW_LABEL}.
         </p>
         <p>
           Always verify against the official law texts we link, and consult a
