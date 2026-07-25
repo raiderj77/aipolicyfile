@@ -26,8 +26,9 @@ piece is `src/app/api/waitlist/route.ts`, which forwards signups to Telegram.
 ## Content facts
 
 All law facts live in one file: `src/lib/laws.ts` (names, dates, penalties,
-official URLs, and the `evaluate()` rules the checker runs). Verified July
-2026. When a law changes, edit that file only.
+official URLs, and the `evaluate()` rules the checker runs). Verified July 24,
+2026. The next official-source review is due August 7, 2026, after EU AI Act
+Article 50 begins applying. When a law changes, edit that file only.
 
 Standing rule for this site: it gives educational information, never legal
 advice, and every page that shows results must say so.

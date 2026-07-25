@@ -1,5 +1,5 @@
 // Educational screening content reviewed against the linked primary sources on
-// 2026-07-13. These pages identify questions to review; they do not determine
+// 2026-07-24. These pages identify questions to review; they do not determine
 // jurisdiction, legal status, or compliance.
 
 export interface LawPageSection {
@@ -209,6 +209,10 @@ export const LAW_PAGES: LawPage[] = [
       {
         label: "New York S.8420-A enacted bill and status",
         url: "https://www.nysenate.gov/legislation/bills/2025/S8420/amendment/A",
+      },
+      {
+        label: "New York confirmation that the law took effect June 9, 2026",
+        url: "https://www.governor.ny.gov/news/governor-hochul-announces-first-nation-law-requiring-disclosure-when-advertisements-include-ai",
       },
     ],
   },
