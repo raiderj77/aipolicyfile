@@ -3,6 +3,7 @@
 // jurisdiction, legal status, or compliance.
 
 export const LEGAL_REVIEW_DATE = "2026-07-24";
+export const LEGAL_REVIEW_LABEL = "July 24, 2026";
 export const NEXT_LEGAL_REVIEW_DUE = "2026-08-07";
 
 export interface Law {
@@ -24,7 +25,7 @@ export const LAWS: Record<string, Law> = {
     name: "FTC Endorsement Guides and Section 5",
     shortName: "FTC endorsements (US)",
     jurisdiction: "United States federal law; audience and market facts matter",
-    effective: "Endorsement Guides revised June 2023; reviewed July 24, 2026",
+    effective: `Endorsement Guides revised June 2023; reviewed ${LEGAL_REVIEW_LABEL}`,
     whoItHits:
       "Advertising endorsements with a material connection to a marketer. The FTC evaluates context and consumer understanding case by case.",
     requires: [
@@ -44,7 +45,7 @@ export const LAWS: Record<string, Law> = {
     shortName: "EU AI Act Art. 50",
     jurisdiction:
       "European Union; Article 2 scope includes certain non-EU providers and deployers when AI output is used in the Union",
-    effective: "Article 50 applies from August 2, 2026; reviewed July 24, 2026",
+    effective: `Article 50 applies from August 2, 2026; reviewed ${LEGAL_REVIEW_LABEL}`,
     whoItHits:
       "Providers and deployers in the categories described by Article 50. Public accessibility from the EU alone is not a complete jurisdiction test.",
     requires: [
@@ -62,7 +63,7 @@ export const LAWS: Record<string, Law> = {
     name: "New York synthetic performer advertising law",
     shortName: "New York GBL § 396-b",
     jurisdiction: "New York; coverage and publisher exceptions depend on the enacted text",
-    effective: "June 9, 2026 (180 days after enactment); reviewed July 24, 2026",
+    effective: `June 9, 2026 (180 days after enactment); reviewed ${LEGAL_REVIEW_LABEL}`,
     whoItHits:
       "Advertisements or promotional material using a covered synthetic performer, subject to definitions, knowledge standards, and statutory exceptions.",
     requires: [
@@ -79,7 +80,7 @@ export const LAWS: Record<string, Law> = {
     name: "California B.O.T. Act",
     shortName: "California B.O.T. Act",
     jurisdiction: "California communications; statutory purpose and intent elements matter",
-    effective: "Operative July 1, 2019; reviewed July 24, 2026",
+    effective: `Operative July 1, 2019; reviewed ${LEGAL_REVIEW_LABEL}`,
     whoItHits:
       "Use of a bot to communicate online with a person in California with intent to mislead about its artificial identity for specified commercial or electoral purposes.",
     requires: [
@@ -97,7 +98,7 @@ export const LAWS: Record<string, Law> = {
     name: "California AI Transparency Act (SB 942)",
     shortName: "California SB 942",
     jurisdiction: "California",
-    effective: "Operative January 1, 2026; reviewed July 24, 2026",
+    effective: `Operative January 1, 2026; reviewed ${LEGAL_REVIEW_LABEL}`,
     whoItHits:
       "A covered provider that creates a publicly accessible generative AI system with more than 1,000,000 monthly visitors or users, as defined by the statute.",
     requires: [

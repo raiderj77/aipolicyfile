@@ -1,6 +1,6 @@
-// Educational screening content reviewed against the linked primary sources on
-// 2026-07-24. These pages identify questions to review; they do not determine
-// jurisdiction, legal status, or compliance.
+// Educational screening content is reviewed against the linked primary sources.
+// The shared review date is maintained in laws.ts. These pages identify questions
+// to review; they do not determine jurisdiction, legal status, or compliance.
 
 export interface LawPageSection {
   heading: string;

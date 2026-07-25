@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ANSWER_PAGES } from "@/lib/answerPages";
+import { LEGAL_REVIEW_LABEL } from "@/lib/laws";
 
 export function generateStaticParams() {
   return ANSWER_PAGES.map((p) => ({ slug: p.slug }));
@@ -59,7 +60,7 @@ export default async function AnswerPage({
       </h1>
       <p className="mt-2 text-sm text-slate-600">
         Educational information, not legal advice. Facts checked against the
-        official law texts, last reviewed July 13, 2026. This page does not
+        official law texts, last reviewed {LEGAL_REVIEW_LABEL}. This page does not
         determine jurisdiction, coverage, or compliance.
       </p>
 

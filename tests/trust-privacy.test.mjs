@@ -104,9 +104,18 @@ test("every legal framework page stays substantial and links a primary source", 
   assert.ok((pages.match(/q:/g) ?? []).length >= 20);
 });
 
-test("legal review due date has not passed", async () => {
-  const [laws, pages] = await Promise.all(
-    ["../src/lib/laws.ts", "../src/lib/lawPages.ts"].map((path) =>
+test("legal review date is shared and the due date has not passed", async () => {
+  const paths = [
+    "../src/lib/laws.ts",
+    "../src/app/page.tsx",
+    "../src/app/checker/CheckerClient.tsx",
+    "../src/app/answers/[slug]/page.tsx",
+    "../src/app/laws/[slug]/page.tsx",
+    "../src/app/disclaimer/page.tsx",
+    "../src/app/sitemap.ts",
+  ];
+  const [laws, ...consumers] = await Promise.all(
+    paths.map((path) =>
       readFile(new URL(path, import.meta.url), "utf8"),
     ),
   );
@@ -116,7 +125,11 @@ test("legal review due date has not passed", async () => {
   assert.ok(due, "NEXT_LEGAL_REVIEW_DUE must be present");
   const reviewedAt = Date.parse(`${reviewed}T00:00:00Z`);
   const dueAt = Date.parse(`${due}T23:59:59Z`);
-  assert.match(pages, new RegExp(reviewed));
+  for (const consumer of consumers.slice(0, -1)) {
+    assert.match(consumer, /LEGAL_REVIEW_LABEL/);
+  }
+  assert.match(consumers.at(-1), /LEGAL_REVIEW_DATE/);
+  assert.doesNotMatch(consumers.join("\n"), /July 13, 2026|2026-07-13/);
   assert.ok(dueAt >= reviewedAt, "next review cannot predate the completed review");
   assert.ok(
     dueAt - reviewedAt <= 31 * 24 * 60 * 60 * 1000,

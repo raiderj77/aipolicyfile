@@ -1,11 +1,12 @@
 import type { MetadataRoute } from "next";
 import { LAW_PAGE_SLUGS } from "@/lib/lawPageSlugs";
 import { ANSWER_PAGES } from "@/lib/answerPages";
+import { LEGAL_REVIEW_DATE } from "@/lib/laws";
 
 const BASE = "https://aipolicyfile.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const legalReviewDate = new Date("2026-07-13");
+  const legalReviewDate = new Date(LEGAL_REVIEW_DATE);
   const lawPages: MetadataRoute.Sitemap = Object.values(LAW_PAGE_SLUGS).map((slug) => ({
     url: `${BASE}/laws/${slug}`,
     lastModified: legalReviewDate,
