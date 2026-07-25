@@ -98,10 +98,34 @@ test("every legal framework page stays substantial and links a primary source", 
   assert.match(pages, /ftc\.gov/);
   assert.match(pages, /eur-lex\.europa\.eu/);
   assert.match(pages, /nysenate\.gov/);
+  assert.match(pages, /governor\.ny\.gov/);
   assert.match(pages, /leginfo\.legislature\.ca\.gov/);
-  assert.match(pages, /2026-07-13/);
   assert.ok((pages.match(/heading:/g) ?? []).length >= 20);
   assert.ok((pages.match(/q:/g) ?? []).length >= 20);
+});
+
+test("legal review due date has not passed", async () => {
+  const [laws, pages] = await Promise.all(
+    ["../src/lib/laws.ts", "../src/lib/lawPages.ts"].map((path) =>
+      readFile(new URL(path, import.meta.url), "utf8"),
+    ),
+  );
+  const reviewed = laws.match(/LEGAL_REVIEW_DATE = "(\d{4}-\d{2}-\d{2})"/)?.[1];
+  const due = laws.match(/NEXT_LEGAL_REVIEW_DUE = "(\d{4}-\d{2}-\d{2})"/)?.[1];
+  assert.ok(reviewed, "LEGAL_REVIEW_DATE must be present");
+  assert.ok(due, "NEXT_LEGAL_REVIEW_DUE must be present");
+  const reviewedAt = Date.parse(`${reviewed}T00:00:00Z`);
+  const dueAt = Date.parse(`${due}T23:59:59Z`);
+  assert.match(pages, new RegExp(reviewed));
+  assert.ok(dueAt >= reviewedAt, "next review cannot predate the completed review");
+  assert.ok(
+    dueAt - reviewedAt <= 31 * 24 * 60 * 60 * 1000,
+    "legal review cadence must remain monthly or faster",
+  );
+  assert.ok(
+    Date.now() <= dueAt,
+    `Official legal sources must be reviewed again by ${due}`,
+  );
 });
 
 test("privacy wording matches waitlist code and manual retention", async () => {
