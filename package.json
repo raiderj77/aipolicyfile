@@ -11,7 +11,7 @@
     "check": "npm test && npm run lint && npm run build"
   },
   "dependencies": {
-    "next": "16.2.11",
+    "next": "16.2.12",
     "react": "19.2.8",
     "react-dom": "19.2.8"
   },
@@ -21,7 +21,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "9.39.5",
-    "eslint-config-next": "16.2.11",
+    "eslint-config-next": "16.2.12",
     "tailwindcss": "4.3.3",
     "typescript": "^5"
   },
