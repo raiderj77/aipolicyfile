@@ -3,9 +3,11 @@ import {
   buildTelegramMessage,
   MAX_WAITLIST_BODY_BYTES,
   parseWaitlistBody,
+  readLimitedRequestBody,
 } from "@/lib/waitlist.mjs";
 
 const TELEGRAM_ENDPOINT = "https://api.telegram.org";
+const TELEGRAM_TIMEOUT_MS = 5_000;
 
 export async function POST(request: NextRequest) {
   const origin = request.headers.get("origin");
@@ -23,22 +25,28 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ ok: false }, { status: 413 });
   }
 
+  const limitedBody = await readLimitedRequestBody(request);
+  if (!limitedBody.ok || limitedBody.text === undefined) {
+    return NextResponse.json({ ok: false }, { status: limitedBody.status });
+  }
+
+  const parsed = parseWaitlistBody(limitedBody.text);
+  if (!parsed.ok || !parsed.data) {
+    return NextResponse.json({ ok: false }, { status: parsed.status });
+  }
+
+  const token = process.env.TELEGRAM_BOT_TOKEN;
+  const chatId = process.env.TELEGRAM_CHAT_ID;
+  if (!token || !chatId) {
+    return NextResponse.json({ ok: false }, { status: 503 });
+  }
+
   try {
-    const parsed = parseWaitlistBody(await request.text());
-    if (!parsed.ok || !parsed.data) {
-      return NextResponse.json({ ok: false }, { status: parsed.status });
-    }
-
-    const token = process.env.TELEGRAM_BOT_TOKEN;
-    const chatId = process.env.TELEGRAM_CHAT_ID;
-    if (!token || !chatId) {
-      return NextResponse.json({ ok: false }, { status: 503 });
-    }
-
     const response = await fetch(`${TELEGRAM_ENDPOINT}/bot${token}/sendMessage`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       referrerPolicy: "no-referrer",
+      signal: AbortSignal.timeout(TELEGRAM_TIMEOUT_MS),
       body: JSON.stringify({
         chat_id: chatId,
         text: buildTelegramMessage(parsed.data),
@@ -51,6 +59,6 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ ok: true });
   } catch {
-    return NextResponse.json({ ok: false }, { status: 500 });
+    return NextResponse.json({ ok: false }, { status: 502 });
   }
 }

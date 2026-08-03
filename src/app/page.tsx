@@ -28,6 +28,12 @@ export default function Home() {
           >
             Run the free check
           </Link>
+          <Link
+            href="/tracker"
+            className="rounded-lg border border-slate-300 bg-white px-6 py-3 text-base font-semibold text-slate-800 hover:border-slate-400 hover:bg-slate-50"
+          >
+            Browse the source tracker
+          </Link>
           <span className="text-sm text-slate-600">
             Free. No signup. Nothing stored.
           </span>
@@ -37,7 +43,7 @@ export default function Home() {
       {/* Law cards */}
       <section id="laws" className="scroll-mt-8 py-8">
         <h2 className="font-display text-2xl font-bold text-slate-900 sm:text-3xl">
-          The five laws the checker covers
+          The five disclosure frameworks the checker covers
         </h2>
         <p className="mt-2 max-w-2xl text-slate-600">
           Every card links the official text. Last reviewed {LEGAL_REVIEW_LABEL}.
@@ -98,8 +104,8 @@ export default function Home() {
             },
             {
               step: "3",
-              title: "Copy the sample disclosures",
-              body: "Every action card includes example disclosure wording you can adapt, plus a link to the official law text.",
+              title: "Open the official sources",
+              body: "Every result links to the official text. Where an example appears, match it to the actual relationship, content, and context; it is not a safe harbor.",
             },
           ].map((s) => (
             <div key={s.step} className="rounded-2xl border border-slate-200 bg-white p-6">

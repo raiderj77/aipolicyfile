@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
+import { pageSocialMetadata } from "@/lib/siteMetadata";
+
+const description = "Terms of use for the AI Policy File educational website and checker.";
 
 export const metadata: Metadata = {
   title: "Terms of Use",
-  description: "Terms of use for AI Policy File.",
+  description,
   alternates: { canonical: "/terms" },
+  ...pageSocialMetadata("Terms of Use", description, "/terms"),
 };
 
 export default function TermsPage() {

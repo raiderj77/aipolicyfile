@@ -6,6 +6,7 @@ import {
   buildTelegramMessage,
   MAX_WAITLIST_BODY_BYTES,
   parseWaitlistBody,
+  readLimitedRequestBody,
 } from "../src/lib/waitlist.mjs";
 
 const valid = {
@@ -39,17 +40,40 @@ test("waitlist accepts only the documented fields", () => {
     source: valid.source,
   });
   assert.match(buildTelegramMessage(parsed.data), /email: person@example\.com/);
+  assert.equal(parseWaitlistBody(JSON.stringify({ ...valid, unexpected: "discard me" })).ok, false);
+  assert.equal(parseWaitlistBody("null").ok, false);
+});
+
+test("waitlist stops reading request bodies at the byte limit", async () => {
+  const accepted = await readLimitedRequestBody(
+    new Request("https://aipolicyfile.com/api/waitlist", {
+      method: "POST",
+      body: "x".repeat(MAX_WAITLIST_BODY_BYTES),
+    }),
+  );
+  assert.equal(accepted.ok, true);
+  assert.equal(accepted.text.length, MAX_WAITLIST_BODY_BYTES);
+
+  const rejected = await readLimitedRequestBody(
+    new Request("https://aipolicyfile.com/api/waitlist", {
+      method: "POST",
+      body: "x".repeat(MAX_WAITLIST_BODY_BYTES + 1),
+    }),
+  );
+  assert.deepEqual(rejected, { ok: false, status: 413 });
 });
 
 test("route never logs waitlist content or Telegram errors", async () => {
   const route = await readFile(new URL("../src/app/api/waitlist/route.ts", import.meta.url), "utf8");
   const form = await readFile(new URL("../src/components/WaitlistForm.tsx", import.meta.url), "utf8");
   assert.doesNotMatch(route, /console\.|request\.json/);
-  assert.match(route, /request\.text/);
+  assert.doesNotMatch(route, /request\.text/);
+  assert.match(route, /readLimitedRequestBody\(request\)/);
+  assert.match(route, /AbortSignal\.timeout\(TELEGRAM_TIMEOUT_MS\)/);
   assert.match(route, /status: 503/);
   assert.match(route, /origin !== new URL\(request\.url\)\.origin/);
   assert.ok(
-    route.indexOf("origin !== new URL(request.url).origin") < route.indexOf("await request.text()"),
+    route.indexOf("origin !== new URL(request.url).origin") < route.indexOf("readLimitedRequestBody(request)"),
     "cross-site requests must be rejected before their body is read",
   );
   assert.match(form, /referrerPolicy: "no-referrer"/);
@@ -86,7 +110,9 @@ test("known false legal claims do not return", async () => {
   assert.doesNotMatch(legalCopy, /penalties could add up/i);
   assert.doesNotMatch(legalCopy, /has no impact on you/i);
   assert.doesNotMatch(legalCopy, /the law applies the same way/i);
-  assert.match(legalCopy, /January 1, 2026/);
+  assert.match(legalCopy, /AB 853/);
+  assert.match(legalCopy, /operative August 2, 2026/);
+  assert.doesNotMatch(legalCopy, /chapter became operative January 1, 2026/i);
   assert.match(legalCopy, /eur-lex\.europa\.eu/);
 });
 
@@ -172,10 +198,14 @@ test("analytics is opt-in and excludes checker and form content", async () => {
   const privacy = await readFile(new URL("../src/app/privacy/page.tsx", import.meta.url), "utf8");
   assert.match(layout, /<AnalyticsConsent \/>/);
   assert.match(analytics, /consent !== "granted"/);
+  assert.match(analytics, /"consent", "default", {[\s\S]*analytics_storage: "denied"/);
+  assert.match(analytics, /"consent", "update", {[\s\S]*analytics_storage: "granted"/);
+  assert.match(analytics, /CONFIGURED_KEY/);
+  assert.equal(analytics.match(/enableAnalytics\(\);/g)?.length, 1);
   assert.match(analytics, /send_page_view: false/);
   assert.match(analytics, /page_location: `\$\{window\.location\.origin\}\$\{window\.location\.pathname\}`/);
   assert.doesNotMatch(analytics, /FormData|request\.json|WaitlistForm|CheckerClient/);
-  assert.match(privacy, /does not send checker answers/);
+  assert.match(privacy, /does\s+not send checker answers/);
   assert.match(privacy, /script is not downloaded/);
 });
 

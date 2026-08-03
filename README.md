@@ -1,8 +1,9 @@
 # aipolicyfile.com
 
-Free AI disclosure law checker + founding-member waitlist. Phase 1 validation
-MVP: the checker drives traffic, the waitlist measures willingness to pay
-(role + price-band segments arrive via Telegram, nothing is stored).
+Free AI disclosure-law screening tool plus a consent-based founding list.
+The checker runs in the browser. Founding-list submissions are forwarded to a
+private Telegram chat; the site has no separate waitlist database, and Telegram
+messages remain until the owner deletes them as described in the privacy policy.
 
 ## Stack
 
@@ -14,8 +15,8 @@ piece is `src/app/api/waitlist/route.ts`, which forwards signups to Telegram.
 1. Import the `raiderj77/aipolicyfile` repo in Vercel (framework preset:
    Next.js, no special settings needed).
 2. Set two environment variables (Production):
-   - `TELEGRAM_BOT_TOKEN` — same bot rex2 uses
-   - `TELEGRAM_CHAT_ID` — same chat id rex2 uses
+   - `TELEGRAM_BOT_TOKEN` — a bot token stored only in Vercel
+   - `TELEGRAM_CHAT_ID` — the private destination chat ID
    Without them the public pages still work, but the waitlist endpoint returns
    a service-unavailable response and does not log the submitted fields.
 3. Add the domain `aipolicyfile.com` to the Vercel project, then at Namecheap
@@ -25,10 +26,10 @@ piece is `src/app/api/waitlist/route.ts`, which forwards signups to Telegram.
 
 ## Content facts
 
-All law facts live in one file: `src/lib/laws.ts` (names, dates, penalties,
-official URLs, and the `evaluate()` rules the checker runs). Verified July 24,
-2026. The next official-source review is due August 7, 2026, after EU AI Act
-Article 50 begins applying. When a law changes, edit that file only.
+Core law facts live in `src/lib/laws.ts`; substantial guide explanations and
+source lists live in `src/lib/lawPages.ts`. The five frameworks were rechecked
+against current official sources on August 2, 2026, including Regulation (EU)
+2026/1744. The next official-source review is due August 9, 2026.
 
 Standing rule for this site: it gives educational information, never legal
 advice, and every page that shows results must say so.

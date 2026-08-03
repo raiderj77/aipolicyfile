@@ -113,7 +113,9 @@ export const LAW_PAGES: LawPage[] = [
         heading: "Timing, presentation, and exceptions",
         paragraphs: [
           "The Regulation generally applies from August 2, 2026. Article 50(5) says the specified information must be clear and distinguishable and provided no later than the first interaction or exposure, while also meeting applicable accessibility requirements.",
+          "Regulation (EU) 2026/1744 added Article 111(4): providers of systems covered by Article 50(2) that were placed on the market before August 2, 2026 have until December 2, 2026 to comply with that paragraph. This is a narrow transition for the provider-side machine-readable marking duty; it does not postpone Article 50(1), 50(3), or 50(4), and it does not cover a relevant system first placed on the market on or after August 2, 2026.",
           "The text contains category-specific qualifications and exceptions, including language for artistic or fictional works and for certain public-interest text that undergoes human review or editorial control with identified editorial responsibility. Whether an exception fits cannot be decided from a single checker answer.",
+          "The European Commission's July 2026 guidelines explain how it interprets Article 50, but the guidelines are non-binding and do not change the Regulation. The Code of Practice on marking and labelling AI-generated content is voluntary; it is an implementation aid, not a replacement for the legal text or a guarantee that a particular system complies.",
         ],
       },
       {
@@ -141,11 +143,27 @@ export const LAW_PAGES: LawPage[] = [
         q: "Does one EU-wide disclosure settle every requirement?",
         a: "Article 50 is part of an EU regulation, but other provisions and Union or national transparency rules may also matter. This page cannot determine the complete set of duties for a product or publication.",
       },
+      {
+        q: "Does the December 2, 2026 transition delay every Article 50 duty?",
+        a: "No. Regulation (EU) 2026/1744 limits that transition to Article 50(2) for covered systems placed on the market before August 2, 2026. The amendment does not postpone paragraphs 1, 3, or 4.",
+      },
     ],
     sources: [
       {
         label: "Regulation (EU) 2024/1689, including Articles 2, 50, 99 and 113",
         url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj?locale=en",
+      },
+      {
+        label: "Regulation (EU) 2026/1744, including the Article 50(2) transition",
+        url: "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=OJ%3AL_202601744",
+      },
+      {
+        label: "European Commission guidelines on Article 50 transparency obligations",
+        url: "https://digital-strategy.ec.europa.eu/en/library/guidelines-transparency-obligations-providers-and-deployers-ai-systems",
+      },
+      {
+        label: "European Commission page for the voluntary Code of Practice",
+        url: "https://digital-strategy.ec.europa.eu/en/policies/code-practice-ai-generated-content",
       },
     ],
   },
@@ -286,63 +304,86 @@ export const LAW_PAGES: LawPage[] = [
   {
     lawId: "caSb942",
     slug: "california-sb-942",
-    title: "California SB 942: Covered-Provider Questions",
+    title: "California AI Transparency Act: SB 942 as Amended by AB 853",
     metaDescription:
-      "A source-based review of California SB 942's covered-provider definition, detection tool, disclosure, licensing, and civil-penalty provisions.",
+      "A source-based review of California's current AI Transparency Act, including the SB 942 provider duties, AB 853 platform additions, staged dates, and pending SB 1000.",
     intro:
-      "California's AI Transparency Act assigns duties to a defined covered provider. The starting question is not simply whether a business uses AI, but whether it creates, codes, or otherwise produces a qualifying publicly accessible generative AI system and meets the statutory usage threshold.",
+      "California's current AI Transparency Act began with SB 942 and was amended by AB 853. It assigns different duties and operative dates to covered providers, affected third-party licensees, large online platforms, GenAI hosting platforms, and capture device manufacturers. Merely using an AI tool does not by itself establish one of those roles.",
     sections: [
       {
-        heading: "The covered-provider definition",
+        heading: "Covered-provider duties operative August 2, 2026",
         paragraphs: [
-          "The enacted text defines a covered provider as a person that creates, codes, or otherwise produces a generative AI system with more than 1,000,000 monthly visitors or users that is publicly accessible within California. Applying each part requires product and usage evidence.",
+          "Current Business and Professions Code Section 22757.1 defines a covered provider as a person that creates, codes, or otherwise produces a generative AI system with more than 1,000,000 monthly visitors or users that is publicly accessible within California. Applying each part requires product, control, audience, and accessibility evidence.",
           "An ordinary user of a third-party AI tool is not automatically the provider of that tool. That does not establish that no other law applies to the user's content or business.",
         ],
       },
       {
         heading: "Detection and disclosure provisions",
         paragraphs: [
-          "Section 22757.2 requires a covered provider to make a no-cost, publicly accessible detection tool for specified image, video, and audio content created or altered by its system. The section includes output, accuracy, feedback, privacy, and API requirements that should be read in full.",
-          "The enacted text also addresses a user option for manifest disclosures and provider-supplied latent disclosures in specified image, video, and audio content or combinations of those media. Do not expand those media-specific provisions into a claim that every AI-generated text item needs an SB 942 label.",
+          "Section 22757.2 requires a covered provider to make a no-cost AI detection tool for specified image, video, and audio content created or altered by its system. The section addresses system-provenance output, personal-provenance limits, public access, uploads or URLs, an API, feedback, and retention restrictions; the exact text controls.",
+          "Section 22757.3 addresses a user option for manifest disclosures and provider-supplied latent disclosures in specified image, video, and audio content or combinations of those media. Do not expand those media-specific provisions into a claim that every AI-generated text item needs a label under the current California chapter.",
         ],
       },
       {
-        heading: "Licensing and enforcement provisions",
+        heading: "AB 853 added roles with later dates",
         paragraphs: [
-          "The Act includes duties involving third-party licensees and a 96-hour revocation provision when a covered provider knows a licensee modified a licensed system so it can no longer include the required disclosures. The exact contractual and technical facts matter.",
-          "The enacted bill provides a $5,000 civil penalty per violation for a covered provider and treats each day of violation as a discrete violation. It identifies specified public officials who may bring an action. Those provisions do not predict the result of a particular matter.",
+          "Beginning January 1, 2027, Section 22757.3.1 requires a defined large online platform that exceeded 2,000,000 unique monthly users during the preceding 12 months to address qualifying provenance detection, disclosure, inspection, and stripping. The definition and broadband and telecommunications exclusions should be reviewed in full.",
+          "Also beginning January 1, 2027, Section 22757.3.2 bars a defined GenAI hosting platform from knowingly making available a GenAI system that does not place disclosures under Section 22757.3. The hosting definition includes a California-resident download element that must be read in the current code. Section 22757.3.3 adds technically feasible latent-disclosure duties for specified capture devices first produced for sale in California on or after January 1, 2028; a person exclusively engaged in assembly is excluded from the capture-device-manufacturer definition.",
         ],
       },
       {
-        heading: "Evidence to review before classifying a business",
+        heading: "Licensing, enforcement, and an exemption",
         paragraphs: [
-          "Review who built and controls the system, whether it is a generative AI system under the definition, monthly visitor or user measurements, California accessibility, the media the system creates or alters, the detection tool, disclosure capabilities, and any license relationships.",
-          "The chapter became operative January 1, 2026. Product architecture and usage can change, so a past classification should not be treated as permanent.",
+          "The covered-provider provisions include third-party licensing duties and a 96-hour revocation rule when the stated knowledge and system-modification conditions are met. After that revocation, the affected third-party licensee must cease using the licensed system. Section 22757.4 sets a $5,000 civil penalty per violation and treats each day as a discrete violation for covered providers, large online platforms, and capture device manufacturers. The specified third-party-licensee cease-use violation has a separate injunctive-relief and fees provision.",
+          "Section 22757.5 excludes a product, service, website, or application that provides exclusively non-user-generated video game, television, streaming, movie, or interactive experiences. The word exclusively and the actual product facts matter.",
+        ],
+      },
+      {
+        heading: "Pending SB 1000 is not current law",
+        paragraphs: [
+          "As of the August 2, 2026 review, SB 1000 is an active urgency bill in the Assembly floor process. Its June 9 text would change important definitions and duties, including the covered-provider threshold, if enacted. It has not been enacted and should not be treated as current law.",
+          "Before relying on a classification, verify the current codified chapter and the official SB 1000 status. Product architecture, audience measurements, and the statute can all change.",
         ],
       },
     ],
     faq: [
       {
-        q: "Does SB 942 apply because my business uses an AI writing tool?",
-        a: "Use of a third-party tool alone does not establish that the business is the tool's covered provider. Review the statutory creator, system, usage-threshold, and California-accessibility elements.",
+        q: "Does the Act apply because my business uses an AI writing tool?",
+        a: "Use of a third-party tool alone does not establish that the business is a covered provider, affected licensee, large online platform, GenAI hosting platform, or capture device manufacturer. A licensee's cease-use duty arises only under the current provision's stated licensing, modification, knowledge, and revocation conditions.",
       },
       {
         q: "Does the one-million threshold mean California users only?",
         a: "The definition states more than 1,000,000 monthly visitors or users and separately requires public accessibility within California. It does not state that every counted visitor or user must be in California.",
       },
       {
-        q: "Does SB 942 require visible labels on AI-generated text?",
-        a: "The enacted manifest- and latent-disclosure provisions described here identify image, video, and audio content or combinations of those media. Review the full text and other laws before drawing a conclusion about text.",
+        q: "Does the current Act require visible labels on AI-generated text?",
+        a: "The current covered-provider manifest- and latent-disclosure provisions identify image, video, and audio content or combinations of those media. Review the full text and other laws before drawing a conclusion about text.",
       },
       {
-        q: "When did the Act become operative?",
-        a: "The chaptered bill states that its provisions became operative January 1, 2026.",
+        q: "When do the Act's duties become operative?",
+        a: "The chapter and covered-provider duties became operative August 2, 2026. The large-online-platform and GenAI-hosting provisions specify January 1, 2027, and the capture-device provision specifies January 1, 2028.",
+      },
+      {
+        q: "Did pending SB 1000 already remove the one-million threshold?",
+        a: "No. As of the August 2, 2026 review, SB 1000 remains an active bill and is not current law. The current codified covered-provider definition still includes the threshold.",
       },
     ],
     sources: [
       {
+        label: "Current California Business and Professions Code, Chapter 25",
+        url: "https://www.leginfo.legislature.ca.gov/faces/codes_displayText.xhtml?article=&chapter=25.&division=8.&lawCode=BPC&part=&title=",
+      },
+      {
+        label: "California AB 853 chaptered amendment",
+        url: "https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260AB853",
+      },
+      {
         label: "California SB 942 chaptered text",
         url: "https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202320240SB942",
+      },
+      {
+        label: "Pending California SB 1000 official status",
+        url: "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB1000",
       },
     ],
   },

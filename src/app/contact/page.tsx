@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
+import { pageSocialMetadata } from "@/lib/siteMetadata";
+
+const description = "How to reach AI Policy File with questions, corrections, or privacy requests.";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "How to reach AI Policy File.",
+  description,
   alternates: { canonical: "/contact" },
+  ...pageSocialMetadata("Contact AI Policy File", description, "/contact"),
 };
 
 export default function ContactPage() {

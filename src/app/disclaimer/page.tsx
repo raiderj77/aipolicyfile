@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
 import { LEGAL_REVIEW_LABEL } from "@/lib/laws";
+import { pageSocialMetadata } from "@/lib/siteMetadata";
+
+const description = "AI Policy File provides educational information, not legal advice.";
 
 export const metadata: Metadata = {
   title: "Disclaimer",
-  description: "AI Policy File provides educational information, not legal advice.",
+  description,
   alternates: { canonical: "/disclaimer" },
+  ...pageSocialMetadata("Disclaimer", description, "/disclaimer"),
 };
 
 export default function DisclaimerPage() {
