@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import {
   evaluate,
@@ -51,13 +51,13 @@ const QUESTIONS: Question[] = [
   },
   {
     key: "chatbot",
-    text: "Do you use a chatbot that talks to customers to sell or influence a purchase?",
-    help: "Website chat widgets, SMS bots, or AI sales assistants that interact with the public.",
+    text: "Do you provide an AI system that interacts directly with people, such as a public chatbot?",
+    help: "Website chat widgets, SMS bots, and AI assistants count here. California adds intent and commercial or electoral purpose elements; the EU has a broader direct-interaction provision.",
   },
   {
     key: "bigProvider",
-    text: "Do you operate your own public generative AI system with over 1 million monthly users?",
-    help: "This means you built and run the AI system itself. Using ChatGPT or Midjourney does not make you a provider.",
+    text: "Do you run or license a GenAI provider, large online platform, model-hosting service, or capture-device business connected to California?",
+    help: "This includes creating a public GenAI system with more than 1,000,000 monthly visitors or users; being its affected third-party licensee; operating a qualifying platform with more than 2,000,000 unique monthly users; making GenAI source code or model weights available for download by a California resident; or manufacturing capture devices for sale in California. A manufacturer exclusively assembling devices is excluded from that definition. Simply using a third-party AI tool does not count.",
   },
 ];
 
@@ -83,29 +83,21 @@ export default function CheckerClient() {
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Partial<CheckerAnswers>>({});
   const [results, setResults] = useState<LawResult[] | null>(null);
+  const questionHeadingRef = useRef<HTMLHeadingElement>(null);
+  const resultsHeadingRef = useRef<HTMLHeadingElement>(null);
+  const shouldManageFocus = useRef(false);
+
+  useEffect(() => {
+    if (!shouldManageFocus.current) return;
+    const heading = results ? resultsHeadingRef.current : questionHeadingRef.current;
+    heading?.focus({ preventScroll: true });
+  }, [results, step]);
 
   const answer = (value: boolean) => {
+    shouldManageFocus.current = true;
     const q = QUESTIONS[step];
     const next = { ...answers, [q.key]: value };
     setAnswers(next);
-
-    // If they do not publish AI content at all, skip straight to results.
-    if (q.key === "publish" && !value) {
-      const filled: CheckerAnswers = {
-        publish: false,
-        sponsored: false,
-        humanReview: false,
-        euAudience: false,
-        deepfakes: false,
-        nyAds: next.nyAds ?? false,
-        chatbot: next.chatbot ?? false,
-        bigProvider: next.bigProvider ?? false,
-      };
-      // Still ask the three questions that apply even without published content.
-      setStep(5);
-      setAnswers(filled);
-      return;
-    }
 
     if (step + 1 < QUESTIONS.length) {
       setStep(step + 1);
@@ -124,7 +116,23 @@ export default function CheckerClient() {
     }
   };
 
+  const goBack = () => {
+    const previousStep = results ? QUESTIONS.length - 1 : step - 1;
+    if (previousStep < 0) return;
+
+    shouldManageFocus.current = true;
+    const previousKey = QUESTIONS[previousStep].key;
+    setAnswers((current) => {
+      const updated = { ...current };
+      delete updated[previousKey];
+      return updated;
+    });
+    setResults(null);
+    setStep(previousStep);
+  };
+
   const restart = () => {
+    shouldManageFocus.current = true;
     setStep(0);
     setAnswers({});
     setResults(null);
@@ -136,7 +144,11 @@ export default function CheckerClient() {
       <div className="space-y-6">
         <div data-printable-results className="space-y-6">
           <div className="rounded-2xl border border-slate-200 bg-white p-6">
-          <h2 className="font-display text-2xl font-bold text-slate-900">
+          <h2
+            ref={resultsHeadingRef}
+            tabIndex={-1}
+            className="font-display text-2xl font-bold text-slate-900 focus:outline-none"
+          >
             Your results
           </h2>
           <p className="mt-2 text-slate-600">
@@ -233,16 +245,24 @@ export default function CheckerClient() {
           </div>
         </div>
 
-        <div className="no-print flex gap-4">
+        <div className="no-print flex flex-wrap gap-3">
           <button
+            type="button"
+            onClick={goBack}
+            className="min-h-11 rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+          >
+            Back to previous question
+          </button>
+          <button
+            type="button"
             onClick={restart}
-            className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
+            className="min-h-11 rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
           >
             Start over
           </button>
           <Link
             href="/"
-            className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
+            className="inline-flex min-h-11 items-center rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
           >
             Back to home
           </Link>
@@ -253,37 +273,72 @@ export default function CheckerClient() {
 
   const q = QUESTIONS[step];
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-8">
-      <div className="mb-6 flex items-center justify-between">
-        <span className="text-sm font-medium text-slate-600">
+    <div className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8">
+      <div
+        role="note"
+        className="mb-6 rounded-lg border border-sky-200 bg-sky-50 p-4 text-sm leading-relaxed text-slate-700"
+      >
+        <span className="font-semibold text-slate-900">Scope note:</span>{" "}
+        These eight questions do not screen emotion-recognition or biometric-categorisation
+        systems under EU AI Act Article 50(3), and the final California question groups
+        several distinct provider, licensee, platform, hosting, and manufacturer roles with
+        different dates. Use the linked official text
+        for any role-specific conclusion.
+      </div>
+      <div className="mb-6 flex items-center gap-4">
+        <span
+          id="checker-progress-label"
+          aria-live="polite"
+          className="shrink-0 text-sm font-medium text-slate-600"
+        >
           Question {step + 1} of {QUESTIONS.length}
         </span>
-        <div className="flex gap-1">
-          {QUESTIONS.map((_, i) => (
-            <div
-              key={i}
-              className={`h-1.5 w-6 rounded-full ${i <= step ? "bg-indigo-600" : "bg-slate-200"}`}
-            />
-          ))}
+        <div
+          role="progressbar"
+          aria-labelledby="checker-progress-label"
+          aria-valuemin={1}
+          aria-valuemax={QUESTIONS.length}
+          aria-valuenow={step + 1}
+          className="h-2 min-w-0 flex-1 overflow-hidden rounded-full bg-slate-200"
+        >
+          <div
+            className="h-full rounded-full bg-indigo-600 transition-[width]"
+            style={{ width: `${((step + 1) / QUESTIONS.length) * 100}%` }}
+          />
         </div>
       </div>
-      <h2 className="font-display text-xl font-semibold leading-snug text-slate-900">
+      <h2
+        ref={questionHeadingRef}
+        tabIndex={-1}
+        className="font-display text-xl font-semibold leading-snug text-slate-900 focus:outline-none"
+      >
         {q.text}
       </h2>
       <p className="mt-2 text-sm leading-relaxed text-slate-600">{q.help}</p>
-      <div className="mt-6 flex gap-3">
+      <div className="mt-6 flex flex-wrap gap-3">
         <button
+          type="button"
           onClick={() => answer(true)}
-          className="rounded-lg bg-indigo-600 px-6 py-2.5 text-sm font-semibold text-white hover:bg-indigo-700"
+          className="min-h-11 rounded-lg bg-indigo-600 px-6 py-2.5 text-sm font-semibold text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
         >
           Yes
         </button>
         <button
+          type="button"
           onClick={() => answer(false)}
-          className="rounded-lg border border-slate-300 px-6 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+          className="min-h-11 rounded-lg border border-slate-300 px-6 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
         >
           No
         </button>
+        {step > 0 && (
+          <button
+            type="button"
+            onClick={goBack}
+            className="min-h-11 rounded-lg border border-slate-300 px-5 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+          >
+            Back
+          </button>
+        )}
       </div>
     </div>
   );

@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
+import { pageSocialMetadata } from "@/lib/siteMetadata";
+
+const description =
+  "How AI Policy File handles checker answers, founding-list submissions, analytics, service providers, retention, and privacy rights.";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
-  description:
-    "How AI Policy File handles checker answers, founding-list submissions, Telegram delivery, hosting logs, retention, and deletion requests.",
+  description,
   alternates: { canonical: "/privacy" },
+  ...pageSocialMetadata("Privacy Policy", description, "/privacy"),
 };
 
 export default function PrivacyPage() {
@@ -13,8 +17,17 @@ export default function PrivacyPage() {
       <h1 className="font-display text-3xl font-bold tracking-tight text-slate-900">
         Privacy Policy
       </h1>
-      <p className="mt-2 text-sm text-slate-600">Last updated: July 19, 2026</p>
+      <p className="mt-2 text-sm text-slate-600">Last updated: August 2, 2026</p>
       <div className="mt-6 space-y-4 leading-relaxed text-slate-700">
+        <h2 className="font-display text-xl font-semibold text-slate-900">Controller and contact</h2>
+        <p>
+          Jason Ramirez, the site owner and maintainer, determines why and how this website
+          processes the data described below and is the controller for that processing. Contact:
+          hello@aipolicyfile.com. No separate data protection officer or European Union
+          representative contact has been verified for this site. This public contact does not
+          replace any appointment that applicable law may require.
+        </p>
+
         <h2 className="font-display text-xl font-semibold text-slate-900">The checker</h2>
         <p>
           Checker answers and results are calculated in your browser. The checker does not send
@@ -60,15 +73,116 @@ export default function PrivacyPage() {
         <h2 className="font-display text-xl font-semibold text-slate-900">Analytics and advertising</h2>
         <p>
           Google Analytics remains blocked unless you select &quot;Allow analytics.&quot; If allowed,
-          the site sends a page view containing only the page title and path after removing the URL
-          query string. It does not send checker answers, checker results, email addresses, role or
-          product-value selections, or other founding-list form values. Advertising storage, ad
-          personalization, Google Signals, and enhanced measurement are disabled.
+          the site manually sends a page title and path with the URL query string removed. Depending
+          on the Google Analytics property&apos;s Enhanced Measurement settings, Google may also collect
+          automatic page views, scrolls, outbound-link clicks, file downloads, and form-start or
+          form-submit events. An automatic page view, including one triggered by a browser-history
+          change, may include the full page location and its query string. Do not put sensitive data
+          in a URL.
+        </p>
+        <p>
+          Google Analytics also processes standard analytics data such as session information,
+          referrer, browser and device information, language, screen resolution, and approximate
+          location. Google says IP addresses are used to derive location before being discarded.
+          Site code does not send checker answers, checker results, email addresses, role or
+          product-value selections, or other founding-list form-field values to Google Analytics.
+          Automatic form events may identify that a form was started or submitted and may include
+          form metadata. Advertising storage, ad personalization, and Google Signals are disabled in
+          this site&apos;s analytics configuration.
+        </p>
+        <p>
+          See Google&apos;s current documentation for its{" "}
+          <a
+            href="https://support.google.com/analytics/answer/11593727?hl=en"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-indigo-700 underline underline-offset-2"
+          >
+            data collection details
+          </a>{" "}
+          and{" "}
+          <a
+            href="https://support.google.com/analytics/answer/11598602?hl=en"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-indigo-700 underline underline-offset-2"
+          >
+            regional processing explanation
+          </a>
+          , its{" "}
+          <a
+            href="https://developers.google.com/analytics/devguides/collection/ga4/views?hl=en"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-indigo-700 underline underline-offset-2"
+          >
+            page-view collection guidance
+          </a>
+          , and its{" "}
+          <a
+            href="https://support.google.com/analytics/answer/9216061?hl=en"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-indigo-700 underline underline-offset-2"
+          >
+            Enhanced Measurement event list
+          </a>
+          .
         </p>
         <p>
           Your choice is stored in your browser so it can be honored on later visits. You can change
           it through the persistent Privacy choices button. If you continue without analytics, the
           Google Analytics script is not downloaded.
+        </p>
+
+        <h2 className="font-display text-xl font-semibold text-slate-900">Purposes and legal bases</h2>
+        <p>
+          Where the EU General Data Protection Regulation applies, founding-list processing and
+          optional Google Analytics processing rely on your consent. You may withdraw either choice
+          at any time without affecting processing that was lawful before withdrawal. Hosting,
+          security, abuse prevention, service diagnostics, and handling privacy or correction
+          requests rely on the legitimate interests of keeping the site available, secure, accurate,
+          and able to establish or defend legal claims. Data may also be processed when necessary to
+          comply with a legal obligation.
+        </p>
+
+        <h2 className="font-display text-xl font-semibold text-slate-900">Recipients and international processing</h2>
+        <p>
+          Recipient categories are Vercel for hosting and request logs, Telegram for founding-list
+          delivery, Google for consented analytics, and public authorities when disclosure is legally
+          required. These providers may process data in the United States and other countries. The
+          applicable provider account, contract, and data-processing terms determine whether an
+          adequacy decision, standard contractual clauses, or another transfer mechanism applies.
+          Email hello@aipolicyfile.com to request the current provider and safeguard information
+          available for your processing.
+        </p>
+
+        <h2 className="font-display text-xl font-semibold text-slate-900">Your privacy rights</h2>
+        <p>
+          Where applicable, you may request access, correction, deletion, restriction, or portability
+          of your personal data, or object to processing based on legitimate interests. You may
+          withdraw analytics consent through Privacy choices and may withdraw founding-list consent
+          by emailing hello@aipolicyfile.com. You may also lodge a complaint with the data-protection
+          supervisory authority where you live or work. We may need information reasonably necessary
+          to verify identity and may retain or deny a request where law permits or requires it.
+        </p>
+        <p>
+          Providing founding-list data is optional. If you do not provide an email address and consent,
+          you will not receive the launch announcement; the checker remains available. Declining
+          analytics does not limit the site. The site does not use the described data for automated
+          decisions that produce legal or similarly significant effects.
+        </p>
+        <p>
+          See the official{" "}
+          <a
+            href="https://eur-lex.europa.eu/eli/reg/2016/679/oj"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-indigo-700 underline underline-offset-2"
+          >
+            GDPR text, including Article 13
+          </a>
+          .
         </p>
 
         <h2 className="font-display text-xl font-semibold text-slate-900">Contact</h2>

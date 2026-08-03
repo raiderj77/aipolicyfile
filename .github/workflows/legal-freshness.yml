@@ -1,15 +1,15 @@
-name: Legal source freshness
+name: Legal review deadline
 
 on:
   schedule:
-    - cron: "19 15 * * 6"
+    - cron: "19 15 * * *"
   workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
-  review-date:
+  review-deadline:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:

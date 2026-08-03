@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
+import { pageSocialMetadata } from "@/lib/siteMetadata";
 import CheckerClient from "./CheckerClient";
+
+const description =
+  "Answer 8 yes-or-no questions to flag AI disclosure frameworks that may warrant review, with links to current official sources.";
 
 export const metadata: Metadata = {
   title: "Free AI disclosure law checker",
-  description:
-    "Answer 8 yes-or-no questions to flag AI disclosure frameworks that may warrant review, with links to current official sources.",
+  description,
   alternates: { canonical: "/checker" },
+  ...pageSocialMetadata("Free AI disclosure law checker", description, "/checker"),
 };
 
 export default function CheckerPage() {

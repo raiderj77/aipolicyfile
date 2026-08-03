@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { LAW_PAGES } from "@/lib/lawPages";
-import { LAWS, LEGAL_REVIEW_LABEL } from "@/lib/laws";
+import { LAWS, LEGAL_REVIEW_DATE, LEGAL_REVIEW_LABEL } from "@/lib/laws";
+import { serializeJsonLd } from "@/lib/jsonLd";
 
 export function generateStaticParams() {
   return LAW_PAGES.map((p) => ({ slug: p.slug }));
@@ -16,10 +17,34 @@ export async function generateMetadata({
   const { slug } = await params;
   const page = LAW_PAGES.find((p) => p.slug === slug);
   if (!page) return {};
+  const url = `https://aipolicyfile.com/laws/${page.slug}`;
   return {
     title: page.title,
     description: page.metaDescription,
     alternates: { canonical: `/laws/${page.slug}` },
+    openGraph: {
+      type: "article",
+      title: page.title,
+      description: page.metaDescription,
+      url,
+      publishedTime: "2026-07-07",
+      modifiedTime: LEGAL_REVIEW_DATE,
+      authors: ["https://aipolicyfile.com/about#jason-ramirez"],
+      images: [
+        {
+          url: "/opengraph-image",
+          width: 1200,
+          height: 630,
+          alt: "AI Policy File - source-linked AI disclosure law screening",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: page.title,
+      description: page.metaDescription,
+      images: ["/opengraph-image"],
+    },
   };
 }
 
@@ -32,6 +57,7 @@ export default async function LawPage({
   const page = LAW_PAGES.find((p) => p.slug === slug);
   if (!page) notFound();
   const law = LAWS[page.lawId];
+  const pageUrl = `https://aipolicyfile.com/laws/${page.slug}`;
 
   const faqJsonLd = {
     "@context": "https://schema.org",
@@ -58,15 +84,44 @@ export default async function LawPage({
     ],
   };
 
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: page.title,
+    description: page.metaDescription,
+    datePublished: "2026-07-07",
+    dateModified: LEGAL_REVIEW_DATE,
+    inLanguage: "en-US",
+    mainEntityOfPage: pageUrl,
+    image: "https://aipolicyfile.com/opengraph-image",
+    author: {
+      "@type": "Person",
+      "@id": "https://aipolicyfile.com/about#jason-ramirez",
+      name: "Jason Ramirez",
+      url: "https://aipolicyfile.com/about",
+    },
+    publisher: {
+      "@type": "Organization",
+      "@id": "https://aipolicyfile.com/#organization",
+      name: "AI Policy File",
+      url: "https://aipolicyfile.com",
+    },
+    citation: page.sources.map((source) => source.url),
+  };
+
   return (
     <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbJsonLd) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(faqJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(articleJsonLd) }}
       />
 
       <nav aria-label="Breadcrumb" className="text-sm text-slate-600">
@@ -80,6 +135,16 @@ export default async function LawPage({
       <h1 className="mt-4 font-display text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
         {page.title}
       </h1>
+      <p className="mt-3 text-sm text-slate-600">
+        By{" "}
+        <Link href="/about#jason-ramirez" className="font-medium text-indigo-700 underline underline-offset-2">
+          Jason Ramirez
+        </Link>{" "}
+        ·{" "}
+        <Link href="/editorial-standards" className="font-medium text-indigo-700 underline underline-offset-2">
+          Review method and corrections
+        </Link>
+      </p>
       <p className="mt-2 text-sm text-slate-600">
         Educational information, not legal advice. Facts checked against the
         official text linked below, last reviewed {LEGAL_REVIEW_LABEL}. This page does

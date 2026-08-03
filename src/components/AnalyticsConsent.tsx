@@ -15,6 +15,30 @@ declare global {
 const MEASUREMENT_ID = "G-D97F0H17CL";
 const STORAGE_KEY = "aipolicyfile:analytics-consent";
 const SCRIPT_ID = "aipolicyfile-google-analytics";
+const CONSENT_DEFAULT_KEY = "aipolicyfile:analytics-consent-defaulted";
+const CONFIGURED_KEY = "aipolicyfile:analytics-configured";
+
+function ensureAnalyticsQueue() {
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = window.gtag || ((...args: unknown[]) => window.dataLayer?.push(args));
+}
+
+function prepareDeniedConsentDefault() {
+  ensureAnalyticsQueue();
+  const analyticsWindow = window as typeof window & Record<string, unknown>;
+  if (analyticsWindow[CONSENT_DEFAULT_KEY]) return;
+
+  window.gtag?.("consent", "default", {
+    analytics_storage: "denied",
+    ad_storage: "denied",
+    ad_user_data: "denied",
+    ad_personalization: "denied",
+    personalization_storage: "denied",
+    functionality_storage: "granted",
+    security_storage: "granted",
+  });
+  analyticsWindow[CONSENT_DEFAULT_KEY] = true;
+}
 
 function setDisabled(disabled: boolean) {
   (window as typeof window & Record<string, unknown>)[`ga-disable-${MEASUREMENT_ID}`] = disabled;
@@ -42,9 +66,8 @@ function queuePageView() {
 
 function enableAnalytics() {
   setDisabled(false);
-  window.dataLayer = window.dataLayer || [];
-  window.gtag = window.gtag || ((...args: unknown[]) => window.dataLayer?.push(args));
-  window.gtag("consent", "default", {
+  prepareDeniedConsentDefault();
+  window.gtag?.("consent", "update", {
     analytics_storage: "granted",
     ad_storage: "denied",
     ad_user_data: "denied",
@@ -53,12 +76,16 @@ function enableAnalytics() {
     functionality_storage: "granted",
     security_storage: "granted",
   });
-  window.gtag("js", new Date());
-  window.gtag("config", MEASUREMENT_ID, {
-    send_page_view: false,
-    allow_google_signals: false,
-    allow_ad_personalization_signals: false,
-  });
+  const analyticsWindow = window as typeof window & Record<string, unknown>;
+  if (!analyticsWindow[CONFIGURED_KEY]) {
+    window.gtag?.("js", new Date());
+    window.gtag?.("config", MEASUREMENT_ID, {
+      send_page_view: false,
+      allow_google_signals: false,
+      allow_ad_personalization_signals: false,
+    });
+    analyticsWindow[CONFIGURED_KEY] = true;
+  }
 
   if (!document.getElementById(SCRIPT_ID)) {
     const script = document.createElement("script");
@@ -85,9 +112,12 @@ export function AnalyticsConsent() {
   const [consent, setConsent] = useState<Consent | null | "loading">("loading");
   const [showChoices, setShowChoices] = useState(false);
   const lastPath = useRef<string | null>(null);
+  const choicesRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => {
+      setDisabled(true);
+      prepareDeniedConsentDefault();
       try {
         const stored = window.localStorage.getItem(STORAGE_KEY);
         setConsent(stored === "granted" || stored === "denied" ? stored : null);
@@ -101,11 +131,19 @@ export function AnalyticsConsent() {
   useEffect(() => {
     if (consent !== "granted") return;
     enableAnalytics();
+  }, [consent]);
+
+  useEffect(() => {
+    if (consent !== "granted") return;
     if (lastPath.current !== pathname) {
       queuePageView();
       lastPath.current = pathname;
     }
   }, [consent, pathname]);
+
+  useEffect(() => {
+    if (showChoices && consent !== null) choicesRef.current?.focus();
+  }, [consent, showChoices]);
 
   function choose(next: Consent) {
     try {
@@ -133,15 +171,20 @@ export function AnalyticsConsent() {
   }
 
   return (
-    <div
-      role="dialog"
-      aria-label="Analytics choices"
+    <section
+      ref={choicesRef}
+      role="region"
+      aria-labelledby="analytics-choices-title"
+      tabIndex={-1}
       className="fixed inset-x-4 bottom-4 z-50 mx-auto max-w-2xl rounded-2xl border border-slate-300 bg-white p-5 text-slate-900 shadow-2xl"
     >
-      <p className="font-bold">Optional, privacy-limited analytics</p>
+      <p id="analytics-choices-title" className="font-bold">Optional, privacy-limited analytics</p>
       <p className="mt-2 text-sm leading-relaxed text-slate-700">
-        If you allow it, Google Analytics receives only this page&apos;s title and path after the URL
-        query string is removed. It never receives checker answers or founding-list form values.
+        If you allow it, Google Analytics may process page URLs and titles, standard session,
+        referrer, browser, device, language, screen-size, and approximate-location data, plus
+        automatic page-view, scroll, outbound-link, file-download, and form-interaction events
+        enabled in the property. Site code does not send checker answers or form-field values.
+        Automatic page-view data may include a query string, so do not put sensitive data in URLs.
       </p>
       <div className="mt-4 flex flex-wrap gap-3">
         <button
@@ -162,6 +205,6 @@ export function AnalyticsConsent() {
           Privacy details
         </a>
       </div>
-    </div>
+    </section>
   );
 }
