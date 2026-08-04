@@ -123,8 +123,8 @@ test("dependency, CI, and canonical-host controls cover the full release", async
     read("../.github/workflows/legal-freshness.yml"),
     read("../next.config.ts"),
   ]);
-  assert.match(pkg, /"brace-expansion@<2": "1\.1\.17"/);
-  assert.match(pkg, /"brace-expansion": "5\.0\.8"/);
+  assert.match(pkg, /"brace-expansion@<2": "1\.1\.18"/);
+  assert.match(pkg, /"brace-expansion": "5\.0\.9"/);
   assert.match(ci, /npm audit --audit-level=high/);
   assert.doesNotMatch(ci, /audit --omit=dev/);
   assert.match(freshness, /name: Legal review deadline/);
