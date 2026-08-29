@@ -1,0 +1,5 @@
+Contact: mailto:hello@aipolicyfile.com
+Expires: 2027-08-29T23:59:59Z
+Canonical: https://aipolicyfile.com/.well-known/security.txt
+Policy: https://aipolicyfile.com/security
+Preferred-Languages: en

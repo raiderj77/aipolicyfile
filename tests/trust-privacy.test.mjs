@@ -1,12 +1,15 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
+import { CORRECTIONS } from "../src/lib/corrections.ts";
 
 import {
   buildTelegramMessage,
   MAX_WAITLIST_BODY_BYTES,
   parseWaitlistBody,
   readLimitedRequestBody,
+  WAITLIST_CONSENT_NOTICE_VERSION,
+  WAITLIST_RETENTION_RULE,
 } from "../src/lib/waitlist.mjs";
 
 const valid = {
@@ -39,7 +42,12 @@ test("waitlist accepts only the documented fields", () => {
     worth: valid.worth,
     source: valid.source,
   });
-  assert.match(buildTelegramMessage(parsed.data), /email: person@example\.com/);
+  const message = buildTelegramMessage(parsed.data, new Date("2026-08-29T12:00:00.000Z"));
+  assert.match(message, /email: person@example\.com/);
+  assert.match(message, /submitted_at_utc: 2026-08-29T12:00:00\.000Z/);
+  assert.match(message, new RegExp(`consent_notice_version: ${WAITLIST_CONSENT_NOTICE_VERSION}`));
+  assert.match(message, /retention_due_utc: 2027-08-29T12:00:00\.000Z/);
+  assert.match(message, new RegExp(`retention_rule: ${WAITLIST_RETENTION_RULE.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}`));
   assert.equal(parseWaitlistBody(JSON.stringify({ ...valid, unexpected: "discard me" })).ok, false);
   assert.equal(parseWaitlistBody("null").ok, false);
 });
@@ -71,6 +79,7 @@ test("route never logs waitlist content or Telegram errors", async () => {
   assert.match(route, /readLimitedRequestBody\(request\)/);
   assert.match(route, /AbortSignal\.timeout\(TELEGRAM_TIMEOUT_MS\)/);
   assert.match(route, /status: 503/);
+  assert.match(route, /protect_content: true/);
   assert.match(route, /origin !== new URL\(request\.url\)\.origin/);
   assert.ok(
     route.indexOf("origin !== new URL(request.url).origin") < route.indexOf("readLimitedRequestBody(request)"),
@@ -117,33 +126,47 @@ test("known false legal claims do not return", async () => {
 });
 
 test("every legal framework page stays substantial and links a primary source", async () => {
-  const pages = await readFile(new URL("../src/lib/lawPages.ts", import.meta.url), "utf8");
+  const [pages, laws, pageRoute] = await Promise.all([
+    readFile(new URL("../src/lib/lawPages.ts", import.meta.url), "utf8"),
+    readFile(new URL("../src/lib/laws.ts", import.meta.url), "utf8"),
+    readFile(new URL("../src/app/laws/[slug]/page.tsx", import.meta.url), "utf8"),
+  ]);
   for (const lawId of ["ftc", "euArt50", "nySynthetic", "caBot", "caSb942"]) {
     assert.match(pages, new RegExp(`lawId: "${lawId}"`));
   }
-  assert.match(pages, /ftc\.gov/);
-  assert.match(pages, /eur-lex\.europa\.eu/);
-  assert.match(pages, /nysenate\.gov/);
-  assert.match(pages, /governor\.ny\.gov/);
-  assert.match(pages, /leginfo\.legislature\.ca\.gov/);
+  assert.match(laws, /ftc\.gov/);
+  assert.match(laws, /eur-lex\.europa\.eu/);
+  assert.match(laws, /nysenate\.gov/);
+  assert.match(laws, /governor\.ny\.gov/);
+  assert.match(laws, /leginfo\.legislature\.ca\.gov/);
+  assert.match(pageRoute, /law\.officialSources\.map/);
   assert.ok((pages.match(/heading:/g) ?? []).length >= 20);
   assert.ok((pages.match(/q:/g) ?? []).length >= 20);
 });
 
-test("legal review date is shared and the due date has not passed", async () => {
-  const paths = [
-    "../src/lib/laws.ts",
+test("legal review dates are bounded and overdue status propagates to every output", async () => {
+  const publicPaths = [
     "../src/app/page.tsx",
     "../src/app/checker/CheckerClient.tsx",
     "../src/app/answers/[slug]/page.tsx",
     "../src/app/laws/[slug]/page.tsx",
+    "../src/app/tracker/page.tsx",
+    "../src/app/editorial-standards/page.tsx",
     "../src/app/disclaimer/page.tsx",
-    "../src/app/sitemap.ts",
+    "../src/components/SourceReviewNotice.tsx",
+    "../src/lib/lawTracker.ts",
+    "../src/lib/llmsText.ts",
   ];
-  const [laws, ...consumers] = await Promise.all(
-    paths.map((path) =>
-      readFile(new URL(path, import.meta.url), "utf8"),
-    ),
+  const monitoringPaths = [
+    "../scripts/check-legal-review-deadline.mjs",
+    "../.github/workflows/legal-freshness.yml",
+  ];
+  const laws = await readFile(new URL("../src/lib/laws.ts", import.meta.url), "utf8");
+  const publicConsumers = await Promise.all(
+    publicPaths.map((path) => readFile(new URL(path, import.meta.url), "utf8")),
+  );
+  const monitoringConsumers = await Promise.all(
+    monitoringPaths.map((path) => readFile(new URL(path, import.meta.url), "utf8")),
   );
   const reviewed = laws.match(/LEGAL_REVIEW_DATE = "(\d{4}-\d{2}-\d{2})"/)?.[1];
   const due = laws.match(/NEXT_LEGAL_REVIEW_DUE = "(\d{4}-\d{2}-\d{2})"/)?.[1];
@@ -151,29 +174,73 @@ test("legal review date is shared and the due date has not passed", async () => 
   assert.ok(due, "NEXT_LEGAL_REVIEW_DUE must be present");
   const reviewedAt = Date.parse(`${reviewed}T00:00:00Z`);
   const dueAt = Date.parse(`${due}T23:59:59Z`);
-  for (const consumer of consumers.slice(0, -1)) {
-    assert.match(consumer, /LEGAL_REVIEW_LABEL/);
+  assert.match(laws, /getLegalReviewStatus/);
+  for (const [index, consumer] of publicConsumers.entries()) {
+    assert.match(
+      consumer,
+      /SourceReviewNotice|SOURCE REVIEW OVERDUE|getLegalReviewStatus/,
+      `${publicPaths[index]} must inherit the overdue state`,
+    );
   }
-  assert.match(consumers.at(-1), /LEGAL_REVIEW_DATE/);
-  assert.doesNotMatch(consumers.join("\n"), /July 13, 2026|2026-07-13/);
+  assert.match(
+    publicConsumers[publicPaths.indexOf("../src/lib/lawTracker.ts")],
+    /Source review overdue/i,
+  );
+  assert.match(
+    publicConsumers[publicPaths.indexOf("../src/lib/llmsText.ts")],
+    /SOURCE REVIEW OVERDUE/,
+  );
+  assert.match(monitoringConsumers[0], /SOURCE REVIEW OVERDUE/);
+  assert.match(monitoringConsumers.join("\n"), /check-legal-review-deadline|check:legal-freshness/);
+  assert.doesNotMatch(
+    [...publicConsumers, ...monitoringConsumers].join("\n"),
+    /July 13, 2026|2026-07-13/,
+  );
   assert.ok(dueAt >= reviewedAt, "next review cannot predate the completed review");
   assert.ok(
     dueAt - reviewedAt <= 31 * 24 * 60 * 60 * 1000,
     "legal review cadence must remain monthly or faster",
   );
-  assert.ok(
-    Date.now() <= dueAt,
-    `Official legal sources must be reviewed again by ${due}`,
+});
+
+test("material legal corrections are structured, versioned, and publicly rendered", async () => {
+  const page = await readFile(new URL("../src/app/corrections/page.tsx", import.meta.url), "utf8");
+  assert.equal(CORRECTIONS.length, 3);
+  assert.deepEqual(
+    new Set(CORRECTIONS.map((correction) => correction.frameworkId)),
+    new Set(["nySynthetic", "caBot", "euArt50"]),
   );
+  for (const correction of CORRECTIONS) {
+    assert.match(correction.date, /^\d{4}-\d{2}-\d{2}$/);
+    assert.ok(correction.priorInformation.length > 20);
+    assert.ok(correction.correctedInformation.length > 20);
+    assert.ok(correction.officialSources.length > 0);
+    assert.ok(correction.affectedCheckerVersions.length > 0);
+    assert.match(correction.reviewer, /no attorney review claimed/i);
+    assert.equal(correction.status, "corrected-review-overdue");
+  }
+  assert.match(page, /CORRECTIONS\.map/);
+  assert.match(page, /correction\.status === "corrected-review-overdue"/);
+  assert.match(page, /Affected checker versions/);
+  assert.match(page, /Generated documents and users/);
 });
 
 test("privacy wording matches waitlist code and manual retention", async () => {
-  const privacy = await readFile(new URL("../src/app/privacy/page.tsx", import.meta.url), "utf8");
+  const [privacy, inventory] = await Promise.all([
+    readFile(new URL("../src/app/privacy/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../docs/data-inventory.md", import.meta.url), "utf8"),
+  ]);
   assert.match(privacy, /requires affirmative consent/);
-  assert.doesNotMatch(privacy, /record your affirmative consent/);
-  assert.match(privacy, /no automated deletion timer/);
+  assert.match(privacy, /version of the consent notice/);
+  assert.match(privacy, /no independently verified automated deletion timer/);
+  assert.match(privacy, /target deletion no later than 365 days/);
   assert.match(privacy, /Telegram Bot API/);
   assert.match(privacy, /Vercel hosts the site/);
+  assert.match(privacy, /Namecheap/);
+  for (const term of ["Checker answers", "Waitlist email", "GA4", "Vercel", "Contact email"]) {
+    assert.match(inventory, new RegExp(term));
+  }
+  assert.match(inventory, /automated deletion not yet verified/);
 });
 
 test("baseline browser security headers remain configured", async () => {

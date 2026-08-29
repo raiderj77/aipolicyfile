@@ -1,8 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { LAWS, LEGAL_REVIEW_DATE, LEGAL_REVIEW_LABEL, NEXT_LEGAL_REVIEW_DUE } from "@/lib/laws";
+import {
+  LAWS,
+  LEGAL_CONTENT_MODIFIED_DATE,
+  LEGAL_REVIEW_LABEL,
+  NEXT_LEGAL_REVIEW_DUE,
+} from "@/lib/laws";
 import { LAW_PAGE_SLUGS } from "@/lib/lawPageSlugs";
 import { serializeJsonLd } from "@/lib/jsonLd";
+import { SourceReviewNotice } from "@/components/SourceReviewNotice";
 
 export const metadata: Metadata = {
   title: "AI disclosure law tracker: official sources and 2026 dates",
@@ -15,7 +21,7 @@ export const metadata: Metadata = {
     description:
       "Track five AI disclosure frameworks with official sources, dates, limitations, and a free CSV download.",
     url: "https://aipolicyfile.com/tracker",
-    modifiedTime: LEGAL_REVIEW_DATE,
+    modifiedTime: LEGAL_CONTENT_MODIFIED_DATE,
     images: ["/opengraph-image"],
   },
   twitter: {
@@ -43,11 +49,11 @@ export default function TrackerPage() {
         description:
           "Five source-linked AI disclosure frameworks with jurisdiction, dates, audience, review boundary, and official source URL.",
         url: "https://aipolicyfile.com/tracker",
-        dateModified: LEGAL_REVIEW_DATE,
+        dateModified: LEGAL_CONTENT_MODIFIED_DATE,
         inLanguage: "en-US",
         isAccessibleForFree: true,
         creator: { "@id": "https://aipolicyfile.com/#organization" },
-        citation: laws.map((law) => law.officialUrl),
+        citation: laws.flatMap((law) => law.officialSources.map((source) => source.canonicalUrl)),
         distribution: {
           "@type": "DataDownload",
           encodingFormat: "text/csv",
@@ -90,6 +96,9 @@ export default function TrackerPage() {
           Last reviewed {LEGAL_REVIEW_LABEL}. Next scheduled source review no later than{" "}
           {formatDate(NEXT_LEGAL_REVIEW_DUE)}.
         </p>
+        <div className="mt-6">
+          <SourceReviewNotice />
+        </div>
         <div className="mt-6 flex flex-wrap gap-3">
           <a
             href="/downloads/ai-disclosure-law-tracker.csv"
@@ -115,6 +124,10 @@ export default function TrackerPage() {
           generate synthetic audio, image, video, or text content and were placed on the market before
           August 2, 2026 must take the necessary compliance steps by December 2, 2026. The transition
           is limited to Article 50(2); it is not a general delay of Article 50.
+          The same amending Regulation also replaced Article 50(7), adding a formal
+          Commission adequacy-assessment mechanism for Union-level codes of practice.
+          The Commission and AI Board assessed the voluntary Code as adequate for
+          Article 50(2), (4), and (5), but adherence is not conclusive proof of compliance.
         </p>
         <a
           href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=OJ%3AL_202601744"
@@ -133,7 +146,9 @@ export default function TrackerPage() {
             AB 853 amended the California AI Transparency Act. The chapter and covered-provider
             duties became operative August 2, 2026; the added large-online-platform and GenAI-hosting
             provisions specify January 1, 2027, and the capture-device provision specifies January 1,
-            2028. Pending SB 1000 is not current law as of this review.
+            2028. An August 29 automated check found SB 1000 had passed the Legislature and was
+            ordered to enrolling, but the official status still showed an active bill rather than
+            chaptered law. SB 1000 is not current law. Substantive review of the August 21 text remains overdue.
           </p>
           <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2">
             <a
@@ -181,7 +196,7 @@ export default function TrackerPage() {
                 <tr key={law.id}>
                   <th scope="row" className="px-4 py-4 font-semibold text-slate-900">{law.shortName}</th>
                   <td className="px-4 py-4">{law.jurisdiction}</td>
-                  <td className="px-4 py-4">{law.effective}</td>
+                  <td className="px-4 py-4">{law.timingSummary}</td>
                   <td className="px-4 py-4">{law.whoItHits}</td>
                   <td className="px-4 py-4">
                     <div className="flex flex-col gap-2">
@@ -191,14 +206,17 @@ export default function TrackerPage() {
                       >
                         Plain-English guide
                       </Link>
-                      <a
-                        href={law.officialUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="font-medium text-indigo-700 underline underline-offset-2"
-                      >
-                        Official source
-                      </a>
+                      {law.officialSources.map((source) => (
+                        <a
+                          key={source.sourceId}
+                          href={source.canonicalUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="font-medium text-indigo-700 underline underline-offset-2"
+                        >
+                          {source.title}
+                        </a>
+                      ))}
                     </div>
                   </td>
                 </tr>

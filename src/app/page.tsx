@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { LAWS, LEGAL_REVIEW_LABEL } from "@/lib/laws";
+import { formatLegalDate, LAWS } from "@/lib/laws";
 import { LAW_PAGE_SLUGS } from "@/lib/lawPageSlugs";
 import WaitlistForm from "@/components/WaitlistForm";
+import { SourceReviewNotice } from "@/components/SourceReviewNotice";
 
 export default function Home() {
   const laws = Object.values(LAWS);
@@ -10,11 +11,14 @@ export default function Home() {
       {/* Hero */}
       <section className="py-16 sm:py-20">
         <p className="text-sm font-semibold uppercase tracking-wide text-indigo-600">
-          Five AI disclosure frameworks reviewed from official sources
+          Five AI disclosure frameworks tracked from official sources
         </p>
         <h1 className="mt-3 max-w-3xl font-display text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
           Find the AI disclosure rules worth reviewing.
         </h1>
+        <div className="mt-6 max-w-3xl">
+          <SourceReviewNotice />
+        </div>
         <p className="mt-5 max-w-2xl text-lg leading-relaxed text-slate-600">
           If you publish AI-assisted content, run ads, or use a chatbot, these
           federal, EU, New York, and California frameworks may deserve review.
@@ -46,7 +50,7 @@ export default function Home() {
           The five disclosure frameworks the checker covers
         </h2>
         <p className="mt-2 max-w-2xl text-slate-600">
-          Every card links the official text. Last reviewed {LEGAL_REVIEW_LABEL}.
+          Every card links its official sources and identifies its substantive review date.
         </p>
         <div className="mt-8 grid gap-5 sm:grid-cols-2">
           {laws.map((law) => (
@@ -55,7 +59,10 @@ export default function Home() {
                 {law.shortName}
               </h3>
               <p className="mt-1 text-xs font-medium uppercase tracking-wide text-slate-600">
-                {law.effective}
+                {law.timingSummary}
+              </p>
+              <p className="mt-2 text-xs text-slate-600">
+                Last substantive review: {formatLegalDate(law.review.lastSubstantiveHumanReviewDate)} · source {law.review.sourceDataVersion}
               </p>
               <p className="mt-3 text-sm leading-relaxed text-slate-600">
                 {law.whoItHits}
@@ -72,12 +79,12 @@ export default function Home() {
                   Plain-English guide
                 </Link>
                 <a
-                  href={law.officialUrl}
+                  href={law.officialSources[0].canonicalUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="font-medium text-slate-600 underline underline-offset-2 hover:text-slate-900"
                 >
-                  {law.officialLabel}
+                  {law.officialSources[0].title}
                 </a>
               </div>
             </div>

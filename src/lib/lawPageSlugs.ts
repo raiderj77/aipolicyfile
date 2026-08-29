@@ -1,5 +1,7 @@
 // Tiny law-id to /laws slug map, safe to import from client components.
-export const LAW_PAGE_SLUGS: Record<string, string> = {
+import type { LawId } from "@/lib/laws";
+
+export const LAW_PAGE_SLUGS: Record<LawId, string> = {
   "ftc": "ftc-ai-disclosure-rules",
   "euArt50": "eu-ai-act-article-50",
   "nySynthetic": "new-york-synthetic-performer-law",
