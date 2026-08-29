@@ -2,7 +2,7 @@ export const MAX_WAITLIST_BODY_BYTES = 4096;
 export const WAITLIST_CONSENT_NOTICE_VERSION = "waitlist-launch-v1";
 export const WAITLIST_RETENTION_TARGET_DAYS = 365;
 export const WAITLIST_RETENTION_RULE =
-  "Delete on verified withdrawal; otherwise within 30 days after the one launch email; manual target no later than 365 days after submission.";
+  "Delete on verified withdrawal; otherwise within 30 days after the one launch email; the destination chat auto-deletes new messages after 365 days as a backstop.";
 
 export async function readLimitedRequestBody(request, maxBytes = MAX_WAITLIST_BODY_BYTES) {
   const reader = request.body?.getReader();
