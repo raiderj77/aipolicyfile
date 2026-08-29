@@ -94,25 +94,30 @@ test("the linkable tracker is source-backed, downloadable, and non-conclusive", 
   assert.match(sitemap, /`\$\{BASE\}\/tracker`/);
 });
 
-test("analytics disclosure matches standard GA processing and stays non-modal", async () => {
+test("analytics disclosure matches the verified privacy-limited GA property and stays non-modal", async () => {
   const [consent, privacy] = await Promise.all([
     read("../src/components/AnalyticsConsent.tsx"),
     read("../src/app/privacy/page.tsx"),
   ]);
-  for (const term of ["session", "referrer", "browser", "device", "approximate-location"]) {
+  for (const term of ["session", "referrer", "browser", "device category", "country or region"]) {
     assert.match(consent, new RegExp(term));
   }
   assert.match(consent, /role="region"/);
   assert.doesNotMatch(consent, /role="dialog"/);
   assert.doesNotMatch(consent, /receives only/i);
-  assert.match(consent, /automatic page-view, scroll, outbound-link, file-download, and form-interaction events/);
-  assert.doesNotMatch(consent, /Query strings.*excluded/i);
+  assert.match(consent, /Enhanced Measurement and granular/);
+  assert.match(consent, /URL path,[\s\S]*referrer with query strings and fragments removed/);
   assert.match(privacy, /IP addresses are used to derive location before being discarded/);
   assert.match(privacy, /support\.google\.com\/analytics\/answer\/11593727/);
   assert.match(privacy, /developers\.google\.com\/analytics\/devguides\/collection\/ga4\/views/);
   assert.match(privacy, /support\.google\.com\/analytics\/answer\/9216061/);
-  assert.match(privacy, /browser-history[\s\S]*query string/);
-  assert.doesNotMatch(privacy, /enhanced measurement (?:is|are) disabled/i);
+  assert.match(privacy, /support\.google\.com\/analytics\/answer\/7667196/);
+  assert.match(privacy, /support\.google\.com\/analytics\/answer\/12002752/);
+  assert.match(privacy, /support\.google\.com\/analytics\/answer\/9626162/);
+  assert.match(privacy, /Enhanced[\s\S]*Measurement disabled/);
+  assert.match(privacy, /event and user data retention are both set to two months/);
+  assert.match(privacy, /reset on new user activity is disabled/);
+  assert.match(privacy, /Ads personalization is disallowed in all 307 regions/);
   assert.match(privacy, /Jason Ramirez[\s\S]*controller/);
   assert.match(privacy, /founding-list processing[\s\S]*rely on your consent/);
   assert.match(privacy, /legitimate interests/);
