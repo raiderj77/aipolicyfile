@@ -3,8 +3,9 @@
 Free AI disclosure-law screening tool plus a consent-based founding list.
 The checker runs in the browser. Founding-list submissions are forwarded to a
 private Telegram chat; the site has no separate waitlist database, and Telegram
-messages carry server-generated consent and manual retention metadata. The account-side
-auto-delete control and legacy-message purge remain separate operational checks.
+messages carry server-generated consent and retention metadata. A synthetic production
+submission verified the destination chat's 365-day auto-delete timer for new messages
+on August 29, 2026; earlier messages remain a separate manual-retention responsibility.
 
 ## Stack
 

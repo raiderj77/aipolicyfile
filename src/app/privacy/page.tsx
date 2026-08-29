@@ -56,11 +56,13 @@ export default function PrivacyPage() {
         <p>
           We use the submission for one launch announcement and related administration. We do not
           sell it or share it for advertising. There is no separate waitlist database, but the
-          Telegram message remains available until the site owner manually deletes it. Each new
-          message carries this administrative rule: delete on verified withdrawal; otherwise within
-          30 days after the one launch email; target deletion no later than 365 days after submission.
-          The current process has no independently verified automated deletion timer, so the embedded
-          date is a manual control rather than a technical guarantee. To request deletion,
+          Telegram message remains available until it is manually deleted or its chat timer expires.
+          The destination chat&apos;s 365-day auto-delete setting for new messages was verified on August
+          29, 2026 with a synthetic production submission; the synthetic record was then deleted. Each
+          new message carries this administrative rule: delete on verified withdrawal; otherwise within
+          30 days after the one launch email; the 365-day timer is a backstop. Telegram&apos;s timer is not
+          retroactive, so messages received before it was enabled remain subject to manual review and
+          deletion. To request deletion,
           email hello@aipolicyfile.com from the address you submitted. We will delete the accessible
           message when we can verify the request. Telegram or hosting providers may retain limited
           backup, security, or legal records, so we do not promise immediate deletion from every

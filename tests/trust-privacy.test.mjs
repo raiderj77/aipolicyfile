@@ -232,15 +232,17 @@ test("privacy wording matches waitlist code and manual retention", async () => {
   ]);
   assert.match(privacy, /requires affirmative consent/);
   assert.match(privacy, /version of the consent notice/);
-  assert.match(privacy, /no independently verified automated deletion timer/);
-  assert.match(privacy, /target deletion no later than 365 days/);
+  assert.match(privacy, /365-day auto-delete setting.*verified on August\s+29, 2026/s);
+  assert.match(privacy, /timer is not.*retroactive/s);
+  assert.doesNotMatch(privacy, /no independently verified automated deletion timer/);
   assert.match(privacy, /Telegram Bot API/);
   assert.match(privacy, /Vercel hosts the site/);
   assert.match(privacy, /Namecheap/);
   for (const term of ["Checker answers", "Waitlist email", "GA4", "Vercel", "Contact email"]) {
     assert.match(inventory, new RegExp(term));
   }
-  assert.match(inventory, /automated deletion not yet verified/);
+  assert.match(inventory, /365-day timer production-verified/);
+  assert.match(inventory, /timer is not retroactive/);
 });
 
 test("baseline browser security headers remain configured", async () => {
