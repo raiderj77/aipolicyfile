@@ -2,6 +2,15 @@
 
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
+import {
+  ANALYTICS_CONSENT_DEFAULT,
+  ANALYTICS_CONSENT_GRANTED,
+  ANALYTICS_CONSENT_WITHDRAWN,
+  buildAnalyticsPageContext,
+  buildAnalyticsPageView,
+  GA4_CONFIG,
+  GA4_MEASUREMENT_ID,
+} from "@/lib/analytics";
 
 type Consent = "granted" | "denied";
 
@@ -12,7 +21,6 @@ declare global {
   }
 }
 
-const MEASUREMENT_ID = "G-D97F0H17CL";
 const STORAGE_KEY = "aipolicyfile:analytics-consent";
 const SCRIPT_ID = "aipolicyfile-google-analytics";
 const CONSENT_DEFAULT_KEY = "aipolicyfile:analytics-consent-defaulted";
@@ -28,20 +36,12 @@ function prepareDeniedConsentDefault() {
   const analyticsWindow = window as typeof window & Record<string, unknown>;
   if (analyticsWindow[CONSENT_DEFAULT_KEY]) return;
 
-  window.gtag?.("consent", "default", {
-    analytics_storage: "denied",
-    ad_storage: "denied",
-    ad_user_data: "denied",
-    ad_personalization: "denied",
-    personalization_storage: "denied",
-    functionality_storage: "granted",
-    security_storage: "granted",
-  });
+  window.gtag?.("consent", "default", ANALYTICS_CONSENT_DEFAULT);
   analyticsWindow[CONSENT_DEFAULT_KEY] = true;
 }
 
 function setDisabled(disabled: boolean) {
-  (window as typeof window & Record<string, unknown>)[`ga-disable-${MEASUREMENT_ID}`] = disabled;
+  (window as typeof window & Record<string, unknown>)[`ga-disable-${GA4_MEASUREMENT_ID}`] = disabled;
 }
 
 function clearAnalyticsCookies() {
@@ -57,33 +57,25 @@ function clearAnalyticsCookies() {
 }
 
 function queuePageView() {
-  window.gtag?.("event", "page_view", {
-    page_location: `${window.location.origin}${window.location.pathname}`,
-    page_path: window.location.pathname,
-    page_title: document.title,
-  });
+  const pageContext = buildAnalyticsPageContext(window.location.href, document.referrer);
+  window.gtag?.("set", pageContext);
+  window.gtag?.(
+    "event",
+    "page_view",
+    buildAnalyticsPageView(window.location.href, document.title, document.referrer),
+  );
 }
 
 function enableAnalytics() {
   setDisabled(false);
   prepareDeniedConsentDefault();
-  window.gtag?.("consent", "update", {
-    analytics_storage: "granted",
-    ad_storage: "denied",
-    ad_user_data: "denied",
-    ad_personalization: "denied",
-    personalization_storage: "denied",
-    functionality_storage: "granted",
-    security_storage: "granted",
-  });
+  window.gtag?.("consent", "update", ANALYTICS_CONSENT_GRANTED);
   const analyticsWindow = window as typeof window & Record<string, unknown>;
   if (!analyticsWindow[CONFIGURED_KEY]) {
     window.gtag?.("js", new Date());
-    window.gtag?.("config", MEASUREMENT_ID, {
-      send_page_view: false,
-      allow_google_signals: false,
-      allow_ad_personalization_signals: false,
-    });
+    const initialPageContext = buildAnalyticsPageContext(window.location.href, document.referrer);
+    window.gtag?.("set", initialPageContext);
+    window.gtag?.("config", GA4_MEASUREMENT_ID, GA4_CONFIG);
     analyticsWindow[CONFIGURED_KEY] = true;
   }
 
@@ -91,18 +83,13 @@ function enableAnalytics() {
     const script = document.createElement("script");
     script.id = SCRIPT_ID;
     script.async = true;
-    script.src = `https://www.googletagmanager.com/gtag/js?id=${MEASUREMENT_ID}`;
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${GA4_MEASUREMENT_ID}`;
     document.head.appendChild(script);
   }
 }
 
 function disableAnalytics() {
-  window.gtag?.("consent", "update", {
-    analytics_storage: "denied",
-    ad_storage: "denied",
-    ad_user_data: "denied",
-    ad_personalization: "denied",
-  });
+  window.gtag?.("consent", "update", ANALYTICS_CONSENT_WITHDRAWN);
   setDisabled(true);
   clearAnalyticsCookies();
 }
@@ -180,11 +167,12 @@ export function AnalyticsConsent() {
     >
       <p id="analytics-choices-title" className="font-bold">Optional, privacy-limited analytics</p>
       <p className="mt-2 text-sm leading-relaxed text-slate-700">
-        If you allow it, Google Analytics may process page URLs and titles, standard session,
-        referrer, browser, device, language, screen-size, and approximate-location data, plus
-        automatic page-view, scroll, outbound-link, file-download, and form-interaction events
-        enabled in the property. Site code does not send checker answers or form-field values.
-        Automatic page-view data may include a query string, so do not put sensitive data in URLs.
+        If you allow it, Google Analytics processes a manually sent page title, URL path, and
+        referrer with query strings and fragments removed, plus standard session, browser and
+        operating-system name, broad device category, language, and country or region data.
+        Enhanced Measurement and granular location/device collection are off. Site code does not
+        send checker answers, results, or form-field values; Google Signals, user-provided data, and
+        advertising personalization are disabled.
       </p>
       <div className="mt-4 flex flex-wrap gap-3">
         <button

@@ -7,6 +7,13 @@ messages carry server-generated consent and retention metadata. A synthetic prod
 submission verified the destination chat's 365-day auto-delete timer for new messages
 on August 29, 2026; earlier messages remain a separate manual-retention responsibility.
 
+Optional analytics uses the dedicated `AI Policy File` GA4 property and web stream
+(`G-MEY1Y9KDNJ`) only after visitor consent. The property was verified on August 29,
+2026 with Enhanced Measurement, Google Signals, user-provided data, ads personalization,
+and granular city/device collection disabled; event and user data retention are both two
+months with user-expiry reset disabled. See `docs/data-inventory.md` for the account-side
+configuration record and re-verification boundary.
+
 ## Stack
 
 Next.js (App Router, TypeScript, Tailwind v4). No database. Dynamic routes are

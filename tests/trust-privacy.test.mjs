@@ -1,6 +1,15 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
+import {
+  ANALYTICS_CONSENT_DEFAULT,
+  ANALYTICS_CONSENT_GRANTED,
+  ANALYTICS_CONSENT_WITHDRAWN,
+  buildAnalyticsPageContext,
+  buildAnalyticsPageView,
+  GA4_CONFIG,
+  GA4_MEASUREMENT_ID,
+} from "../src/lib/analytics.ts";
 import { CORRECTIONS } from "../src/lib/corrections.ts";
 
 import {
@@ -225,7 +234,7 @@ test("material legal corrections are structured, versioned, and publicly rendere
   assert.match(page, /Generated documents and users/);
 });
 
-test("privacy wording matches waitlist code and manual retention", async () => {
+test("privacy wording matches verified waitlist and analytics retention controls", async () => {
   const [privacy, inventory] = await Promise.all([
     readFile(new URL("../src/app/privacy/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../docs/data-inventory.md", import.meta.url), "utf8"),
@@ -243,6 +252,17 @@ test("privacy wording matches waitlist code and manual retention", async () => {
   }
   assert.match(inventory, /365-day timer production-verified/);
   assert.match(inventory, /timer is not retroactive/);
+  assert.match(inventory, /G-MEY1Y9KDNJ/);
+  assert.match(inventory, /Event data: 2 months; user data: 2 months/);
+  assert.match(inventory, /disallowed in all 307 regions/);
+  assert.match(privacy, /dedicated AI Policy File property/);
+  assert.match(privacy, /Enhanced[\s\S]*Measurement disabled/);
+  assert.match(privacy, /event and user data retention are both set to two months/);
+  assert.match(privacy, /Google Signals and user-provided data collection[\s\S]*off/);
+  assert.doesNotMatch(
+    `${privacy}\n${inventory}`,
+    /not yet been independently verified|Account-side retention is unverified|verify GA4 retention and Enhanced Measurement/i,
+  );
 });
 
 test("baseline browser security headers remain configured", async () => {
@@ -261,18 +281,75 @@ test("baseline browser security headers remain configured", async () => {
   assert.match(config, /frame-ancestors 'none'/);
 });
 
+test("analytics runtime configuration strips queries and denies advertising data", () => {
+  assert.equal(GA4_MEASUREMENT_ID, "G-MEY1Y9KDNJ");
+  assert.deepEqual(
+    buildAnalyticsPageView(
+      "https://aipolicyfile.com/checker?apf_probe=synthetic-canary#private-fragment",
+      "AI Disclosure Law Checker",
+      "https://search.example/results?private=synthetic-canary#fragment",
+    ),
+    {
+      page_location: "https://aipolicyfile.com/checker",
+      page_path: "/checker",
+      page_referrer: "https://search.example/results",
+      page_title: "AI Disclosure Law Checker",
+    },
+  );
+  for (const referrer of ["", "not a URL", "android-app://com.example.app"]) {
+    assert.deepEqual(
+      buildAnalyticsPageContext("https://aipolicyfile.com/?secret=yes", referrer),
+      {
+        page_location: "https://aipolicyfile.com/",
+        page_path: "/",
+        page_referrer: "",
+      },
+    );
+  }
+  assert.deepEqual(GA4_CONFIG, {
+    send_page_view: false,
+    allow_google_signals: false,
+    allow_ad_personalization_signals: false,
+  });
+  assert.equal(ANALYTICS_CONSENT_DEFAULT.analytics_storage, "denied");
+  assert.equal(ANALYTICS_CONSENT_GRANTED.analytics_storage, "granted");
+  for (const consent of [
+    ANALYTICS_CONSENT_DEFAULT,
+    ANALYTICS_CONSENT_GRANTED,
+    ANALYTICS_CONSENT_WITHDRAWN,
+  ]) {
+    assert.equal(consent.ad_storage, "denied");
+    assert.equal(consent.ad_user_data, "denied");
+    assert.equal(consent.ad_personalization, "denied");
+  }
+});
+
 test("analytics is opt-in and excludes checker and form content", async () => {
-  const analytics = await readFile(new URL("../src/components/AnalyticsConsent.tsx", import.meta.url), "utf8");
+  const [analytics, analyticsConfig] = await Promise.all([
+    readFile(new URL("../src/components/AnalyticsConsent.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../src/lib/analytics.ts", import.meta.url), "utf8"),
+  ]);
   const layout = await readFile(new URL("../src/app/layout.tsx", import.meta.url), "utf8");
   const privacy = await readFile(new URL("../src/app/privacy/page.tsx", import.meta.url), "utf8");
   assert.match(layout, /<AnalyticsConsent \/>/);
   assert.match(analytics, /consent !== "granted"/);
-  assert.match(analytics, /"consent", "default", {[\s\S]*analytics_storage: "denied"/);
-  assert.match(analytics, /"consent", "update", {[\s\S]*analytics_storage: "granted"/);
+  assert.match(analytics, /"consent", "default", ANALYTICS_CONSENT_DEFAULT/);
+  assert.match(analytics, /"consent", "update", ANALYTICS_CONSENT_GRANTED/);
   assert.match(analytics, /CONFIGURED_KEY/);
   assert.equal(analytics.match(/enableAnalytics\(\);/g)?.length, 1);
-  assert.match(analytics, /send_page_view: false/);
-  assert.match(analytics, /page_location: `\$\{window\.location\.origin\}\$\{window\.location\.pathname\}`/);
+  assert.match(analyticsConfig, /G-MEY1Y9KDNJ/);
+  assert.doesNotMatch(`${analytics}\n${analyticsConfig}`, /G-D97F0H17CL/);
+  assert.match(analyticsConfig, /send_page_view: false/);
+  assert.match(analyticsConfig, /page_location: `\$\{url\.origin\}\$\{url\.pathname\}`/);
+  assert.match(analytics, /"set", pageContext/);
+  assert.match(analytics, /"set", initialPageContext/);
+  assert.match(analytics, /"config", GA4_MEASUREMENT_ID, GA4_CONFIG/);
+  assert.doesNotMatch(analytics, /"config", GA4_MEASUREMENT_ID, \{/);
+  assert.match(analytics, /Enhanced Measurement and granular/);
+  assert.match(
+    analytics,
+    /Google Signals, user-provided data, and\s+advertising personalization are/,
+  );
   assert.doesNotMatch(analytics, /FormData|request\.json|WaitlistForm|CheckerClient/);
   assert.match(privacy, /does\s+not send checker answers/);
   assert.match(privacy, /script is not downloaded/);

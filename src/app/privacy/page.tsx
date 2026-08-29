@@ -90,23 +90,37 @@ export default function PrivacyPage() {
         <h2 className="font-display text-xl font-semibold text-slate-900">Analytics and advertising</h2>
         <p>
           Google Analytics remains blocked unless you select &quot;Allow analytics.&quot; If allowed,
-          the site manually sends a page title and path with the URL query string removed. Depending
-          on the Google Analytics property&apos;s Enhanced Measurement settings, Google may also collect
-          automatic page views, scrolls, outbound-link clicks, file downloads, and form-start or
-          form-submit events. An automatic page view, including one triggered by a browser-history
-          change, may include the full page location and its query string. Do not put sensitive data
-          in a URL.
+          the site manually sends a page-view event containing the page title, origin, path, and
+          referrer with query strings and fragments removed. The dedicated AI Policy File property
+          has Enhanced Measurement disabled, so it is not configured to automatically collect
+          scrolls, outbound-link clicks, file downloads, site searches, video engagement, form
+          starts or submissions, or browser-history page views. Do not put sensitive data in a URL
+          because hosting logs, third-party links, or a future configuration change may still expose
+          it.
         </p>
         <p>
           Google Analytics also processes standard analytics data such as session information,
-          referrer, browser and device information, language, screen resolution, and approximate
-          location. Google says IP addresses are used to derive location before being discarded.
-          Site code does not send checker answers, checker results, email addresses, role or
-          product-value selections, or other founding-list form-field values to Google Analytics.
-          Automatic form events may identify that a form was started or submitted and may include
-          form metadata. Advertising storage, ad personalization, and Google Signals are disabled in
-          this site&apos;s analytics configuration. The GA4 property&apos;s account-side data-retention and
-          Enhanced Measurement settings have not yet been independently verified from this codebase.
+          referrer, browser and operating-system name, broad device category, language, and country
+          or region. Google says IP addresses are used to derive location before being discarded.
+          Granular location and device collection is blocked in all 307 regions available in the
+          property, so the property is not configured to collect city-level location, city latitude
+          or longitude, detailed device models, User-Agent strings, browser or operating-system minor
+          versions, or screen resolution. Site code does not send checker answers, checker results,
+          email addresses, role or product-value selections, or other founding-list form-field values
+          to Google Analytics. After consent, Google may still generate standard events such as
+          first visit, session start, and user engagement; those are distinct from Enhanced
+          Measurement events.
+        </p>
+        <p>
+          The dedicated property&apos;s event and user data retention are both set to two months, and
+          reset on new user activity is disabled. Google Signals and user-provided data collection
+          are off. Ads personalization is disallowed in all 307 regions, while site code also denies
+          advertising storage, advertising user data, and advertising personalization. These
+          provider-account settings were verified on August 29, 2026 and must be rechecked after any
+          Analytics account or stream change. The regional restrictions apply to future collection
+          and use; they do not retroactively rewrite provider records. Google states that the
+          two-month controls do not affect most standard reports, which use aggregated data, so the
+          setting is not a promise that every aggregate disappears after two months.
         </p>
         <p>
           See Google&apos;s current documentation for its{" "}
@@ -144,6 +158,33 @@ export default function PrivacyPage() {
             className="text-indigo-700 underline underline-offset-2"
           >
             Enhanced Measurement event list
+          </a>
+          , its{" "}
+          <a
+            href="https://support.google.com/analytics/answer/7667196?hl=en"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-indigo-700 underline underline-offset-2"
+          >
+            retention controls
+          </a>
+          , its{" "}
+          <a
+            href="https://support.google.com/analytics/answer/12002752?hl=en"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-indigo-700 underline underline-offset-2"
+          >
+            granular location and device controls
+          </a>
+          , and its{" "}
+          <a
+            href="https://support.google.com/analytics/answer/9626162?hl=en"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-indigo-700 underline underline-offset-2"
+          >
+            ads-personalization controls
           </a>
           .
         </p>
