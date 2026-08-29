@@ -11,6 +11,7 @@ import {
 } from "@/lib/laws";
 import { LAW_PAGE_SLUGS } from "@/lib/lawPageSlugs";
 import WaitlistForm from "@/components/WaitlistForm";
+import { SourceReviewNotice } from "@/components/SourceReviewNotice";
 
 interface Question {
   key: keyof CheckerAnswers;
@@ -82,16 +83,29 @@ const STATUS_STYLES: Record<LawStatus, { pill: string; label: string; ring: stri
 export default function CheckerClient() {
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Partial<CheckerAnswers>>({});
-  const [results, setResults] = useState<LawResult[] | null>(null);
+  const [resultAnswers, setResultAnswers] = useState<CheckerAnswers | null>(null);
+  const [resultAsOfMs, setResultAsOfMs] = useState(() => Date.now());
   const questionHeadingRef = useRef<HTMLHeadingElement>(null);
   const resultsHeadingRef = useRef<HTMLHeadingElement>(null);
   const shouldManageFocus = useRef(false);
+
+  const results: LawResult[] | null = resultAnswers
+    ? evaluate(resultAnswers, new Date(resultAsOfMs))
+    : null;
 
   useEffect(() => {
     if (!shouldManageFocus.current) return;
     const heading = results ? resultsHeadingRef.current : questionHeadingRef.current;
     heading?.focus({ preventScroll: true });
+    shouldManageFocus.current = false;
   }, [results, step]);
+
+  useEffect(() => {
+    if (!resultAnswers) return;
+    const refresh = () => setResultAsOfMs(Date.now());
+    const timer = window.setInterval(refresh, 60 * 60 * 1000);
+    return () => window.clearInterval(timer);
+  }, [resultAnswers]);
 
   const answer = (value: boolean) => {
     shouldManageFocus.current = true;
@@ -112,7 +126,8 @@ export default function CheckerClient() {
         chatbot: next.chatbot ?? false,
         bigProvider: next.bigProvider ?? false,
       };
-      setResults(evaluate(filled));
+      setResultAsOfMs(Date.now());
+      setResultAnswers(filled);
     }
   };
 
@@ -127,7 +142,7 @@ export default function CheckerClient() {
       delete updated[previousKey];
       return updated;
     });
-    setResults(null);
+    setResultAnswers(null);
     setStep(previousStep);
   };
 
@@ -135,7 +150,7 @@ export default function CheckerClient() {
     shouldManageFocus.current = true;
     setStep(0);
     setAnswers({});
-    setResults(null);
+    setResultAnswers(null);
   };
 
   if (results) {
@@ -143,6 +158,7 @@ export default function CheckerClient() {
     return (
       <div className="space-y-6">
         <div data-printable-results className="space-y-6">
+          <SourceReviewNotice compact asOfMs={resultAsOfMs} />
           <div className="rounded-2xl border border-slate-200 bg-white p-6">
           <h2
             ref={resultsHeadingRef}
@@ -178,6 +194,25 @@ export default function CheckerClient() {
                 {r.headline}
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-slate-600">{r.detail}</p>
+              <div className="mt-4 grid gap-4 md:grid-cols-2">
+                <div>
+                  <h4 className="text-sm font-semibold text-slate-900">Matched answers</h4>
+                  <ul className="mt-2 space-y-1.5">
+                    {r.matchedSignals.map((signal) => (
+                      <li key={signal.answerKey} className="text-sm text-slate-700">
+                        <span className="font-semibold">{signal.answer ? "Yes" : "No"}:</span>{" "}
+                        {signal.label}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="text-sm font-semibold text-slate-900">Important unresolved facts</h4>
+                  <ul className="mt-2 list-disc space-y-1.5 pl-5 text-sm text-slate-700">
+                    {r.unresolvedFacts.map((fact) => <li key={fact}>{fact}</li>)}
+                  </ul>
+                </div>
+              </div>
               {r.status === "review" && (
                 <ul className="mt-3 space-y-1.5">
                   {r.law.requires.map((req, i) => (
@@ -194,10 +229,23 @@ export default function CheckerClient() {
                     Example disclosure you could adapt
                   </p>
                   <p className="mt-1 font-mono text-sm text-slate-800">
-                    {r.sampleDisclosure}
+                    {r.sampleDisclosure.text}
+                  </p>
+                  <p className="mt-2 text-xs text-slate-600">
+                    Illustrative wording, not an approved safe harbor · template {r.sampleDisclosure.templateVersion}
                   </p>
                 </div>
               )}
+              <dl className="mt-4 grid gap-x-6 gap-y-2 rounded-lg bg-slate-50 p-4 text-xs text-slate-700 sm:grid-cols-2">
+                <div><dt className="font-semibold">Source review status</dt><dd>{r.provenance.sourceReviewStatus === "source-review-overdue" ? "SOURCE REVIEW OVERDUE" : "Current within review window"}</dd></div>
+                <div><dt className="font-semibold">Source version</dt><dd className="break-all">{r.provenance.sourceVersion}</dd></div>
+                <div><dt className="font-semibold">Last substantive human review</dt><dd>{r.provenance.lastSubstantiveHumanReview}</dd></div>
+                <div><dt className="font-semibold">Next review due</dt><dd>{r.provenance.nextReviewDue}</dd></div>
+                <div><dt className="font-semibold">Last automated source check</dt><dd>{r.provenance.lastAutomatedSourceCheck}</dd></div>
+                <div><dt className="font-semibold">Automated source coverage</dt><dd>{r.provenance.automatedSourceCheckStatus === "access_limited" ? "Access limited" : "Completed"} — {r.provenance.automatedSourceCheckNote}</dd></div>
+                <div><dt className="font-semibold">Checker version</dt><dd>{r.provenance.checkerVersion}</dd></div>
+                <div><dt className="font-semibold">Template version</dt><dd>{r.provenance.templateVersion ?? "Not used for this result"}</dd></div>
+              </dl>
               <div className="mt-4 flex flex-wrap items-center gap-4 text-sm">
                 <Link
                   href={`/laws/${LAW_PAGE_SLUGS[r.law.id]}`}
@@ -205,14 +253,17 @@ export default function CheckerClient() {
                 >
                   Plain-English guide
                 </Link>
-                <a
-                  href={r.law.officialUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-medium text-indigo-700 underline underline-offset-2 hover:text-indigo-900"
-                >
-                  Official text: {r.law.officialLabel}
-                </a>
+                {r.law.officialSources.map((source) => (
+                  <a
+                    key={source.sourceId}
+                    href={source.canonicalUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-medium text-indigo-700 underline underline-offset-2 hover:text-indigo-900"
+                  >
+                    {source.title}
+                  </a>
+                ))}
                   <span className="text-slate-600">Enforcement note: {r.law.penalty}</span>
               </div>
               </div>
@@ -273,7 +324,9 @@ export default function CheckerClient() {
 
   const q = QUESTIONS[step];
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8">
+    <div className="space-y-6">
+      <SourceReviewNotice />
+      <div className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8">
       <div
         role="note"
         className="mb-6 rounded-lg border border-sky-200 bg-sky-50 p-4 text-sm leading-relaxed text-slate-700"
@@ -340,6 +393,7 @@ export default function CheckerClient() {
           </button>
         )}
       </div>
+    </div>
     </div>
   );
 }

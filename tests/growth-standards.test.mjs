@@ -29,6 +29,10 @@ test("indexable support pages publish route-specific social metadata", async () 
     read("../src/app/disclaimer/page.tsx"),
     read("../src/app/terms/page.tsx"),
     read("../src/app/editorial-standards/page.tsx"),
+    read("../src/app/accessibility/page.tsx"),
+    read("../src/app/ai-transparency/page.tsx"),
+    read("../src/app/security/page.tsx"),
+    read("../src/app/corrections/page.tsx"),
   ]);
   assert.match(helper, /openGraph/);
   assert.match(helper, /twitter/);
@@ -43,9 +47,9 @@ test("legal guides publish sanitized source-backed Article data", async () => {
     read("../src/lib/jsonLd.ts"),
   ]);
   assert.match(page, /"@type": "Article"/);
-  assert.match(page, /dateModified: LEGAL_REVIEW_DATE/);
+  assert.match(page, /dateModified: LEGAL_CONTENT_MODIFIED_DATE/);
   assert.match(page, /image: "https:\/\/aipolicyfile\.com\/opengraph-image"/);
-  assert.match(page, /citation: page\.sources\.map/);
+  assert.match(page, /citation: law\.officialSources\.map/);
   assert.match(page, /about#jason-ramirez/);
   assert.doesNotMatch(page, /dangerouslySetInnerHTML=\{\{ __html: JSON\.stringify/);
   assert.match(serializer, /replace\(\/<\/g, "\\\\u003c"\)/);
@@ -82,7 +86,10 @@ test("the linkable tracker is source-backed, downloadable, and non-conclusive", 
   assert.match(csvRoute, /Content-Disposition/);
   assert.match(csvRoute, /Content-Type.*text\/csv/);
   assert.match(csvBuilder, /Object\.values\(LAWS\)/);
-  assert.match(csvBuilder, /LEGAL_REVIEW_DATE/);
+  assert.match(csvBuilder, /getLawReviewStatus\(law, asOf\)/);
+  assert.match(csvBuilder, /"status_as_of"/);
+  assert.match(csvBuilder, /"automated_source_check_status"/);
+  assert.match(csvBuilder, /official_source_fingerprints/);
   assert.match(csvBuilder, /\^\[=\+\\-@\]/);
   assert.match(sitemap, /`\$\{BASE\}\/tracker`/);
 });
@@ -125,10 +132,14 @@ test("dependency, CI, and canonical-host controls cover the full release", async
   ]);
   assert.match(pkg, /"brace-expansion@<2": "1\.1\.18"/);
   assert.match(pkg, /"brace-expansion": "5\.0\.9"/);
+  assert.match(pkg, /"js-yaml": "4\.3\.2"/);
+  assert.match(pkg, /"nanoid": "3\.3\.18"/);
   assert.match(ci, /npm audit --audit-level=high/);
   assert.doesNotMatch(ci, /audit --omit=dev/);
   assert.match(freshness, /name: Legal review deadline/);
   assert.match(freshness, /cron: "19 15 \* \* \*"/);
+  assert.match(freshness, /npm run check:official-sources/);
+  assert.match(freshness, /if: always\(\)/);
   assert.match(config, /aipolicyfile\.vercel\.app/);
   assert.match(config, /www\.aipolicyfile\.com/);
   assert.match(config, /destination: "https:\/\/aipolicyfile\.com\/:path\*"/);

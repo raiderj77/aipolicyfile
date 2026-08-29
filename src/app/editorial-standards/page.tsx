@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { LEGAL_REVIEW_LABEL, NEXT_LEGAL_REVIEW_DUE } from "@/lib/laws";
 import { pageSocialMetadata } from "@/lib/siteMetadata";
+import { SourceReviewNotice } from "@/components/SourceReviewNotice";
 
 const description =
   "How AI Policy File selects official sources, reviews legal information, records corrections, and states its author and limitations.";
@@ -34,6 +35,9 @@ export default function EditorialStandardsPage() {
         Last substantive legal-source review: {LEGAL_REVIEW_LABEL}. Next scheduled review no later
         than {" "}{formatDueDate(NEXT_LEGAL_REVIEW_DUE)}.
       </p>
+      <div className="mt-6">
+        <SourceReviewNotice />
+      </div>
 
       <div className="mt-8 space-y-10 leading-relaxed text-slate-700">
         <section>
@@ -99,6 +103,22 @@ export default function EditorialStandardsPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-200">
+                <tr>
+                  <td className="whitespace-nowrap px-4 py-3 align-top">August 29, 2026</td>
+                  <td className="px-4 py-3">
+                    An AI-assisted comparison against official sources found that the New York guide had retained
+                    written-notice, cure-period, and disclosure-removal clauses from an earlier bill
+                    version that were removed from enacted S.8420-A. The guide was corrected against
+                    current General Business Law Section 396-b, the prior wording was recorded on the
+                    Corrections page, and the site remains marked source-review overdue. The check also
+                    removed an unsupported California B.O.T. Act enforcement characterization; added
+                    Regulation (EU) 2026/1744&apos;s Article 50(7) change and the formal Code adequacy
+                    assessments; and updated pending SB 1000&apos;s status without treating it as current law.
+                    A deterministic monitor separately checks official links, recorded document
+                    fingerprints, current FTC text, and pending SB 1000 status. Neither process
+                    replaced substantive human review.
+                  </td>
+                </tr>
                 <tr>
                   <td className="whitespace-nowrap px-4 py-3 align-top">August 2, 2026</td>
                   <td className="px-4 py-3">

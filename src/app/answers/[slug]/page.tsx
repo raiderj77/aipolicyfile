@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ANSWER_PAGES } from "@/lib/answerPages";
 import { LEGAL_REVIEW_LABEL } from "@/lib/laws";
+import { SourceReviewNotice } from "@/components/SourceReviewNotice";
 
 export function generateStaticParams() {
   return ANSWER_PAGES.map((p) => ({ slug: p.slug }));
@@ -63,6 +64,9 @@ export default async function AnswerPage({
         official law texts, last reviewed {LEGAL_REVIEW_LABEL}. This page does not
         determine jurisdiction, coverage, or compliance.
       </p>
+      <div className="mt-6">
+        <SourceReviewNotice />
+      </div>
 
       <p className="mt-6 text-lg leading-relaxed text-slate-700">{page.intro}</p>
 

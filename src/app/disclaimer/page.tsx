@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SourceReviewNotice } from "@/components/SourceReviewNotice";
 import { LEGAL_REVIEW_LABEL } from "@/lib/laws";
 import { pageSocialMetadata } from "@/lib/siteMetadata";
 
@@ -17,6 +18,9 @@ export default function DisclaimerPage() {
       <h1 className="font-display text-3xl font-bold tracking-tight text-slate-900">
         Disclaimer
       </h1>
+      <div className="mt-6">
+        <SourceReviewNotice />
+      </div>
       <div className="mt-6 space-y-4 leading-relaxed text-slate-700">
         <p>
           AI Policy File is an educational tool. Nothing on this site, including

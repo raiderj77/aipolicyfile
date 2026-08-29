@@ -50,6 +50,7 @@ export async function POST(request: NextRequest) {
       body: JSON.stringify({
         chat_id: chatId,
         text: buildTelegramMessage(parsed.data),
+        protect_content: true,
       }),
     });
 

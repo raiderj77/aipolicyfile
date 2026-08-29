@@ -57,6 +57,10 @@ export const metadata: Metadata = {
   },
 };
 
+// Re-render static pages at least hourly so date-based source-review status can
+// change without waiting for a new deployment.
+export const revalidate = 3600;
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
@@ -137,6 +141,10 @@ export default function RootLayout({
               <Link href="/#laws" className="hover:text-slate-900">The laws</Link>
               <Link href="/tracker" className="hover:text-slate-900">Law tracker</Link>
               <Link href="/editorial-standards" className="hover:text-slate-900">Editorial standards</Link>
+              <Link href="/corrections" className="hover:text-slate-900">Corrections</Link>
+              <Link href="/accessibility" className="hover:text-slate-900">Accessibility</Link>
+              <Link href="/ai-transparency" className="hover:text-slate-900">AI transparency</Link>
+              <Link href="/security" className="hover:text-slate-900">Security</Link>
               <Link href="/disclaimer" className="hover:text-slate-900">Disclaimer</Link>
               <Link href="/privacy" className="hover:text-slate-900">Privacy</Link>
               <Link href="/terms" className="hover:text-slate-900">Terms</Link>

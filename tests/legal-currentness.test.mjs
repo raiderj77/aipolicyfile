@@ -6,8 +6,11 @@ import {
   evaluate,
   LAWS,
   LEGAL_REVIEW_DATE,
+  LEGAL_CONTENT_MODIFIED_DATE,
   LEGAL_REVIEW_LABEL,
   NEXT_LEGAL_REVIEW_DUE,
+  getLawReviewStatus,
+  getLegalReviewStatus,
 } from "../src/lib/laws.ts";
 
 const allNo = {
@@ -22,6 +25,8 @@ const allNo = {
 };
 
 const lawIds = ["ftc", "euArt50", "nySynthetic", "caBot", "caSb942"];
+const dueDay = new Date("2026-08-09T23:59:59.999Z");
+const overdueDay = new Date("2026-08-10T00:00:00.000Z");
 
 function statuses(answers) {
   return Object.fromEntries(evaluate(answers).map((result) => [result.law.id, result.status]));
@@ -98,7 +103,7 @@ test("decision table always returns one card for every screened framework", () =
   ];
 
   for (const scenario of cases) {
-    const results = evaluate(scenario.answers);
+    const results = evaluate(scenario.answers, overdueDay);
     assert.deepEqual(
       results.map((result) => result.law.id),
       lawIds,
@@ -106,7 +111,79 @@ test("decision table always returns one card for every screened framework", () =
     );
     assert.equal(new Set(results.map((result) => result.law.id)).size, 5);
     assert.deepEqual(statuses(scenario.answers), scenario.expected, scenario.name);
+    for (const result of results) {
+      assert.ok(result.matchedSignals.length > 0, `${result.law.id} needs matched signals`);
+      assert.ok(result.unresolvedFacts.length > 0, `${result.law.id} needs unresolved facts`);
+      assert.equal(result.provenance.sourceReviewStatus, "source-review-overdue");
+      assert.equal(result.provenance.sourceVersion, result.law.review.sourceDataVersion);
+      assert.equal(result.provenance.checkerVersion, result.law.review.checkerVersion);
+      assert.equal(
+        result.provenance.lastSubstantiveHumanReview,
+        result.law.review.lastSubstantiveHumanReviewDate,
+      );
+      for (const signal of result.matchedSignals) {
+        assert.equal(typeof signal.answer, "boolean");
+        assert.equal(signal.answer, scenario.answers[signal.answerKey]);
+      }
+    }
   }
+});
+
+test("source-review status changes deterministically at the UTC due-date boundary", () => {
+  assert.equal(getLegalReviewStatus(dueDay).overdue, false);
+  assert.ok(evaluate(allNo, dueDay).every((result) => result.provenance.sourceReviewStatus === "current"));
+  const overdue = getLegalReviewStatus(overdueDay);
+  assert.equal(overdue.overdue, true);
+  assert.equal(overdue.state, "source-review-overdue");
+  assert.equal(overdue.nextReviewDue, "2026-08-09");
+  assert.match(overdue.sourceDataVersion, /^legal-catalog-/);
+  assert.match(overdue.checkerVersion, /^checker-/);
+  assert.deepEqual(overdue.overdueLawIds, lawIds);
+  for (const law of Object.values(LAWS)) {
+    assert.equal(getLawReviewStatus(law, overdueDay).overdue, true);
+  }
+});
+
+test("every framework exposes structured source, review, scope, and change metadata", () => {
+  for (const law of Object.values(LAWS)) {
+    assert.ok(law.status);
+    assert.ok(law.rolesAffected.length > 0);
+    assert.ok(law.applicabilitySignals.length > 0);
+    assert.ok(law.definitions.length > 0);
+    assert.ok(law.exceptions.length > 0);
+    assert.ok(law.changeHistory.length > 0);
+    assert.match(law.review.sourceDataVersion, /^[-a-z0-9.]+$/);
+    assert.match(law.review.checkerVersion, /^checker-/);
+    assert.match(law.review.automatedSourceCheckStatus, /^(passed|access_limited)$/);
+    assert.ok(law.review.automatedSourceCheckNote.length > 20);
+    assert.equal(new Set(law.officialSources.map((source) => source.sourceId)).size, law.officialSources.length);
+    for (const source of law.officialSources) {
+      assert.match(source.canonicalUrl, /^https:\/\//);
+      assert.match(source.retrievedAt, /^\d{4}-\d{2}-\d{2}$/);
+      assert.ok(source.legalStatus);
+      assert.ok(source.bindingEffect);
+      if (source.contentSha256) {
+        assert.match(source.contentSha256, /^[a-f0-9]{64}$/);
+        assert.match(source.fingerprintUrl, /^https:\/\//);
+      }
+    }
+  }
+  assert.equal(LAWS.nySynthetic.review.automatedSourceCheckStatus, "access_limited");
+  assert.ok(
+    Object.values(LAWS)
+      .filter((law) => law.id !== "nySynthetic")
+      .every((law) => law.review.automatedSourceCheckStatus === "passed"),
+  );
+});
+
+test("illustrative disclosure wording carries a version or is explicitly absent", () => {
+  const eu = evaluate({ ...allNo, deepfakes: true }, overdueDay).find((result) => result.law.id === "euArt50");
+  const ny = evaluate({ ...allNo, nyAds: true }, overdueDay).find((result) => result.law.id === "nySynthetic");
+  const bot = evaluate({ ...allNo, chatbot: true }, overdueDay).find((result) => result.law.id === "caBot");
+  assert.equal(eu?.sampleDisclosure?.templateVersion, "eu-art50-deepfake-en-v1");
+  assert.equal(ny?.sampleDisclosure?.templateVersion, "ny-gbl-396-b-disclosure-en-v1");
+  assert.equal(bot?.sampleDisclosure?.templateVersion, "ca-bot-disclosure-en-v1");
+  assert.equal(eu?.provenance.templateVersion, eu?.sampleDisclosure?.templateVersion);
 });
 
 test("FTC screening does not reuse one disclosure across different relationships", () => {
@@ -115,6 +192,11 @@ test("FTC screening does not reuse one disclosure across different relationships
   );
   assert.ok(result);
   assert.equal(result.sampleDisclosure, undefined);
+  assert.equal(result.provenance.templateVersion, null);
+  assert.deepEqual(
+    result.matchedSignals.map(({ answerKey, answer }) => [answerKey, answer]),
+    [["publish", true], ["sponsored", true]],
+  );
   assert.match(result.detail, /paid, gifted, and affiliate relationships.*different factual wording/i);
 });
 
@@ -123,6 +205,7 @@ test("EU currentness copy limits the Article 50(2) transition precisely", async 
   const requirements = LAWS.euArt50.requires.join("\n");
 
   assert.equal(LEGAL_REVIEW_DATE, "2026-08-02");
+  assert.equal(LEGAL_CONTENT_MODIFIED_DATE, "2026-08-29");
   assert.equal(LEGAL_REVIEW_LABEL, "August 2, 2026");
   assert.equal(NEXT_LEGAL_REVIEW_DUE, "2026-08-09");
   assert.match(requirements, /Regulation \(EU\) 2026\/1744 delays only that paragraph/i);
@@ -132,9 +215,14 @@ test("EU currentness copy limits the Article 50(2) transition precisely", async 
   assert.match(pages, /does not postpone Article 50\(1\), 50\(3\), or 50\(4\)/);
   assert.match(pages, /guidelines are non-binding/i);
   assert.match(pages, /Code of Practice.*voluntary/i);
-  assert.match(pages, /OJ%3AL_202601744/);
-  assert.match(pages, /guidelines-transparency-obligations-providers-and-deployers-ai-systems/);
-  assert.match(pages, /code-practice-ai-generated-content/);
+  assert.match(pages, /replaced Article 50\(7\)/);
+  assert.match(pages, /formally assessed it as adequate/);
+  const sources = LAWS.euArt50.officialSources.map((source) => source.canonicalUrl).join("\n");
+  assert.match(sources, /reg\/2026\/1744/);
+  assert.match(sources, /guidelines-transparency-obligations-providers-and-deployers-ai-systems/);
+  assert.match(sources, /code-practice-ai-generated-content/);
+  assert.match(sources, /document\/130913/);
+  assert.match(sources, /document\/130916/);
 });
 
 test("California currentness copy integrates AB 853 and keeps SB 1000 proposed", async () => {
@@ -142,16 +230,16 @@ test("California currentness copy integrates AB 853 and keeps SB 1000 proposed",
   const requirements = LAWS.caSb942.requires.join("\n");
 
   assert.match(LAWS.caSb942.name, /as amended by AB 853/i);
-  assert.match(LAWS.caSb942.effective, /operative August 2, 2026/i);
-  assert.match(LAWS.caSb942.effective, /January 1, 2027/);
-  assert.match(LAWS.caSb942.effective, /January 1, 2028/);
-  assert.match(LAWS.caSb942.officialUrl, /codes_displayText.*chapter=25/);
+  assert.match(LAWS.caSb942.timingSummary, /operative August 2, 2026/i);
+  assert.match(LAWS.caSb942.timingSummary, /January 1, 2027/);
+  assert.match(LAWS.caSb942.timingSummary, /January 1, 2028/);
+  assert.match(LAWS.caSb942.officialSources[0].canonicalUrl, /codes_displayText.*chapter=25/);
   assert.match(requirements, /2,000,000 unique monthly users/);
   assert.match(requirements, /GenAI system hosting platform/);
   assert.match(requirements, /capture devices/);
   assert.match(requirements, /third-party licensee/);
   assert.match(pages, /SB 1000 is not current law/);
-  assert.match(pages, /AB 853 chaptered amendment/);
+  assert.match(LAWS.caSb942.officialSources.map((source) => source.title).join("\n"), /AB 853 chaptered amendment/);
   assert.match(pages, /Section 22757\.5 excludes/);
   assert.doesNotMatch(pages, /chapter became operative January 1, 2026/i);
 });
@@ -171,6 +259,13 @@ test("checker flow retains all questions and exposes mobile and assistive safegu
   assert.match(checker, /exclusively assembling devices is excluded/i);
   assert.match(checker, /emotion-recognition or biometric-categorisation/);
   assert.match(checker, /Article 50\(3\)/);
+  assert.match(checker, /Matched answers/);
+  assert.match(checker, /Important unresolved facts/);
+  assert.match(checker, /SOURCE REVIEW OVERDUE/);
+  assert.match(checker, /Source version/);
+  assert.match(checker, /Template version/);
+  assert.match(checker, /setResultAsOfMs\(Date\.now\(\)\)/);
+  assert.match(checker, /SourceReviewNotice compact asOfMs=\{resultAsOfMs\}/);
   assert.match(checker, /onClick={goBack}/);
   assert.match(checker, /tabIndex={-1}/);
   assert.match(checker, /aria-live="polite"/);
@@ -180,17 +275,20 @@ test("checker flow retains all questions and exposes mobile and assistive safegu
 });
 
 test("public machine-readable copy uses current dates, conclusions, and live routes", async () => {
-  const [llms, home] = await Promise.all([
-    readFile(new URL("../public/llms.txt", import.meta.url), "utf8"),
+  const [home, route, llms] = await Promise.all([
     readFile(new URL("../src/app/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../src/app/llms.txt/route.ts", import.meta.url), "utf8"),
+    readFile(new URL("../src/lib/llmsText.ts", import.meta.url), "utf8"),
   ]);
 
   assert.match(llms, /may warrant review/i);
-  assert.match(llms, /does not decide[\s>]+jurisdiction, coverage, compliance, or legal duties/i);
-  assert.match(llms, /reviewed August 2, 2026/i);
-  assert.match(llms, /SB 942 as amended by AB 853[\s\S]*operative August 2, 2026/i);
-  assert.match(llms, /Pending SB 1000[\s\S]*not current law/i);
-  assert.match(llms, /material connections,[\s\S]*not a general AI-use label/i);
+  assert.match(llms, /does not decide/i);
+  assert.match(llms, /jurisdiction, coverage, compliance, or legal duties/i);
+  assert.match(llms, /Last substantive review:/i);
+  assert.match(llms, /law\.timingSummary/);
+  assert.match(llms, /SOURCE REVIEW OVERDUE/);
+  assert.match(llms, /Status as of:.*asOf\.toISOString/);
+  assert.match(route, /force-dynamic/);
   assert.doesNotMatch(llms, /which AI\s+disclosure laws apply|FTC Endorsement Guides AI disclosure guidance/i);
   assert.doesNotMatch(llms, /\/answers\//);
   for (const path of [
@@ -199,18 +297,18 @@ test("public machine-readable copy uses current dates, conclusions, and live rou
     "/downloads/ai-disclosure-law-tracker.csv",
     "/about",
     "/editorial-standards",
+    "/corrections",
+    "/accessibility",
+    "/ai-transparency",
+    "/security",
     "/privacy",
     "/contact",
     "/disclaimer",
     "/terms",
-    "/laws/ftc-ai-disclosure-rules",
-    "/laws/eu-ai-act-article-50",
-    "/laws/new-york-synthetic-performer-law",
-    "/laws/california-bot-disclosure-law",
-    "/laws/california-sb-942",
   ]) {
     assert.match(llms, new RegExp(`https://aipolicyfile\\.com${path.replaceAll("/", "\\/")}`));
   }
+  assert.match(llms, /https:\/\/aipolicyfile\.com\/laws\/\$\{LAW_PAGE_SLUGS\[law\.id\]\}/);
 
   assert.match(home, /Get a card per law/);
   assert.match(home, /Every result links to the official text/);

@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { LAW_PAGES } from "@/lib/lawPages";
-import { LAWS, LEGAL_REVIEW_DATE, LEGAL_REVIEW_LABEL } from "@/lib/laws";
+import { getLawReviewStatus, LAWS, LEGAL_CONTENT_MODIFIED_DATE } from "@/lib/laws";
 import { serializeJsonLd } from "@/lib/jsonLd";
+import { SourceReviewNotice } from "@/components/SourceReviewNotice";
 
 export function generateStaticParams() {
   return LAW_PAGES.map((p) => ({ slug: p.slug }));
@@ -28,7 +29,7 @@ export async function generateMetadata({
       description: page.metaDescription,
       url,
       publishedTime: "2026-07-07",
-      modifiedTime: LEGAL_REVIEW_DATE,
+      modifiedTime: LEGAL_CONTENT_MODIFIED_DATE,
       authors: ["https://aipolicyfile.com/about#jason-ramirez"],
       images: [
         {
@@ -57,6 +58,7 @@ export default async function LawPage({
   const page = LAW_PAGES.find((p) => p.slug === slug);
   if (!page) notFound();
   const law = LAWS[page.lawId];
+  const review = getLawReviewStatus(law);
   const pageUrl = `https://aipolicyfile.com/laws/${page.slug}`;
 
   const faqJsonLd = {
@@ -90,7 +92,7 @@ export default async function LawPage({
     headline: page.title,
     description: page.metaDescription,
     datePublished: "2026-07-07",
-    dateModified: LEGAL_REVIEW_DATE,
+    dateModified: LEGAL_CONTENT_MODIFIED_DATE,
     inLanguage: "en-US",
     mainEntityOfPage: pageUrl,
     image: "https://aipolicyfile.com/opengraph-image",
@@ -106,7 +108,7 @@ export default async function LawPage({
       name: "AI Policy File",
       url: "https://aipolicyfile.com",
     },
-    citation: page.sources.map((source) => source.url),
+    citation: law.officialSources.map((source) => source.canonicalUrl),
   };
 
   return (
@@ -147,9 +149,12 @@ export default async function LawPage({
       </p>
       <p className="mt-2 text-sm text-slate-600">
         Educational information, not legal advice. Facts checked against the
-        official text linked below, last reviewed {LEGAL_REVIEW_LABEL}. This page does
+        official text linked below, last substantively reviewed {review.reviewedLabel}. This page does
         not determine whether the rule applies to you.
       </p>
+      <div className="mt-6">
+        <SourceReviewNotice />
+      </div>
 
       <p className="mt-6 text-lg leading-relaxed text-slate-700">{page.intro}</p>
 
@@ -165,22 +170,22 @@ export default async function LawPage({
           </div>
           <div>
             <dt className="inline font-semibold text-slate-700">Effective: </dt>
-            <dd className="inline text-slate-600">{law.effective}</dd>
+            <dd className="inline text-slate-600">{law.timingSummary}</dd>
           </div>
           <div>
             <dt className="inline font-semibold text-slate-700">Enforcement note: </dt>
             <dd className="inline text-slate-600">{law.penalty}</dd>
           </div>
           <div>
-            <dt className="inline font-semibold text-slate-700">Official text: </dt>
+            <dt className="inline font-semibold text-slate-700">Primary official text: </dt>
             <dd className="inline">
               <a
-                href={law.officialUrl}
+                href={law.officialSources[0].canonicalUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-indigo-700 underline underline-offset-2 hover:text-indigo-900"
               >
-                {law.officialLabel}
+                {law.officialSources[0].title}
               </a>
             </dd>
           </div>
@@ -222,16 +227,17 @@ export default async function LawPage({
       <section className="mt-10">
         <h2 className="font-display text-2xl font-bold text-slate-900">Sources</h2>
         <ul className="mt-3 list-disc space-y-1 pl-5 text-slate-700">
-          {page.sources.map((s) => (
-            <li key={s.url}>
+          {law.officialSources.map((source) => (
+            <li key={source.sourceId}>
               <a
-                href={s.url}
+                href={source.canonicalUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-indigo-700 underline underline-offset-2 hover:text-indigo-900"
               >
-                {s.label}
+                {source.title}
               </a>
+              <span className="text-sm text-slate-600"> — {source.bindingEffect.replaceAll("_", " ")}</span>
             </li>
           ))}
         </ul>

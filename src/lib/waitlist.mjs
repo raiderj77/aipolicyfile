@@ -1,4 +1,8 @@
 export const MAX_WAITLIST_BODY_BYTES = 4096;
+export const WAITLIST_CONSENT_NOTICE_VERSION = "waitlist-launch-v1";
+export const WAITLIST_RETENTION_TARGET_DAYS = 365;
+export const WAITLIST_RETENTION_RULE =
+  "Delete on verified withdrawal; otherwise within 30 days after the one launch email; manual target no later than 365 days after submission.";
 
 export async function readLimitedRequestBody(request, maxBytes = MAX_WAITLIST_BODY_BYTES) {
   const reader = request.body?.getReader();
@@ -73,12 +77,23 @@ export function parseWaitlistBody(rawBody) {
   return { ok: true, status: 200, data: { email, role, worth, source } };
 }
 
-export function buildTelegramMessage({ email, role, worth, source }) {
+export function buildTelegramMessage({ email, role, worth, source }, now = new Date()) {
+  if (!(now instanceof Date) || Number.isNaN(now.getTime())) {
+    throw new TypeError("buildTelegramMessage requires a valid Date");
+  }
+  const submittedAt = now.toISOString();
+  const retentionDue = new Date(now.getTime());
+  retentionDue.setUTCDate(retentionDue.getUTCDate() + WAITLIST_RETENTION_TARGET_DAYS);
+
   return [
     "aipolicyfile waitlist signup",
     `email: ${email}`,
     `role: ${role || "not provided"}`,
     `worth: ${worth || "not provided"}`,
     `source: ${source}`,
+    `submitted_at_utc: ${submittedAt}`,
+    `consent_notice_version: ${WAITLIST_CONSENT_NOTICE_VERSION}`,
+    `retention_due_utc: ${retentionDue.toISOString()}`,
+    `retention_rule: ${WAITLIST_RETENTION_RULE}`,
   ].join("\n");
 }

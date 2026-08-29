@@ -2,20 +2,21 @@
 // The shared review date is maintained in laws.ts. These pages identify questions
 // to review; they do not determine jurisdiction, legal status, or compliance.
 
+import type { LawId } from "@/lib/laws";
+
 export interface LawPageSection {
   heading: string;
   paragraphs: string[];
 }
 
 export interface LawPage {
-  lawId: string;
+  lawId: LawId;
   slug: string;
   title: string;
   metaDescription: string;
   intro: string;
   sections: LawPageSection[];
   faq: { q: string; a: string }[];
-  sources: { label: string; url: string }[];
 }
 
 export const LAW_PAGES: LawPage[] = [
@@ -38,7 +39,7 @@ export const LAW_PAGES: LawPage[] = [
       {
         heading: "What AI use changes—and what it does not",
         paragraphs: [
-          "Using an AI tool does not, by itself, establish that the Endorsement Guides apply or that an AI label is required. The advertising relationship, the message consumers receive, the truthfulness of the claims, and the evidence supporting those claims still need review.",
+          "The reviewed FTC Endorsement Guides and staff guidance do not establish a general disclosure duty triggered solely by AI assistance. The advertising relationship, the message consumers receive, the truthfulness of the claims, and the evidence supporting those claims still need review.",
           "AI use can create separate risk if it fabricates an experience, changes an endorser's meaning, invents a testimonial, or produces an unsupported claim. A material-connection disclosure would not cure a false or misleading advertising claim.",
         ],
       },
@@ -53,6 +54,7 @@ export const LAW_PAGES: LawPage[] = [
         heading: "Limits of this screening page",
         paragraphs: [
           "The Endorsement Guides are administrative interpretations rather than a standalone schedule of automatic fines. Potential remedies depend on the FTC Act, the conduct, the evidence, and the enforcement path.",
+          "The separate binding Consumer Reviews and Testimonials Rule in 16 CFR Part 465 covers matters including fake or false reviews and testimonials, certain undisclosed insider reviews, conditioned review incentives, review suppression, and fake social indicators. It is adjacent to, not an amendment of, Part 255.",
           "This page does not evaluate a real advertisement, audience research, substantiation, a platform's tools, an existing order, or another federal or state rule. Use the official sources below and obtain legal advice for a real campaign or dispute.",
         ],
       },
@@ -73,16 +75,6 @@ export const LAW_PAGES: LawPage[] = [
       {
         q: "Does a disclosure make an unsupported claim acceptable?",
         a: "No. A relationship disclosure and claim substantiation are different issues. Endorsements still must be honest and cannot communicate claims the advertiser could not lawfully make.",
-      },
-    ],
-    sources: [
-      {
-        label: "FTC Endorsement Guides: What People Are Asking",
-        url: "https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking",
-      },
-      {
-        label: "FTC Advertisement Endorsements overview",
-        url: "https://www.ftc.gov/news-events/topics/truth-advertising/advertisement-endorsements",
       },
     ],
   },
@@ -115,14 +107,15 @@ export const LAW_PAGES: LawPage[] = [
           "The Regulation generally applies from August 2, 2026. Article 50(5) says the specified information must be clear and distinguishable and provided no later than the first interaction or exposure, while also meeting applicable accessibility requirements.",
           "Regulation (EU) 2026/1744 added Article 111(4): providers of systems covered by Article 50(2) that were placed on the market before August 2, 2026 have until December 2, 2026 to comply with that paragraph. This is a narrow transition for the provider-side machine-readable marking duty; it does not postpone Article 50(1), 50(3), or 50(4), and it does not cover a relevant system first placed on the market on or after August 2, 2026.",
           "The text contains category-specific qualifications and exceptions, including language for artistic or fictional works and for certain public-interest text that undergoes human review or editorial control with identified editorial responsibility. Whether an exception fits cannot be decided from a single checker answer.",
-          "The European Commission's July 2026 guidelines explain how it interprets Article 50, but the guidelines are non-binding and do not change the Regulation. The Code of Practice on marking and labelling AI-generated content is voluntary; it is an implementation aid, not a replacement for the legal text or a guarantee that a particular system complies.",
+          "Regulation (EU) 2026/1744 also replaced Article 50(7). The current paragraph requires the Commission to encourage Union-level codes of practice, assess whether adherence is adequate to ensure compliance, and permits common implementation rules if a code is inadequate. This change is separate from the narrow Article 50(2) transition.",
+          "The European Commission's July 2026 guidelines explain how it interprets Article 50, but the guidelines are non-binding and do not change the Regulation. The Code of Practice remains voluntary. The Commission and AI Board formally assessed it as adequate for Article 50(2), (4), and (5), but the Commission says adherence is not conclusive evidence that a particular system complies; non-signatories may use other adequate means.",
         ],
       },
       {
         heading: "Questions for a professional review",
         paragraphs: [
           "Identify the system and output, each operator's role, where the operator is established, where the output is used, the purpose of publication, and whether the content is a deepfake or public-interest text. Record any human-review process and who holds editorial responsibility.",
-          "Also review other EU and national rules. Article 50(6) expressly leaves other transparency obligations unaffected, so satisfying one Article 50 step does not establish complete legal compliance.",
+          "Also review other EU and national rules. Article 50(6) expressly leaves other transparency obligations unaffected, so satisfying one Article 50 step does not establish complete legal compliance. Article 50 violations fall within Article 99(4)'s maximum tier of €15 million or 3% of prior-year worldwide turnover for an undertaking, subject to the Regulation's case-specific, SME, and SMC rules; that ceiling is not a predicted penalty.",
         ],
       },
     ],
@@ -148,24 +141,6 @@ export const LAW_PAGES: LawPage[] = [
         a: "No. Regulation (EU) 2026/1744 limits that transition to Article 50(2) for covered systems placed on the market before August 2, 2026. The amendment does not postpone paragraphs 1, 3, or 4.",
       },
     ],
-    sources: [
-      {
-        label: "Regulation (EU) 2024/1689, including Articles 2, 50, 99 and 113",
-        url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj?locale=en",
-      },
-      {
-        label: "Regulation (EU) 2026/1744, including the Article 50(2) transition",
-        url: "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=OJ%3AL_202601744",
-      },
-      {
-        label: "European Commission guidelines on Article 50 transparency obligations",
-        url: "https://digital-strategy.ec.europa.eu/en/library/guidelines-transparency-obligations-providers-and-deployers-ai-systems",
-      },
-      {
-        label: "European Commission page for the voluntary Code of Practice",
-        url: "https://digital-strategy.ec.europa.eu/en/policies/code-practice-ai-generated-content",
-      },
-    ],
   },
   {
     lawId: "nySynthetic",
@@ -179,8 +154,8 @@ export const LAW_PAGES: LawPage[] = [
       {
         heading: "Facts that control the screening",
         paragraphs: [
-          "Review whether the material is an advertisement respecting property or services, whether it is placed before the public in New York, and whether the asset meets the enacted definition of a synthetic performer. The definition focuses on a digitally created, reproduced, or modified asset intended to create the impression of a human audiovisual or visual performance when it is not recognizable as an identifiable natural performer.",
-          "The enacted disclosure provision also uses actual knowledge. A checker cannot establish what an advertiser, agent, employee, publisher, or distributor knew or when that knowledge arose.",
+          "Review whether a person engaged in dealing in property or services produced or created the advertisement for a commercial purpose and whether the asset meets the enacted definition of a synthetic performer. The definition focuses on a digitally created, reproduced, or modified asset intended to create the impression of a human audiovisual or visual performance when it is not recognizable as an identifiable natural performer.",
+          "The enacted disclosure provision applies an actual-knowledge condition to the person producing or creating the advertisement. A checker cannot establish who held that role, what that person knew, or when that knowledge arose.",
         ],
       },
       {
@@ -194,7 +169,7 @@ export const LAW_PAGES: LawPage[] = [
         heading: "Exceptions and publishing-media provisions",
         paragraphs: [
           "The enacted amendment includes provisions for advertisements or promotional material tied to expressive works, audio advertisements, and uses where AI only translates a human performer. Read the exact conditions rather than treating the category name as enough.",
-          "It also contains a publishing-media provision with written-notice and timing language and separately prohibits removal or alteration of an associated disclosure. Responsibility can therefore depend on the actor's role and knowledge.",
+          "Subdivision 8 says the section does not apply to an advertising medium—including the listed newspaper, magazine, television, streaming, cable, billboard, and transit examples—by which a violating advertisement is published or disseminated. Earlier bill text included written-notice, cure-period, and disclosure-removal clauses, but those clauses are not in enacted S.8420-A or the current codified section.",
         ],
       },
       {
@@ -221,16 +196,6 @@ export const LAW_PAGES: LawPage[] = [
       {
         q: "When did the law take effect?",
         a: "The bill was signed December 11, 2025 and states that it takes effect 180 days after becoming law, which is June 9, 2026.",
-      },
-    ],
-    sources: [
-      {
-        label: "New York S.8420-A enacted bill and status",
-        url: "https://www.nysenate.gov/legislation/bills/2025/S8420/amendment/A",
-      },
-      {
-        label: "New York confirmation that the law took effect June 9, 2026",
-        url: "https://www.governor.ny.gov/news/governor-hochul-announces-first-nation-law-requiring-disclosure-when-advertisements-include-ai",
       },
     ],
   },
@@ -290,16 +255,6 @@ export const LAW_PAGES: LawPage[] = [
         a: "The official code notes an effective date of January 1, 2019 and an operative date of July 1, 2019.",
       },
     ],
-    sources: [
-      {
-        label: "California Business and Professions Code Section 17941",
-        url: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=17941",
-      },
-      {
-        label: "California SB 1001 chaptered bill",
-        url: "https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=201720180SB1001",
-      },
-    ],
   },
   {
     lawId: "caSb942",
@@ -341,7 +296,7 @@ export const LAW_PAGES: LawPage[] = [
       {
         heading: "Pending SB 1000 is not current law",
         paragraphs: [
-          "As of the August 2, 2026 review, SB 1000 is an active urgency bill in the Assembly floor process. Its June 9 text would change important definitions and duties, including the covered-provider threshold, if enacted. It has not been enacted and should not be treated as current law.",
+          "An August 29, 2026 automated source check found that SB 1000 passed the Legislature with an urgency clause, the Senate concurred in Assembly amendments on August 27, and the bill was ordered to engrossing and enrolling. The latest official text was amended August 21. The official status still identified it as an active bill rather than chaptered law, so it must not be treated as current law. Substantive human review of the changed text remains overdue.",
           "Before relying on a classification, verify the current codified chapter and the official SB 1000 status. Product architecture, audience measurements, and the statute can all change.",
         ],
       },
@@ -365,25 +320,7 @@ export const LAW_PAGES: LawPage[] = [
       },
       {
         q: "Did pending SB 1000 already remove the one-million threshold?",
-        a: "No. As of the August 2, 2026 review, SB 1000 remains an active bill and is not current law. The current codified covered-provider definition still includes the threshold.",
-      },
-    ],
-    sources: [
-      {
-        label: "Current California Business and Professions Code, Chapter 25",
-        url: "https://www.leginfo.legislature.ca.gov/faces/codes_displayText.xhtml?article=&chapter=25.&division=8.&lawCode=BPC&part=&title=",
-      },
-      {
-        label: "California AB 853 chaptered amendment",
-        url: "https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260AB853",
-      },
-      {
-        label: "California SB 942 chaptered text",
-        url: "https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202320240SB942",
-      },
-      {
-        label: "Pending California SB 1000 official status",
-        url: "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB1000",
+        a: "No. An August 29, 2026 automated check found SB 1000 had passed the Legislature and was ordered to enrolling, but the official status still showed an active bill rather than chaptered law. The current codified covered-provider definition still includes the threshold; verify the official status before relying on this answer.",
       },
     ],
   },
