@@ -7,8 +7,8 @@
 **Review trigger:** Substantive review overdue since August 9; three material corrections; August 29 catalog update; passed-but-not-chaptered SB 1000; New York access limitations.  
 **Prepared classification:** Critical — a pending urgency bill plus unresolved manual verification and monitoring decisions require fail-closed handling. The human reviewer must confirm or change this classification.  
 **Scope:** Five implemented frameworks, all implemented official-source URLs, three correction records, pending changes, and sample/template impact.  
-**Prepared comparison baseline commit:** `6503ba07df01e7a9deb279882457559dd5d1aaeb`  
-**Prepared comparison legal-content SHA-256:** [refresh after the governance implementation commit]  
+**Prepared comparison baseline commit:** `002c9775515d08851d68139743177fdad3f70553`  
+**Prepared comparison legal-content SHA-256:** `741fe427085b7865007c9d7ce17b1d3d94c3d71eb57c5cbdb23a1388ae7e784f`  
 **Final reviewed commit:** [complete after any accepted changes are implemented]  
 **Final legal-content SHA-256:** [complete after any accepted changes are implemented and rechecked]  
 **Source catalog version:** `legal-catalog-2026-08-29.3`  
