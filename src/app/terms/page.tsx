@@ -46,12 +46,12 @@ export default function TermsPage() {
         <p>
           The AI Disclosure Starter File is a planned one-time digital product and
           is not currently open for sale. A scheduled source review is overdue,
-          and an August 29, 2026 external delivery test of the published support
-          address, hello@aipolicyfile.com, was rejected by the forwarding server
-          with a relay-access error. Checkout must remain closed until the source
-          review is current, the support route is repaired and externally
-          retested, the product and refund process are verified, a valid external
-          checkout is configured, and sales are explicitly enabled on the server.
+          while the outbound support-reply identity and workflow still require
+          verification. Inbound delivery to hello@aipolicyfile.com was repaired
+          and externally retested on August 29, 2026. Checkout must remain closed
+          until the source review is current, the complete support workflow, product,
+          and refund process are verified, a valid external checkout is configured,
+          and sales are explicitly enabled on the server.
         </p>
         <p>
           Gumroad and Paddle are merchant-of-record candidates. Neither provider
@@ -101,8 +101,7 @@ export default function TermsPage() {
           14-day refund process
         </h2>
         <p>
-          After the support address has been repaired and sales have opened, you
-          may request a full refund for any reason by emailing
+          After sales have opened, you may request a full refund for any reason by emailing
           hello@aipolicyfile.com within 14 calendar days after purchase. Include
           the order ID and the email address used at checkout; do not send card or
           bank details. We will validate the order and initiate the refund through

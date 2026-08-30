@@ -10,7 +10,7 @@ Status: **DO NOT PUBLISH OR ACCEPT PAYMENT.** This copy is ready for account set
 - Upload: the final post-review `ai-disclosure-starter-file-v1.0.0.zip`, never the currently blocked inspection ZIP.
 - Version shown to buyers: `1.0.0`.
 - Refund policy: full refund for any reason when requested within 14 calendar days after purchase; mandatory rights remain intact.
-- Support: use `hello@aipolicyfile.com` only after external inbound and reply tests pass. Until then, do not publish the product.
+- Support: inbound delivery to `hello@aipolicyfile.com` passed an external test on 2026-08-29; do not publish until the customer-facing reply identity and workflow also pass.
 
 ## Short description
 

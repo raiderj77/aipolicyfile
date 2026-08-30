@@ -50,10 +50,10 @@ export default function PrivacyPage() {
           Paid checkout is disabled. Gumroad and Paddle are merchant-of-record candidates, but
           neither has been selected or configured for this product, and no provider account,
           checkout, privacy setting, retention setting, or data-processing term has been verified.
-          An August 29, 2026 external delivery test of hello@aipolicyfile.com was rejected by the
-          Namecheap forwarding server with a 554 5.7.1 relay-access error. Sales will remain disabled
-          until support routing is repaired and externally retested, a provider is selected and
-          verified, and this notice identifies that provider and its processing.
+          Inbound delivery to hello@aipolicyfile.com was repaired and externally retested on August
+          29, 2026. Sales will remain disabled until the outbound support-reply identity and workflow
+          are verified, a provider is selected and verified, and this notice identifies that provider
+          and its processing.
         </p>
         <p>
           If checkout is later activated, the selected external merchant of record will process the
@@ -96,8 +96,7 @@ export default function PrivacyPage() {
           retroactive, so messages received before it was enabled remain subject to manual review and
           deletion. To request deletion,
           use the published controller address, hello@aipolicyfile.com, from the address you
-          submitted. That address is currently failing external delivery as described below and
-          cannot be relied on until repaired. Once a request is received and verified, we will delete
+          submitted. Once a request is received and verified, we will delete
           the accessible message. Telegram or hosting providers may retain limited
           backup, security, or legal records, so we do not promise immediate deletion from every
           system.
@@ -106,12 +105,12 @@ export default function PrivacyPage() {
         <h2 className="font-display text-xl font-semibold text-slate-900">Contact email</h2>
         <p>
           The published address hello@aipolicyfile.com is configured through Namecheap&apos;s
-          email-forwarding service, but it is not currently a reliable contact route. An external
-          delivery test on August 29, 2026 was rejected with a 554 5.7.1 relay-access error. The
-          forwarding destination, receiving mailbox provider, account-side retention, security
-          configuration, inbound delivery, and reply path all require repair or verification. Do not
-          send confidential, privileged, highly sensitive, card, or bank information. No paid checkout
-          may open until a fresh external send-and-reply test succeeds.
+          email-forwarding service and a Google Gmail receiving mailbox. On August 29, 2026, a fresh
+          message from an unrelated external mailbox reached the receiving Inbox and was automatically
+          labeled AI Policy File Support. The outbound reply identity, account security, and retention
+          workflow still require launch verification. Do not send confidential, privileged, highly
+          sensitive, card, or bank information. No paid checkout may open until a fresh external
+          send-and-reply test succeeds with an appropriate customer-facing identity.
         </p>
 
         <h2 className="font-display text-xl font-semibold text-slate-900">Hosting and logs</h2>
@@ -300,9 +299,8 @@ export default function PrivacyPage() {
 
         <h2 className="font-display text-xl font-semibold text-slate-900">Contact</h2>
         <p>
-          The published controller address is hello@aipolicyfile.com, but the August 29, 2026 external
-          test described above failed and no dependable alternate privacy-request channel has been
-          verified. This page will be updated when routing is restored. We may need to verify that you
+          The published controller address is hello@aipolicyfile.com. Inbound delivery was externally
+          verified on August 29, 2026 as described above. We may need to verify that you
           control the submitted or purchase email address before acting on a request, but we will not
           ask for full payment credentials.
         </p>

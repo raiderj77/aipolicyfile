@@ -9,7 +9,7 @@ Do not accept payment yet. The public `/starter-file` route is intentionally fai
 Verified blockers on 2026-08-29:
 
 1. The substantive human legal-source review is dated 2026-08-02 and was due again on 2026-08-09, so `getLegalReviewStatus().overdue` is true.
-2. An external message to `hello@aipolicyfile.com` was rejected by `eforward2.registrar-servers.com` with `554 5.7.1 Relay access denied`. Inbound delivery and a working reply path are not available for refunds or privacy requests.
+2. Inbound delivery to `hello@aipolicyfile.com` is repaired and externally verified, but the outbound reply identity and workflow have not yet passed a customer-facing send-and-reply test.
 3. Gumroad and Paddle are candidates only. Neither provider has been selected, configured, signed into, or verified for identity, security, payout, tax, checkout, delivery, refund, retention, or privacy behavior.
 4. A deterministic blocked inspection ZIP is reconciled with catalog `.2` and the public offer, but it must be rebuilt after human source sign-off and still needs a clean extracted-file browser/network inspection before upload.
 5. No provider test purchase, receipt, download, redelivery, support, or refund flow has passed.
@@ -98,13 +98,28 @@ Every item must be evidenced before setting `STARTER_FILE_SALES_ENABLED=true`.
 
 ### Support and privacy
 
-- [ ] Repair the Namecheap forwarding route for `hello@aipolicyfile.com`.
-- [ ] From an unrelated external mailbox, send a new message to the alias and verify receipt in the intended mailbox without a delivery error.
+- [x] Repair the Namecheap forwarding route for `hello@aipolicyfile.com`; it forwards to the owner-controlled receiving mailbox.
+- [x] From an unrelated external mailbox, send a new message to the alias and verify receipt in the intended mailbox without a delivery error. Test `APF-20260829-01` arrived in Gmail with the `AI Policy File Support` label, `INBOX`, and `UNREAD`.
 - [ ] Reply from the support workflow and verify that the external sender receives it and sees an appropriate From/Reply-To identity.
 - [ ] Verify the receiving provider, account owner, MFA, recovery methods, delegated access, spam handling, retention, deletion, export, and incident process.
 - [ ] Do not put paid-customer records, refund details, files, or legal questions in Telegram.
 - [ ] Update the Privacy Policy and data inventory with the selected merchant, fields, purposes, legal bases where applicable, recipients, countries/safeguards, retention, deletion, export, support route, and provider links.
 - [ ] Update Terms with the selected merchant and the final complete ZIP manifest.
+
+#### Support reply decision
+
+Namecheap Free Email Forwarding is suitable only for inbound routing: it does not create a mailbox or support outgoing mail. Google's custom-address Gmail flow requires SMTP credentials, and Google says third-party Send-as support in Gmail web and mobile will be removed in January 2027. Do not build the launch support workflow around Gmail Send-as.
+
+The lowest-cost stable recommendation is one Namecheap Private Email Launch mailbox for `hello@aipolicyfile.com` (publicly listed at $14.88/year with a 30-day trial when checked on 2026-08-29). After separate owner approval for the paid service, replace the free forwarder with the mailbox, enable mailbox 2FA, configure SPF/DKIM/DMARC, forward a copy to the owner's Gmail while retaining a server copy, and use Namecheap webmail or a directly configured mail client for replies. Re-run external inbound, authenticated outbound, reply, spam, recovery, retention, deletion/export, and incident tests before sales open.
+
+Official references checked on 2026-08-29:
+
+- Namecheap free forwarding limits: <https://www.namecheap.com/support/knowledgebase/article.aspx/308/2214/how-to-set-up-free-email-forwarding/>
+- Google custom Send-as and SMTP requirement: <https://support.google.com/mail/answer/22370>
+- Google third-party account and Send-as retirement: <https://support.google.com/mail/answer/17101213>
+- Namecheap Private Email plan comparison: <https://www.namecheap.com/support/knowledgebase/article.aspx/10789/2179/private-email-plans-comparison/>
+- Namecheap Private Email DNS records: <https://www.namecheap.com/support/knowledgebase/article.aspx/1338/2176/how-to-set-up-namecheap-private-email-dns-records-for-domains-on-namecheap-basicpremium-nameservers/>
+- Namecheap Private Email forwarding: <https://www.namecheap.com/support/knowledgebase/article.aspx/10784/2178/how-to-set-up-forwarding-in-namecheap-private-email/>
 
 ### Merchant account and checkout
 
