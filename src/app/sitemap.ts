@@ -7,7 +7,7 @@ const BASE = "https://aipolicyfile.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const legalContentModifiedDate = new Date(LEGAL_CONTENT_MODIFIED_DATE);
-  const siteUpdateDate = new Date("2026-08-02");
+  const siteUpdateDate = new Date("2026-08-29");
   const trustUpdateDate = new Date("2026-08-29");
   const lawPages: MetadataRoute.Sitemap = Object.values(LAW_PAGE_SLUGS).map((slug) => ({
     url: `${BASE}/laws/${slug}`,
@@ -25,6 +25,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/`, lastModified: legalContentModifiedDate, changeFrequency: "weekly", priority: 1 },
     { url: `${BASE}/checker`, lastModified: legalContentModifiedDate, changeFrequency: "monthly", priority: 0.9 },
     { url: `${BASE}/tracker`, lastModified: legalContentModifiedDate, changeFrequency: "weekly", priority: 0.9 },
+    { url: `${BASE}/starter-file`, lastModified: siteUpdateDate, changeFrequency: "monthly", priority: 0.8 },
     ...lawPages,
     ...answerPages,
     { url: `${BASE}/about`, lastModified: siteUpdateDate, changeFrequency: "yearly", priority: 0.5 },

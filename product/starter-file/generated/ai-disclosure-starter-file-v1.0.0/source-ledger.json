@@ -1,0 +1,451 @@
+{
+  "artifactTemplateVersion": "ai-disclosure-starter-file-en-v1",
+  "artifactVersion": "1.0.0",
+  "assembledAsOf": "2026-08-30",
+  "checkerVersion": "checker-2026-08-29.1",
+  "educationalLimitation": "Educational drafting aid only. AI Policy File is not a law firm, does not provide legal advice, and does not decide which law applies or whether wording is sufficient for a particular person, project, or business. Verify the facts and current official sources, and seek qualified advice when needed.",
+  "frameworks": [
+    {
+      "id": "ftc",
+      "jurisdiction": "United States federal law; audience and market facts matter",
+      "legalStatus": "current_interpretive_guides_and_binding_adjacent_rule",
+      "name": "FTC Endorsement Guides and Section 5",
+      "officialSources": [
+        {
+          "authority": "United States Congress",
+          "bindingEffect": "binding_statute",
+          "canonicalUrl": "https://www.govinfo.gov/link/uscode/15/45",
+          "documentId": "15-USC-45",
+          "jurisdiction": "United States",
+          "legalStatus": "in_force",
+          "retrievedAt": "2026-08-29",
+          "sourceId": "us-ftc-section-5",
+          "sourceType": "statute",
+          "title": "15 U.S.C. § 45"
+        },
+        {
+          "authority": "Federal Trade Commission",
+          "bindingEffect": "administrative_interpretation_not_standalone_rule",
+          "canonicalUrl": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255",
+          "consolidatedAsOf": "2026-08-27",
+          "contentSha256": "feb1c8cfee82158c16c4210ef320bc93ffb2f414aa2bdce6e6772a77064180ea",
+          "documentId": "16-CFR-Part-255",
+          "effectiveDate": "2023-07-26",
+          "fingerprintUrl": "https://www.ecfr.gov/api/versioner/v1/full/2026-08-27/title-16.xml?part=255",
+          "jurisdiction": "United States",
+          "legalStatus": "current",
+          "publishedDate": "2023-07-26",
+          "retrievedAt": "2026-08-29",
+          "sourceId": "us-ftc-endorsement-guides",
+          "sourceType": "administrative_interpretive_guides",
+          "title": "Guides Concerning the Use of Endorsements and Testimonials in Advertising"
+        },
+        {
+          "authority": "Federal Trade Commission staff",
+          "bindingEffect": "nonbinding_staff_guidance_no_safe_harbor",
+          "canonicalUrl": "https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking",
+          "jurisdiction": "United States",
+          "legalStatus": "current",
+          "publishedDate": "2023-06-29",
+          "retrievedAt": "2026-08-29",
+          "sourceId": "us-ftc-endorsement-qa",
+          "sourceType": "staff_guidance",
+          "title": "The FTC's Endorsement Guides: What People Are Asking"
+        },
+        {
+          "authority": "Federal Trade Commission",
+          "bindingEffect": "official_final_publication_of_interpretive_guides",
+          "canonicalUrl": "https://www.federalregister.gov/d/2023-14795",
+          "documentId": "FR-Doc-2023-14795-88-FR-48092",
+          "effectiveDate": "2023-07-26",
+          "jurisdiction": "United States",
+          "legalStatus": "published",
+          "publishedDate": "2023-07-26",
+          "retrievedAt": "2026-08-29",
+          "sourceId": "us-ftc-endorsement-guides-final",
+          "sourceType": "federal_register_final_document",
+          "title": "Revised Endorsement Guides final publication"
+        },
+        {
+          "authority": "Federal Trade Commission",
+          "bindingEffect": "binding_rule",
+          "canonicalUrl": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-D/part-465",
+          "documentId": "16-CFR-Part-465",
+          "effectiveDate": "2024-10-21",
+          "jurisdiction": "United States",
+          "legalStatus": "in_force",
+          "notes": "Adjacent binding rule; it does not amend Part 255.",
+          "retrievedAt": "2026-08-29",
+          "sourceId": "us-ftc-consumer-review-rule",
+          "sourceType": "trade_regulation_rule",
+          "title": "Rule on the Use of Consumer Reviews and Testimonials"
+        }
+      ],
+      "review": {
+        "automatedSourceCheckNote": "All configured automated checks for this framework completed without a detected failure.",
+        "automatedSourceCheckStatus": "passed",
+        "checkerVersion": "checker-2026-08-29.1",
+        "lastAutomatedSourceCheckDate": "2026-08-29",
+        "lastSubstantiveHumanReviewDate": "2026-08-02",
+        "nextReviewDue": "2026-08-09",
+        "reviewer": "Jason Ramirez (site owner; not an attorney)",
+        "sourceDataVersion": "us-ftc-sources-2026-08-29.2",
+        "templateVersion": null
+      },
+      "rolesAffected": [
+        "Advertisers",
+        "Endorsers",
+        "Intermediaries involved in endorsements"
+      ],
+      "shortName": "FTC endorsements (US)",
+      "timingSummary": "Endorsement Guides finalized June 29, 2023 and published/effective July 26, 2023",
+      "whoItHits": "Advertising endorsements with a material connection to a marketer. The FTC evaluates context and consumer understanding case by case."
+    },
+    {
+      "id": "euArt50",
+      "jurisdiction": "European Union; Article 2 scope includes certain non-EU providers and deployers when AI output is used in the Union",
+      "legalStatus": "in_force_and_generally_applicable",
+      "name": "EU AI Act Article 50 transparency obligations",
+      "officialSources": [
+        {
+          "adoptedDate": "2024-06-13",
+          "applicableDate": "2026-08-02",
+          "authority": "European Parliament and Council",
+          "bindingEffect": "binding_regulation",
+          "canonicalUrl": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng",
+          "documentId": "CELEX-32024R1689",
+          "effectiveDate": "2024-08-01",
+          "jurisdiction": "European Union",
+          "legalStatus": "in_force",
+          "publishedDate": "2024-07-12",
+          "retrievedAt": "2026-08-29",
+          "sourceId": "eu-ai-act-base",
+          "sourceType": "regulation",
+          "title": "Regulation (EU) 2024/1689"
+        },
+        {
+          "adoptedDate": "2026-07-08",
+          "amends": "CELEX-32024R1689",
+          "authority": "European Parliament and Council",
+          "bindingEffect": "binding_regulation",
+          "canonicalUrl": "https://eur-lex.europa.eu/eli/reg/2026/1744/oj/eng",
+          "documentId": "CELEX-32026R1744",
+          "effectiveDate": "2026-07-27",
+          "jurisdiction": "European Union",
+          "legalStatus": "in_force",
+          "publishedDate": "2026-07-24",
+          "retrievedAt": "2026-08-29",
+          "sourceId": "eu-ai-act-amendment-2026-1744",
+          "sourceType": "amending_regulation",
+          "title": "Regulation (EU) 2026/1744"
+        },
+        {
+          "authority": "EUR-Lex",
+          "bindingEffect": "documentation_only_non_authentic",
+          "canonicalUrl": "https://eur-lex.europa.eu/eli/reg/2024/1689/2026-07-27/eng",
+          "consolidatedAsOf": "2026-07-27",
+          "documentId": "CELEX-02024R1689-20260727",
+          "jurisdiction": "European Union",
+          "legalStatus": "current_documentation_copy",
+          "retrievedAt": "2026-08-29",
+          "sourceId": "eu-ai-act-consolidated",
+          "sourceType": "consolidated_text",
+          "title": "Consolidated Regulation (EU) 2024/1689"
+        },
+        {
+          "authority": "European Commission",
+          "bindingEffect": "nonbinding_guidelines",
+          "canonicalUrl": "https://digital-strategy.ec.europa.eu/en/library/guidelines-transparency-obligations-providers-and-deployers-ai-systems",
+          "contentSha256": "30861fc5de31205846f023068069c92fabc7271ebeac6af7bef68b97f0a33f66",
+          "documentId": "C(2026)-5054-final",
+          "fingerprintUrl": "https://ec.europa.eu/newsroom/dae/redirection/document/131215",
+          "jurisdiction": "European Union",
+          "legalStatus": "current",
+          "publishedDate": "2026-07-20",
+          "retrievedAt": "2026-08-29",
+          "sourceId": "eu-art50-guidelines",
+          "sourceType": "guidelines",
+          "title": "Guidelines on Article 50 transparency obligations"
+        },
+        {
+          "authority": "European Commission",
+          "bindingEffect": "voluntary_code_formally_assessed_adequate",
+          "canonicalUrl": "https://digital-strategy.ec.europa.eu/en/policies/code-practice-ai-generated-content",
+          "contentSha256": "7bd22c5a3c56eaefda27a5bf7a6118198ef2a9c9255241bd97abf7cdedf9bc28",
+          "fingerprintUrl": "https://ec.europa.eu/newsroom/dae/redirection/document/129555",
+          "jurisdiction": "European Union",
+          "legalStatus": "current",
+          "notes": "Commission and AI Board assessed the Code as adequate for Article 50(2), (4), and (5); adherence is not conclusive evidence of compliance.",
+          "publishedDate": "2026-06-10",
+          "retrievedAt": "2026-08-29",
+          "sourceId": "eu-art50-code",
+          "sourceType": "code_of_practice",
+          "title": "Code of Practice on Transparency of AI-Generated Content"
+        },
+        {
+          "adoptedDate": "2026-07-08",
+          "authority": "European Commission",
+          "bindingEffect": "formal_adequacy_assessment_not_conclusive_compliance_proof",
+          "canonicalUrl": "https://ec.europa.eu/newsroom/dae/redirection/document/130913",
+          "contentSha256": "e9b85373cde28a6081fab307fa17fa4c90c2560a1c9a145fb461f696bca424ce",
+          "documentId": "C(2026)-4839-final",
+          "fingerprintUrl": "https://ec.europa.eu/newsroom/dae/redirection/document/130913",
+          "jurisdiction": "European Union",
+          "legalStatus": "adopted",
+          "retrievedAt": "2026-08-29",
+          "sourceId": "eu-art50-code-commission-opinion",
+          "sourceType": "commission_opinion",
+          "title": "Commission opinion on adequacy of the Article 50 Code of Practice"
+        },
+        {
+          "adoptedDate": "2026-07-09",
+          "authority": "European Artificial Intelligence Board",
+          "bindingEffect": "formal_adequacy_assessment",
+          "canonicalUrl": "https://ec.europa.eu/newsroom/dae/redirection/document/130916",
+          "contentSha256": "a01d832e0d4b10ebb66d27d0e8cf621aabb18aa56e5c24d39d6b4000a9adfcd2",
+          "fingerprintUrl": "https://ec.europa.eu/newsroom/dae/redirection/document/130916",
+          "jurisdiction": "European Union",
+          "legalStatus": "adopted",
+          "retrievedAt": "2026-08-29",
+          "sourceId": "eu-art50-code-board-assessment",
+          "sourceType": "board_assessment",
+          "title": "AI Board assessment of the Article 50 Code of Practice"
+        }
+      ],
+      "review": {
+        "automatedSourceCheckNote": "All configured automated checks for this framework completed without a detected failure.",
+        "automatedSourceCheckStatus": "passed",
+        "checkerVersion": "checker-2026-08-29.1",
+        "lastAutomatedSourceCheckDate": "2026-08-29",
+        "lastSubstantiveHumanReviewDate": "2026-08-02",
+        "nextReviewDue": "2026-08-09",
+        "reviewer": "Jason Ramirez (site owner; not an attorney)",
+        "sourceDataVersion": "eu-art50-sources-2026-08-29.2",
+        "templateVersion": "eu-art50-deepfake-en-v1"
+      },
+      "rolesAffected": [
+        "Providers",
+        "Deployers"
+      ],
+      "shortName": "EU AI Act Art. 50",
+      "timingSummary": "Article 50 generally applies from August 2, 2026; a narrow Article 50(2) transition ends December 2, 2026",
+      "whoItHits": "Providers and deployers in the categories described by Article 50. Public accessibility from the EU alone is not a complete jurisdiction test."
+    },
+    {
+      "id": "nySynthetic",
+      "jurisdiction": "New York; coverage and advertising-media exclusions depend on the enacted text",
+      "legalStatus": "in_force",
+      "name": "New York synthetic performer advertising law",
+      "officialSources": [
+        {
+          "authority": "New York State Legislature",
+          "bindingEffect": "binding_statute",
+          "canonicalUrl": "https://www.nysenate.gov/legislation/laws/GBS/396-B",
+          "consolidatedAsOf": "2026-06-12",
+          "documentId": "NY-GBL-396-B",
+          "effectiveDate": "2026-06-09",
+          "jurisdiction": "New York",
+          "legalStatus": "in_force",
+          "retrievedAt": "2026-08-29",
+          "sourceId": "ny-gbl-396-b",
+          "sourceType": "codified_statute",
+          "title": "New York General Business Law § 396-b"
+        },
+        {
+          "adoptedDate": "2025-12-11",
+          "authority": "New York State Legislature",
+          "bindingEffect": "enacted_amendment",
+          "canonicalUrl": "https://www.nysenate.gov/legislation/bills/2025/S8420/amendment/A",
+          "documentId": "Chapter-617-Laws-2025",
+          "effectiveDate": "2026-06-09",
+          "jurisdiction": "New York",
+          "legalStatus": "enacted",
+          "retrievedAt": "2026-08-29",
+          "sourceId": "ny-s8420-a",
+          "sourceType": "chaptered_bill",
+          "title": "S.8420-A enacted bill"
+        },
+        {
+          "authority": "Governor of New York",
+          "bindingEffect": "official_explanatory_source",
+          "canonicalUrl": "https://www.governor.ny.gov/news/governor-hochul-announces-first-nation-law-requiring-disclosure-when-advertisements-include-ai",
+          "jurisdiction": "New York",
+          "legalStatus": "published",
+          "publishedDate": "2026-06-09",
+          "retrievedAt": "2026-08-29",
+          "sourceId": "ny-s8420-effective-date-announcement",
+          "sourceType": "government_announcement",
+          "title": "Official announcement confirming the June 9, 2026 effective date"
+        }
+      ],
+      "review": {
+        "automatedSourceCheckNote": "On August 29, 2026, direct automation returned HTTP 403 for the two New York legislative pages (§ 396-b and S.8420-A). The allowlisted Governor-page block was not observed, so that allowlist and metadata require review; automated coverage remains limited despite manual opening.",
+        "automatedSourceCheckStatus": "access_limited",
+        "checkerVersion": "checker-2026-08-29.1",
+        "lastAutomatedSourceCheckDate": "2026-08-29",
+        "lastSubstantiveHumanReviewDate": "2026-08-02",
+        "nextReviewDue": "2026-08-09",
+        "reviewer": "Jason Ramirez (site owner; not an attorney)",
+        "sourceDataVersion": "ny-gbl-396-b-2026-06-12.2",
+        "templateVersion": "ny-gbl-396-b-disclosure-en-v1"
+      },
+      "rolesAffected": [
+        "Person producing or creating a covered commercial advertisement"
+      ],
+      "shortName": "New York GBL § 396-b",
+      "timingSummary": "Effective June 9, 2026 (180 days after enactment)",
+      "whoItHits": "A person engaged in dealing in property or services who, for a commercial purpose and with actual knowledge, produces or creates a covered advertisement using a synthetic performer, subject to definitions and exclusions."
+    },
+    {
+      "id": "caBot",
+      "jurisdiction": "California communications; statutory purpose and intent elements matter",
+      "legalStatus": "in_force",
+      "name": "California B.O.T. Act",
+      "officialSources": [
+        {
+          "applicableDate": "2019-07-01",
+          "authority": "California Legislature",
+          "bindingEffect": "binding_statute",
+          "canonicalUrl": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=17941",
+          "documentId": "CA-BPC-17941",
+          "effectiveDate": "2019-01-01",
+          "jurisdiction": "California",
+          "legalStatus": "in_force",
+          "retrievedAt": "2026-08-29",
+          "sourceId": "ca-bpc-17941",
+          "sourceType": "codified_statute",
+          "title": "California Business and Professions Code § 17941"
+        },
+        {
+          "adoptedDate": "2018-09-28",
+          "applicableDate": "2019-07-01",
+          "authority": "California Legislature",
+          "bindingEffect": "enacted_amendment",
+          "canonicalUrl": "https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=201720180SB1001",
+          "documentId": "Chapter-892-Statutes-2018",
+          "effectiveDate": "2019-01-01",
+          "jurisdiction": "California",
+          "legalStatus": "enacted",
+          "retrievedAt": "2026-08-29",
+          "sourceId": "ca-sb1001-ch892-2018",
+          "sourceType": "chaptered_bill",
+          "title": "SB 1001 chaptered bill"
+        }
+      ],
+      "review": {
+        "automatedSourceCheckNote": "All configured automated checks for this framework completed without a detected failure.",
+        "automatedSourceCheckStatus": "passed",
+        "checkerVersion": "checker-2026-08-29.1",
+        "lastAutomatedSourceCheckDate": "2026-08-29",
+        "lastSubstantiveHumanReviewDate": "2026-08-02",
+        "nextReviewDue": "2026-08-09",
+        "reviewer": "Jason Ramirez (site owner; not an attorney)",
+        "sourceDataVersion": "ca-bpc-17941-2026-08-29.2",
+        "templateVersion": "ca-bot-disclosure-en-v1"
+      },
+      "rolesAffected": [
+        "Person using a bot for covered online communications"
+      ],
+      "shortName": "California B.O.T. Act",
+      "timingSummary": "Effective January 1, 2019; operative July 1, 2019",
+      "whoItHits": "Use of a bot to communicate online with a person in California with intent to mislead about its artificial identity for specified commercial or electoral purposes."
+    },
+    {
+      "id": "caSb942",
+      "jurisdiction": "California",
+      "legalStatus": "in_force_with_staged_duties_and_pending_amendment",
+      "name": "California AI Transparency Act (SB 942, as amended by AB 853)",
+      "officialSources": [
+        {
+          "applicableDate": "2026-08-02",
+          "authority": "California Legislature",
+          "bindingEffect": "binding_statute",
+          "canonicalUrl": "https://www.leginfo.legislature.ca.gov/faces/codes_displayText.xhtml?article=&chapter=25.&division=8.&lawCode=BPC&part=&title=",
+          "documentId": "CA-BPC-Chapter-25",
+          "jurisdiction": "California",
+          "legalStatus": "in_force",
+          "retrievedAt": "2026-08-29",
+          "sourceId": "ca-bpc-chapter-25",
+          "sourceType": "codified_statute",
+          "title": "California Business and Professions Code, Division 8, Chapter 25"
+        },
+        {
+          "authority": "California Legislature",
+          "bindingEffect": "not_current_law",
+          "canonicalUrl": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB1000",
+          "documentId": "20250SB1000",
+          "jurisdiction": "California",
+          "legalStatus": "passed_legislature_not_chaptered",
+          "notes": "Passed the Legislature and was ordered to enrolling; verify chaptering before treating it as law.",
+          "officialPageLastUpdated": "2026-08-27",
+          "retrievedAt": "2026-08-29",
+          "sourceId": "ca-sb1000-2025-2026",
+          "sourceType": "pending_bill",
+          "title": "Pending SB 1000 official status and history"
+        },
+        {
+          "authority": "California Legislature",
+          "bindingEffect": "enacted_amendment",
+          "canonicalUrl": "https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260AB853",
+          "documentId": "Chapter-674-Statutes-2025",
+          "jurisdiction": "California",
+          "legalStatus": "enacted",
+          "retrievedAt": "2026-08-29",
+          "sourceId": "ca-ab853-2025",
+          "sourceType": "chaptered_bill",
+          "title": "AB 853 chaptered amendment"
+        },
+        {
+          "authority": "California Legislature",
+          "bindingEffect": "enacted_base_act",
+          "canonicalUrl": "https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202320240SB942",
+          "documentId": "Chapter-291-Statutes-2024",
+          "jurisdiction": "California",
+          "legalStatus": "enacted",
+          "retrievedAt": "2026-08-29",
+          "sourceId": "ca-sb942-2024",
+          "sourceType": "chaptered_bill",
+          "title": "SB 942 chaptered text"
+        }
+      ],
+      "review": {
+        "automatedSourceCheckNote": "All configured automated checks for this framework completed without a detected failure.",
+        "automatedSourceCheckStatus": "passed",
+        "checkerVersion": "checker-2026-08-29.1",
+        "lastAutomatedSourceCheckDate": "2026-08-29",
+        "lastSubstantiveHumanReviewDate": "2026-08-02",
+        "nextReviewDue": "2026-08-09",
+        "reviewer": "Jason Ramirez (site owner; not an attorney)",
+        "sourceDataVersion": "ca-ai-transparency-2026-08-29.2",
+        "templateVersion": null
+      },
+      "rolesAffected": [
+        "Covered providers",
+        "Affected third-party licensees",
+        "Large online platforms",
+        "GenAI system hosting platforms",
+        "Capture device manufacturers"
+      ],
+      "shortName": "California AI Transparency Act",
+      "timingSummary": "Chapter operative August 2, 2026; added platform duties begin January 1, 2027 and capture-device duties January 1, 2028",
+      "whoItHits": "Defined covered providers and affected third-party licensees; defined large online platforms and GenAI system hosting platforms beginning January 1, 2027; and defined capture device manufacturers for specified devices beginning January 1, 2028."
+    }
+  ],
+  "legalSourceDataVersion": "legal-catalog-2026-08-29.2",
+  "reviewStatus": {
+    "asOfDate": "2026-08-30",
+    "lastAutomatedSourceCheckDate": "2026-08-29",
+    "lastSubstantiveHumanReviewDate": "2026-08-02",
+    "nextReviewDue": "2026-08-09",
+    "overdue": true,
+    "overdueFrameworkIds": [
+      "ftc",
+      "euArt50",
+      "nySynthetic",
+      "caBot",
+      "caSb942"
+    ],
+    "state": "SOURCE REVIEW OVERDUE"
+  },
+  "schemaVersion": "ai-policy-file-source-ledger-v1"
+}

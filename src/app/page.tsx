@@ -128,17 +128,35 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Waitlist */}
+      {/* Starter File and waitlist */}
       <section className="py-12">
         <div className="rounded-2xl border border-indigo-200 bg-indigo-50 p-8">
           <h2 className="font-display text-2xl font-bold text-slate-900">
-            The full AI Policy File is coming
+            Start with one practical, offline disclosure-planning file
           </h2>
           <p className="mt-3 max-w-2xl text-slate-700">
-            Platform-ready disclosure text for every channel you publish on, a
-            site-wide AI disclosure policy page, and an alert when any of these
-            laws change. Join the founding list to receive one launch email and
-            tell us what the planned product would be worth to you.
+            The first paid product is intentionally small: a $19 one-time,
+            browser-local worksheet that turns your AI-use inventory into an
+            editable, source-linked planning file. It is not a subscription,
+            legal review, or promise of automatic updates. Checkout stays closed
+            whenever source review, delivery, refund support, or the public
+            support route has not passed its launch gate.
+          </p>
+          <div className="mt-5">
+            <Link
+              href="/starter-file"
+              className="inline-flex min-h-11 items-center rounded-lg border border-indigo-300 bg-white px-5 py-2.5 text-sm font-semibold text-indigo-800 hover:border-indigo-400 hover:bg-indigo-100"
+            >
+              See the $19 Starter File
+            </Link>
+          </div>
+          <h3 className="mt-8 font-display text-lg font-semibold text-slate-900">
+            Get one launch email
+          </h3>
+          <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate-700">
+            Join the founding list to hear when the source-current product and
+            verified checkout are actually open, and tell us what future saved
+            projects or law-change alerts would be worth to you.
           </p>
           <div className="mt-6">
             <WaitlistForm source="home" />

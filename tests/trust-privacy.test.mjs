@@ -7,6 +7,7 @@ import {
   ANALYTICS_CONSENT_WITHDRAWN,
   buildAnalyticsPageContext,
   buildAnalyticsPageView,
+  buildStarterFileBeginCheckout,
   createGtagCommandQueue,
   GA4_CONFIG,
   GA4_MEASUREMENT_ID,
@@ -327,6 +328,18 @@ test("analytics runtime configuration strips queries and denies advertising data
     allow_google_signals: false,
     allow_ad_personalization_signals: false,
   });
+  assert.deepEqual(buildStarterFileBeginCheckout(), {
+    currency: "USD",
+    value: 19,
+    items: [
+      {
+        item_id: "ai-disclosure-starter-file-v1",
+        item_name: "AI Disclosure Starter File",
+        price: 19,
+        quantity: 1,
+      },
+    ],
+  });
   assert.equal(ANALYTICS_CONSENT_DEFAULT.analytics_storage, "denied");
   assert.equal(ANALYTICS_CONSENT_GRANTED.analytics_storage, "granted");
   for (const consent of [
@@ -341,9 +354,10 @@ test("analytics runtime configuration strips queries and denies advertising data
 });
 
 test("analytics is opt-in and excludes checker and form content", async () => {
-  const [analytics, analyticsConfig] = await Promise.all([
+  const [analytics, analyticsConfig, starterPurchase] = await Promise.all([
     readFile(new URL("../src/components/AnalyticsConsent.tsx", import.meta.url), "utf8"),
     readFile(new URL("../src/lib/analytics.ts", import.meta.url), "utf8"),
+    readFile(new URL("../src/components/StarterFilePurchase.tsx", import.meta.url), "utf8"),
   ]);
   const layout = await readFile(new URL("../src/app/layout.tsx", import.meta.url), "utf8");
   const privacy = await readFile(new URL("../src/app/privacy/page.tsx", import.meta.url), "utf8");
@@ -368,8 +382,15 @@ test("analytics is opt-in and excludes checker and form content", async () => {
     analytics,
     /Google Signals, user-provided data, and\s+advertising personalization are/,
   );
+  assert.match(analytics, /live Starter File purchase-link click/);
+  assert.match(analytics, /never the checkout URL, order, customer, payment, or\s+worksheet data/);
   assert.doesNotMatch(analytics, /FormData|request\.json|WaitlistForm|CheckerClient/);
+  assert.match(starterPurchase, /ga-disable-\$\{GA4_MEASUREMENT_ID\}/);
+  assert.match(starterPurchase, /!== false\) return/);
+  assert.match(starterPurchase, /"event", "begin_checkout", buildStarterFileBeginCheckout\(\)/);
   assert.match(privacy, /does\s+not send checker answers/);
+  assert.match(privacy, /begin_checkout/);
+  assert.match(privacy, /does not include the checkout URL, order data, worksheet/);
   assert.match(privacy, /script is not downloaded/);
 });
 
@@ -392,5 +413,6 @@ test("public trust copy and contrast safeguards remain in place", async () => {
   assert.doesNotMatch(publicCopy, /text-slate-400|placeholder-slate-400/);
   assert.doesNotMatch(publicCopy, /in two minutes|lock in founding-member pricing/i);
   assert.match(layout, /<Link href="\/about" className="underline hover:text-slate-900">/);
-  assert.match(home, /planned product would be worth to you/i);
+  assert.match(home, /\$19 one-time/i);
+  assert.match(home, /Checkout stays closed/i);
 });

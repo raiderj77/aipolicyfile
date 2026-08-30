@@ -119,6 +119,9 @@ export default function RootLayout({
               <Link href="/about" className="inline-flex min-h-11 items-center whitespace-nowrap hover:text-slate-900">
                 About
               </Link>
+              <Link href="/starter-file" className="hidden min-h-11 items-center whitespace-nowrap hover:text-slate-900 md:inline-flex">
+                $19 Starter File
+              </Link>
               <Link
                 href="/checker"
                 className="inline-flex min-h-11 items-center whitespace-nowrap rounded-lg bg-indigo-600 px-3 py-2 font-semibold text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-300 sm:px-4"
@@ -140,6 +143,7 @@ export default function RootLayout({
               <Link href="/about" className="hover:text-slate-900">About</Link>
               <Link href="/#laws" className="hover:text-slate-900">The laws</Link>
               <Link href="/tracker" className="hover:text-slate-900">Law tracker</Link>
+              <Link href="/starter-file" className="hover:text-slate-900">$19 Starter File</Link>
               <Link href="/editorial-standards" className="hover:text-slate-900">Editorial standards</Link>
               <Link href="/corrections" className="hover:text-slate-900">Corrections</Link>
               <Link href="/accessibility" className="hover:text-slate-900">Accessibility</Link>

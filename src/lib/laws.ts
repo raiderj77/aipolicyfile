@@ -8,7 +8,7 @@ export const LEGAL_CONTENT_MODIFIED_DATE = "2026-08-29";
 export const NEXT_LEGAL_REVIEW_DUE = "2026-08-09";
 export const LAST_AUTOMATED_SOURCE_CHECK_DATE = "2026-08-29";
 export const LAST_AUTOMATED_SOURCE_CHECK_LABEL = "August 29, 2026";
-export const LEGAL_SOURCE_DATA_VERSION = "legal-catalog-2026-08-29.1";
+export const LEGAL_SOURCE_DATA_VERSION = "legal-catalog-2026-08-29.2";
 export const CHECKER_VERSION = "checker-2026-08-29.1";
 export const LEGAL_REVIEWER = "Jason Ramirez (site owner; not an attorney)";
 
@@ -165,6 +165,7 @@ export const LAWS: Record<LawId, Law> = {
     exceptions: [
       "The reviewed Part 255 sources do not create a general disclosure duty triggered solely by AI assistance.",
       "Disclosure need and presentation remain context- and audience-specific; examples are not universal safe harbors.",
+      "Part 465 is a separate binding Consumer Reviews and Testimonials Rule. It does not amend Part 255, make the Guides binding, or turn every inconsistency with the Guides into a Part 465 violation.",
     ],
     requires: [
       "Review whether a payment, gift, affiliate commission, employment, or other material connection needs a clear and conspicuous disclosure.",
@@ -246,10 +247,15 @@ export const LAWS: Record<LawId, Law> = {
     ],
     review: {
       ...COMMON_REVIEW,
-      sourceDataVersion: "us-ftc-sources-2026-08-29.1",
+      sourceDataVersion: "us-ftc-sources-2026-08-29.2",
       templateVersion: null,
     },
     changeHistory: [
+      {
+        date: "2026-08-29",
+        summary: "Clarified that nonbinding Part 255 and the separate binding Part 465 rule have distinct legal effects.",
+        sourceIds: ["us-ftc-endorsement-guides", "us-ftc-consumer-review-rule"],
+      },
       {
         date: "2026-08-29",
         summary: "Automated comparison found Part 255 unchanged from August 2; added complete codified, statutory, final-publication, and adjacent Part 465 sources.",
@@ -280,7 +286,11 @@ export const LAWS: Record<LawId, Law> = {
       "Article 50 uses separate categories for direct interaction, machine-readable marking, emotion/biometric systems, deepfakes, and specified public-interest text.",
     ],
     exceptions: [
-      "Article 50 contains category-specific qualifications, including artistic or fictional works and specified public-interest text with human review or editorial control and identified editorial responsibility.",
+      "Article 50(1)'s direct-interaction notice does not apply when the AI interaction is obvious to a reasonably well-informed, observant, and circumspect person in the circumstances and context; it also contains a qualified law-enforcement exception with safeguards and a public crime-reporting caveat.",
+      "Article 50(2)'s machine-readable marking duty does not apply to the extent a system performs an assistive function for standard editing or does not substantially alter the deployer's input data or its semantics; it also contains a law-enforcement qualification.",
+      "Article 50(3)'s notice duty contains a qualified law-enforcement exception for permitted biometric-categorisation or emotion-recognition uses, subject to appropriate safeguards.",
+      "Article 50(4) contains a law-enforcement qualification. For evidently artistic, creative, satirical, fictional, or analogous works or programmes, disclosure is still required but may be made in an appropriate manner that does not hamper display or enjoyment; this is not a blanket exemption.",
+      "For Article 50(4) public-interest text, disclosure does not apply when the AI-generated content underwent human review or editorial control and a natural or legal person holds editorial responsibility for publication.",
       "Article 111(4) delays only Article 50(2) for covered systems placed on the market before August 2, 2026 until December 2, 2026.",
     ],
     requires: [
@@ -399,10 +409,15 @@ export const LAWS: Record<LawId, Law> = {
     ],
     review: {
       ...COMMON_REVIEW,
-      sourceDataVersion: "eu-art50-sources-2026-08-29.1",
+      sourceDataVersion: "eu-art50-sources-2026-08-29.2",
       templateVersion: "eu-art50-deepfake-en-v1",
     },
     changeHistory: [
+      {
+        date: "2026-08-29",
+        summary: "Enumerated the material paragraph-specific Article 50 qualifications and clarified that the artistic-work provision limits the manner of disclosure rather than creating a blanket exemption.",
+        sourceIds: ["eu-ai-act-base", "eu-ai-act-consolidated"],
+      },
       {
         date: "2026-08-29",
         summary: "Recorded Regulation 2026/1744's replacement of Article 50(7) and the Commission and AI Board formal adequacy assessments of the voluntary Code of Practice.",
@@ -486,13 +501,18 @@ export const LAWS: Record<LawId, Law> = {
     ],
     review: {
       ...COMMON_REVIEW,
-      sourceDataVersion: "ny-gbl-396-b-2026-06-12.1",
+      sourceDataVersion: "ny-gbl-396-b-2026-06-12.2",
       templateVersion: "ny-gbl-396-b-disclosure-en-v1",
       automatedSourceCheckStatus: "access_limited",
       automatedSourceCheckNote:
-        "Direct automation was blocked on three New York official pages. They were separately opened on August 29, 2026, but automated coverage remains limited.",
+        "On August 29, 2026, direct automation returned HTTP 403 for the two New York legislative pages (§ 396-b and S.8420-A). The allowlisted Governor-page block was not observed, so that allowlist and metadata require review; automated coverage remains limited despite manual opening.",
     },
     changeHistory: [
+      {
+        date: "2026-08-29",
+        summary: "Corrected the automated-access note to distinguish the two observed legislative HTTP 403 responses from the unobserved allowlisted Governor-page block.",
+        sourceIds: ["ny-gbl-396-b", "ny-s8420-a", "ny-s8420-effective-date-announcement"],
+      },
       {
         date: "2026-08-29",
         summary: "Corrected the regulated role and broad advertising-media exclusion; removed written-notice, cure, and anti-removal clauses that appeared in an earlier bill but not the enacted or codified law.",
@@ -516,11 +536,13 @@ export const LAWS: Record<LawId, Law> = {
       "Commercial purchase/sale or election-influence purpose",
     ],
     definitions: [
-      "The section's defined term for bot and its communication, intent, deception, and purpose elements must be read from the current code.",
+      "A “bot” is an automated online account where all or substantially all of the actions or posts of that account are not the result of a person.",
+      "“Online” means appearing on a public-facing internet website, web application, or digital application, including a social network or publication.",
       "The statutory elements must be evaluated together rather than inferred from a chatbot label alone.",
     ],
     exceptions: [
       "Section-specific liability does not attach when the person provides the clear, conspicuous bot disclosure described by the section.",
+      "Section 17942(c) says the chapter does not impose a duty on service providers of online platforms, including web-hosting and internet-service providers.",
       "The section does not resolve other consumer-protection, privacy, election, accessibility, or sector-specific law.",
     ],
     requires: [
@@ -562,10 +584,15 @@ export const LAWS: Record<LawId, Law> = {
     ],
     review: {
       ...COMMON_REVIEW,
-      sourceDataVersion: "ca-bpc-17941-2026-08-29.1",
+      sourceDataVersion: "ca-bpc-17941-2026-08-29.2",
       templateVersion: "ca-bot-disclosure-en-v1",
     },
     changeHistory: [
+      {
+        date: "2026-08-29",
+        summary: "Added the statutory bot and online definitions and the Section 17942(c) online-platform service-provider no-duty qualification.",
+        sourceIds: ["ca-sb1001-ch892-2018"],
+      },
       {
         date: "2026-08-29",
         summary: "Removed an unsupported statement tying the section's penalty to California unfair-competition law; the cited section states no fixed per-message fine.",
@@ -602,6 +629,7 @@ export const LAWS: Record<LawId, Law> = {
     exceptions: [
       "Section 22757.5 excludes a product, service, website, or application providing exclusively specified non-user-generated entertainment experiences.",
       "A person exclusively engaged in device assembly is excluded from the capture-device-manufacturer definition.",
+      "The large-online-platform definition excludes broadband internet access services and telecommunications services, each as defined in the cited law.",
     ],
     requires: [
       "If you create, code, or otherwise produce a public GenAI system with more than 1,000,000 monthly visitors or users and California accessibility, review the no-cost detection-tool, manifest-option, latent-disclosure, privacy, and licensing duties operative August 2, 2026.",
@@ -667,10 +695,15 @@ export const LAWS: Record<LawId, Law> = {
     ],
     review: {
       ...COMMON_REVIEW,
-      sourceDataVersion: "ca-ai-transparency-2026-08-29.1",
+      sourceDataVersion: "ca-ai-transparency-2026-08-29.2",
       templateVersion: null,
     },
     changeHistory: [
+      {
+        date: "2026-08-29",
+        summary: "Added the broadband-internet-access and telecommunications-service exclusions from the large-online-platform definition.",
+        sourceIds: ["ca-bpc-chapter-25"],
+      },
       {
         date: "2026-08-29",
         summary: "Automated status check found SB 1000 passed the Legislature and ordered to enrolling but not chaptered; retained current codified thresholds and marked substantive review overdue.",

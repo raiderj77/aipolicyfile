@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { pageSocialMetadata } from "@/lib/siteMetadata";
 
 const description =
-  "How AI Policy File handles checker answers, founding-list submissions, analytics, service providers, retention, and privacy rights.";
+  "How AI Policy File handles checker answers, founding-list submissions, planned Starter File orders, analytics, service providers, retention, and privacy rights.";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -35,6 +35,38 @@ export default function PrivacyPage() {
           clears its in-memory state.
         </p>
 
+        <h2 className="font-display text-xl font-semibold text-slate-900">
+          Starter File and purchases are not active
+        </h2>
+        <p>
+          The planned AI Disclosure Starter File is a self-contained HTML worksheet. Opening and
+          completing it is intended to work offline without an account, analytics, an AI service,
+          or transmission of worksheet entries to AI Policy File. It does not save entries
+          automatically. Any copies you save or print remain under your control. External source
+          links create a connection to the linked site only when you choose to open them. This
+          operation must be verified by network inspection before the product is released.
+        </p>
+        <p>
+          Paid checkout is disabled. Gumroad and Paddle are merchant-of-record candidates, but
+          neither has been selected or configured for this product, and no provider account,
+          checkout, privacy setting, retention setting, or data-processing term has been verified.
+          An August 29, 2026 external delivery test of hello@aipolicyfile.com was rejected by the
+          Namecheap forwarding server with a 554 5.7.1 relay-access error. Sales will remain disabled
+          until support routing is repaired and externally retested, a provider is selected and
+          verified, and this notice identifies that provider and its processing.
+        </p>
+        <p>
+          If checkout is later activated, the selected external merchant of record will process the
+          buyer&apos;s checkout data under its own privacy notice. Depending on that provider and the
+          buyer&apos;s location, this may include name, email address, billing address, tax location,
+          payment credentials, IP address, device or security data, and order details. AI Policy File
+          does not plan to receive or store full card or bank-account credentials. It may receive or
+          access the purchase email, order ID, product and version, amount and currency, and refund or
+          license status in the provider dashboard or support mailbox for delivery, support,
+          accounting, fraud handling, and refunds. No separate site-operated customer database is
+          planned for the initial validation batch.
+        </p>
+
         <h2 className="font-display text-xl font-semibold text-slate-900">The founding list</h2>
         <p>
           If you choose to join, we collect your email address, your optional role selection, your
@@ -63,19 +95,23 @@ export default function PrivacyPage() {
           30 days after the one launch email; the 365-day timer is a backstop. Telegram&apos;s timer is not
           retroactive, so messages received before it was enabled remain subject to manual review and
           deletion. To request deletion,
-          email hello@aipolicyfile.com from the address you submitted. We will delete the accessible
-          message when we can verify the request. Telegram or hosting providers may retain limited
+          use the published controller address, hello@aipolicyfile.com, from the address you
+          submitted. That address is currently failing external delivery as described below and
+          cannot be relied on until repaired. Once a request is received and verified, we will delete
+          the accessible message. Telegram or hosting providers may retain limited
           backup, security, or legal records, so we do not promise immediate deletion from every
           system.
         </p>
 
         <h2 className="font-display text-xl font-semibold text-slate-900">Contact email</h2>
         <p>
-          Messages sent to hello@aipolicyfile.com are routed through Namecheap&apos;s email-forwarding
-          service to the owner&apos;s receiving mailbox. The final mailbox provider, its account-side
-          retention setting, and its security configuration must be verified in the owner account;
-          the website cannot establish those settings from DNS alone. Do not email confidential,
-          privileged, or highly sensitive information.
+          The published address hello@aipolicyfile.com is configured through Namecheap&apos;s
+          email-forwarding service, but it is not currently a reliable contact route. An external
+          delivery test on August 29, 2026 was rejected with a 554 5.7.1 relay-access error. The
+          forwarding destination, receiving mailbox provider, account-side retention, security
+          configuration, inbound delivery, and reply path all require repair or verification. Do not
+          send confidential, privileged, highly sensitive, card, or bank information. No paid checkout
+          may open until a fresh external send-and-reply test succeeds.
         </p>
 
         <h2 className="font-display text-xl font-semibold text-slate-900">Hosting and logs</h2>
@@ -91,7 +127,11 @@ export default function PrivacyPage() {
         <p>
           Google Analytics remains blocked unless you select &quot;Allow analytics.&quot; If allowed,
           the site manually sends a page-view event containing the page title, origin, path, and
-          referrer with query strings and fragments removed. The dedicated AI Policy File property
+          referrer with query strings and fragments removed. If a live Starter File checkout is
+          available and you click its purchase link, the site also sends one
+          <code>begin_checkout</code> event with the fixed product ID and name, USD currency, $19
+          value, price, and quantity one. It does not include the checkout URL, order data, worksheet
+          entries, or form values. The dedicated AI Policy File property
           has Enhanced Measurement disabled, so it is not configured to automatically collect
           scrolls, outbound-link clicks, file downloads, site searches, video engagement, form
           starts or submissions, or browser-history page views. Do not put sensitive data in a URL
@@ -106,8 +146,9 @@ export default function PrivacyPage() {
           property, so the property is not configured to collect city-level location, city latitude
           or longitude, detailed device models, User-Agent strings, browser or operating-system minor
           versions, or screen resolution. Site code does not send checker answers, checker results,
-          email addresses, role or product-value selections, or other founding-list form-field values
-          to Google Analytics. After consent, Google may still generate standard events such as
+          email addresses, order IDs, payment data, worksheet entries, role or product-value
+          selections, or other founding-list form-field values to Google Analytics. After consent,
+          Google may still generate standard events such as
           first visit, session start, and user engagement; those are distinct from Enhanced
           Measurement events.
         </p>
@@ -204,6 +245,13 @@ export default function PrivacyPage() {
           and able to establish or defend legal claims. Data may also be processed when necessary to
           comply with a legal obligation.
         </p>
+        <p>
+          If purchases are activated, processing needed to deliver the purchased license and file,
+          provide support, and administer a refund may be necessary to perform the purchase contract.
+          Fraud prevention and record security may rely on legitimate interests, while accounting,
+          tax, and legally required records may rely on a legal obligation. The selected merchant of
+          record will state its own legal bases in its privacy notice.
+        </p>
 
         <h2 className="font-display text-xl font-semibold text-slate-900">Recipients and international processing</h2>
         <p>
@@ -213,8 +261,10 @@ export default function PrivacyPage() {
           may process data in the United States and other countries. The
           applicable provider account, contract, and data-processing terms determine whether an
           adequacy decision, standard contractual clauses, or another transfer mechanism applies.
-          Email hello@aipolicyfile.com to request the current provider and safeguard information
-          available for your processing.
+          A selected merchant of record and its payment providers would become additional recipients
+          for purchase data, but neither Gumroad nor Paddle is a current purchase-data recipient for
+          this product. This notice will identify the selected provider and available transfer
+          safeguards before checkout is enabled.
         </p>
 
         <h2 className="font-display text-xl font-semibold text-slate-900">Your privacy rights</h2>
@@ -222,9 +272,12 @@ export default function PrivacyPage() {
           Where applicable, you may request access, correction, deletion, restriction, or portability
           of your personal data, or object to processing based on legitimate interests. You may
           withdraw analytics consent through Privacy choices and may withdraw founding-list consent
-          by emailing hello@aipolicyfile.com. You may also lodge a complaint with the data-protection
+          by contacting the controller. You may also lodge a complaint with the data-protection
           supervisory authority where you live or work. We may need information reasonably necessary
-          to verify identity and may retain or deny a request where law permits or requires it.
+          to verify identity and may retain or deny a request where law permits or requires it. The
+          published email address is currently failing external delivery, so it must not be described
+          as a dependable request channel until repaired; this operational defect is being treated as
+          a launch blocker.
         </p>
         <p>
           Providing founding-list data is optional. If you do not provide an email address and consent,
@@ -247,8 +300,11 @@ export default function PrivacyPage() {
 
         <h2 className="font-display text-xl font-semibold text-slate-900">Contact</h2>
         <p>
-          Privacy questions or deletion requests: hello@aipolicyfile.com. We may need to verify that
-          you control the submitted email address before acting on a request.
+          The published controller address is hello@aipolicyfile.com, but the August 29, 2026 external
+          test described above failed and no dependable alternate privacy-request channel has been
+          verified. This page will be updated when routing is restored. We may need to verify that you
+          control the submitted or purchase email address before acting on a request, but we will not
+          ask for full payment credentials.
         </p>
       </div>
     </div>

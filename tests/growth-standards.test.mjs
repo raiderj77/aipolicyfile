@@ -33,12 +33,28 @@ test("indexable support pages publish route-specific social metadata", async () 
     read("../src/app/ai-transparency/page.tsx"),
     read("../src/app/security/page.tsx"),
     read("../src/app/corrections/page.tsx"),
+    read("../src/app/starter-file/page.tsx"),
   ]);
   assert.match(helper, /openGraph/);
   assert.match(helper, /twitter/);
   assert.match(helper, /summary_large_image/);
   assert.match(helper, /opengraph-image/);
   for (const page of pages) assert.match(page, /pageSocialMetadata\(/);
+});
+
+test("the one-time Starter File has an indexable, internally linked product route", async () => {
+  const [home, layout, sitemap, product] = await Promise.all([
+    read("../src/app/page.tsx"),
+    read("../src/app/layout.tsx"),
+    read("../src/app/sitemap.ts"),
+    read("../src/app/starter-file/page.tsx"),
+  ]);
+  assert.match(home, /href="\/starter-file"/);
+  assert.match(layout, /href="\/starter-file"/);
+  assert.match(sitemap, /`\$\{BASE\}\/starter-file`/);
+  assert.match(product, /alternates: \{ canonical: "\/starter-file" \}/);
+  assert.match(product, /\$19 one-time/);
+  assert.match(product, /No subscription/);
 });
 
 test("legal guides publish sanitized source-backed Article data", async () => {
