@@ -28,6 +28,14 @@ export const ANALYTICS_CONSENT_WITHDRAWN = Object.freeze({
   ad_personalization: "denied",
 });
 
+export function createGtagCommandQueue(dataLayer: IArguments[]) {
+  return function gtag() {
+    // Google documents gtag commands as Arguments objects, not rest-parameter arrays.
+    // eslint-disable-next-line prefer-rest-params
+    dataLayer.push(arguments);
+  };
+}
+
 function sanitizeAnalyticsReferrer(pageReferrer: string) {
   if (!pageReferrer) return undefined;
 

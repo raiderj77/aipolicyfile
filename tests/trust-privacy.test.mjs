@@ -7,6 +7,7 @@ import {
   ANALYTICS_CONSENT_WITHDRAWN,
   buildAnalyticsPageContext,
   buildAnalyticsPageView,
+  createGtagCommandQueue,
   GA4_CONFIG,
   GA4_MEASUREMENT_ID,
 } from "../src/lib/analytics.ts";
@@ -279,10 +280,25 @@ test("baseline browser security headers remain configured", async () => {
   }
   assert.doesNotMatch(config, /unsafe-eval/);
   assert.match(config, /frame-ancestors 'none'/);
+  assert.match(
+    config,
+    /img-src 'self' data: blob: https:\/\/\*\.google-analytics\.com https:\/\/www\.googletagmanager\.com/,
+  );
+  assert.match(
+    config,
+    /connect-src 'self' https:\/\/\*\.google-analytics\.com https:\/\/\*\.analytics\.google\.com https:\/\/www\.googletagmanager\.com/,
+  );
+  assert.doesNotMatch(config, /doubleclick|googlesyndication/);
 });
 
 test("analytics runtime configuration strips queries and denies advertising data", () => {
   assert.equal(GA4_MEASUREMENT_ID, "G-MEY1Y9KDNJ");
+  const dataLayer = [];
+  const queuedGtag = createGtagCommandQueue(dataLayer);
+  queuedGtag("config", GA4_MEASUREMENT_ID, GA4_CONFIG);
+  assert.equal(dataLayer.length, 1);
+  assert.equal(Array.isArray(dataLayer[0]), false);
+  assert.deepEqual(Array.from(dataLayer[0]), ["config", GA4_MEASUREMENT_ID, GA4_CONFIG]);
   assert.deepEqual(
     buildAnalyticsPageView(
       "https://aipolicyfile.com/checker?apf_probe=synthetic-canary#private-fragment",
@@ -335,6 +351,8 @@ test("analytics is opt-in and excludes checker and form content", async () => {
   assert.match(analytics, /consent !== "granted"/);
   assert.match(analytics, /"consent", "default", ANALYTICS_CONSENT_DEFAULT/);
   assert.match(analytics, /"consent", "update", ANALYTICS_CONSENT_GRANTED/);
+  assert.match(analyticsConfig, /dataLayer\.push\(arguments\)/);
+  assert.doesNotMatch(analyticsConfig, /dataLayer\.push\(args\)/);
   assert.match(analytics, /CONFIGURED_KEY/);
   assert.equal(analytics.match(/enableAnalytics\(\);/g)?.length, 1);
   assert.match(analyticsConfig, /G-MEY1Y9KDNJ/);
