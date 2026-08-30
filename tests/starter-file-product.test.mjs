@@ -393,9 +393,11 @@ test("overdue bundle disables actions in HTML, at runtime, and in print CSS", as
   assert.match(html, /\.form-panel>h2,\.form-panel>\.privacy,\.form-panel form\{display:none\}/);
   assert.match(html, /window\.addEventListener\("beforeprint", function \(\) \{ gate\(\); \}\)/);
 
-  const scripts = [...html.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script\s*>/gi)].map(
-    (match) => match[1],
-  );
+  const scripts = html.split("<script>").slice(1).map((segment) => {
+    const end = segment.indexOf("</script>");
+    assert.notEqual(end, -1, "each exact inline script opening must have an exact closing tag");
+    return segment.slice(0, end);
+  });
   assert.equal(scripts.length, 2);
   assert.doesNotThrow(() => new vm.Script(scripts.join("\n")));
 });
