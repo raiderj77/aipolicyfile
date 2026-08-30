@@ -298,9 +298,17 @@ test("versioned bundle builds byte-for-byte deterministically and hashes every p
     assert.match(firstFiles["README.txt"], /Legal source data: `legal-catalog-2026-08-29\.2`/);
     assert.match(firstFiles["README.txt"], /full refund for any reason within 14 calendar days/i);
     assert.match(firstFiles["README.txt"], /order ID and purchase email/i);
+    assert.match(firstFiles["README.txt"], /confirmed full refund ends hosted download access/i);
+    assert.match(firstFiles["README.txt"], /Downloaded files cannot be remotely erased/i);
+    assert.match(firstFiles["README.txt"], /no new use of the blank files is permitted/i);
     assert.match(firstFiles["BUSINESS-LICENSE.txt"], /one purchasing business/i);
     assert.match(firstFiles["BUSINESS-LICENSE.txt"], /employees and contractors/i);
     assert.match(firstFiles["BUSINESS-LICENSE.txt"], /separate license for each client business/i);
+    assert.match(firstFiles["BUSINESS-LICENSE.txt"], /business-use license for the blank product files end/i);
+    assert.match(firstFiles["BUSINESS-LICENSE.txt"], /delete or destroy every copy under its control/i);
+    assert.match(firstFiles["BUSINESS-LICENSE.txt"], /Files already downloaded cannot be remotely erased/i);
+    assert.match(firstFiles["BUSINESS-LICENSE.txt"], /may not make any new use of the blank product files after the refund/i);
+    assert.match(firstFiles["BUSINESS-LICENSE.txt"], /license also ends after a material breach that is not cured after notice/i);
   } finally {
     await rm(firstRoot, { recursive: true, force: true });
     await rm(secondRoot, { recursive: true, force: true });
@@ -433,6 +441,12 @@ test("committed bundle manifest is self-consistent and explicitly not releasable
     const fileName = entryName.slice(`${ARTIFACT_DIRECTORY}/`.length);
     assert.deepEqual(zipEntries.get(entryName).data, Buffer.from(files[fileName], "utf8"));
   }
+  assert.match(files["README.txt"], /confirmed full refund ends hosted download access/i);
+  assert.match(files["README.txt"], /Downloaded files cannot be remotely erased/i);
+  assert.match(files["BUSINESS-LICENSE.txt"], /business-use license for the blank product files end/i);
+  assert.match(files["BUSINESS-LICENSE.txt"], /delete or destroy every copy under its control/i);
+  assert.match(files["BUSINESS-LICENSE.txt"], /may not make any new use of the blank product files after the refund/i);
+  assert.match(files["BUSINESS-LICENSE.txt"], /license also ends after a material breach that is not cured after notice/i);
   assert.throws(
     () => assertReleaseReady(manifest),
     (error) =>

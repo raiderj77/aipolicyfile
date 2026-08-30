@@ -72,11 +72,13 @@ function loadPurchaseComponent(componentSource) {
   return runCommonJs(compiled, filename, {}, componentRequire).default;
 }
 
-test("public Starter File copy fixes the price, billing model, refund, and license", async () => {
-  const [page, purchase, terms] = await Promise.all([
+test("public and merchant Starter File copy fixes the price, billing model, refund, and license", async () => {
+  const [page, purchase, terms, listing, launch] = await Promise.all([
     read("../src/app/starter-file/page.tsx"),
     read("../src/components/StarterFilePurchase.tsx"),
     read("../src/app/terms/page.tsx"),
+    read("../docs/gumroad-starter-file-listing.md"),
+    read("../docs/paid-starter-file-launch.md"),
   ]);
 
   assert.match(page, /\$19 one-time/);
@@ -96,6 +98,21 @@ test("public Starter File copy fixes the price, billing model, refund, and licen
   assert.match(page, /One purchasing business may customize and use the file/i);
   assert.match(terms, /grants one purchasing business a limited,[\s\S]*non-transferable license/i);
   assert.match(terms, /separate license for each client business/i);
+
+  const refundCopy = `${page}\n${purchase}\n${terms}\n${listing}\n${launch}`;
+  const normalizedTerms = terms.replace(/\s+/g, " ");
+  const normalizedListing = listing.replace(/\s+/g, " ");
+  const normalizedLaunch = launch.replace(/\s+/g, " ");
+  assert.match(refundCopy, /full refund[\s\S]*hosted (?:download )?access[\s\S]*blank-file license/i);
+  assert.match(normalizedTerms, /stop using or distributing the blank product files/i);
+  assert.match(normalizedTerms, /delete or destroy every copy under its control/i);
+  assert.match(normalizedTerms, /Files already downloaded cannot be remotely erased/i);
+  assert.match(normalizedTerms, /does not require the business to retract or destroy lawful.*completed outputs/i);
+  assert.match(normalizedTerms, /may not make any new use of the blank product files after the refund/i);
+  assert.match(normalizedListing, /A confirmed full refund ends this license/i);
+  assert.match(normalizedListing, /license also ends after a material breach that is not cured after notice/i);
+  assert.match(normalizedTerms, /license also ends when a full refund is confirmed or after a material breach/i);
+  assert.match(normalizedLaunch, /downloaded files cannot be remotely erased/i);
 });
 
 test("checkout accepts only HTTPS Gumroad or Paddle hosts", async () => {

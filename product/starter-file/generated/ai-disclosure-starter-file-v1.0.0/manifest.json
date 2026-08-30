@@ -24,19 +24,19 @@
       "sha256": "551503fd119c19e31e8cafddb034821a4c7c182fad435f3c3261e5e2e682d1ae"
     },
     {
-      "bytes": 1662,
+      "bytes": 2558,
       "path": "BUSINESS-LICENSE.txt",
-      "sha256": "4a232e42c7e2cc69602f714f99227b7a2f10e6ba2e69f994f9d8f0d0aa9a47fe"
+      "sha256": "46d7e0dc1290bab13aacf37c9d86a73478763ac5f42853da0ab610c031b7d180"
     },
     {
-      "bytes": 4474,
+      "bytes": 4872,
       "path": "README.txt",
-      "sha256": "8f87df80e45d8c943abe96ba53caa1dfca76c4510e5a6530c6cdfe294731e1ef"
+      "sha256": "c1e7c3efb00faa1cc4c802da7d9276bfe5b99967b2d0041fbb2383511e29e2e6"
     },
     {
-      "bytes": 15949,
+      "bytes": 15939,
       "path": "SAMPLE_OUTPUT.html",
-      "sha256": "d29005e9349dc2e154e1117418db675dce31f07d61381cd35bf87becfadb7e01"
+      "sha256": "ff0ad26fb4f3f56370aa44d2bb264ec43122fdf324575ebdbec97eca75d2a31b"
     },
     {
       "bytes": 12071,
@@ -44,9 +44,9 @@
       "sha256": "308482fb4f6b027f88482ccff2b6170bce292ce89c81c71846675bd33564388c"
     },
     {
-      "bytes": 12069,
+      "bytes": 12048,
       "path": "SOURCE_LEDGER.md",
-      "sha256": "72366dad63f74177ffa0bcc0e575da45e661da93469c1004fd969f6653b977c4"
+      "sha256": "3d38e622bf6df654ecee704a62c049e5ad565ddc19691755a7d707a1e46a3b34"
     },
     {
       "bytes": 21987,

@@ -17,7 +17,7 @@ export default function PrivacyPage() {
       <h1 className="font-display text-3xl font-bold tracking-tight text-slate-900">
         Privacy Policy
       </h1>
-      <p className="mt-2 text-sm text-slate-600">Last updated: August 29, 2026</p>
+      <p className="mt-2 text-sm text-slate-600">Last updated: August 30, 2026</p>
       <div className="mt-6 space-y-4 leading-relaxed text-slate-700">
         <h2 className="font-display text-xl font-semibold text-slate-900">Controller and contact</h2>
         <p>
@@ -50,10 +50,10 @@ export default function PrivacyPage() {
           Paid checkout is disabled. Gumroad and Paddle are merchant-of-record candidates, but
           neither has been selected or configured for this product, and no provider account,
           checkout, privacy setting, retention setting, or data-processing term has been verified.
-          Inbound delivery to hello@aipolicyfile.com was repaired and externally retested on August
-          29, 2026. Sales will remain disabled until the outbound support-reply identity and workflow
-          are verified, a provider is selected and verified, and this notice identifies that provider
-          and its processing.
+          Inbound delivery and reply receipt through hello@aipolicyfile.com were externally
+          round-trip tested on August 29, 2026; a separate outbound test passed SPF, DKIM, and
+          DMARC. Sales will remain disabled until a merchant is selected and verified and this
+          notice identifies that merchant and its processing.
         </p>
         <p>
           If checkout is later activated, the selected external merchant of record will process the
@@ -104,13 +104,16 @@ export default function PrivacyPage() {
 
         <h2 className="font-display text-xl font-semibold text-slate-900">Contact email</h2>
         <p>
-          The published address hello@aipolicyfile.com is configured through Namecheap&apos;s
-          email-forwarding service and a Google Gmail receiving mailbox. On August 29, 2026, a fresh
-          message from an unrelated external mailbox reached the receiving Inbox and was automatically
-          labeled AI Policy File Support. The outbound reply identity, account security, and retention
-          workflow still require launch verification. Do not send confidential, privileged, highly
-          sensitive, card, or bank information. No paid checkout may open until a fresh external
-          send-and-reply test succeeds with an appropriate customer-facing identity.
+          The published address hello@aipolicyfile.com is a Migadu mailbox that forwards a copy to an
+          owner-controlled Google Gmail mailbox while retaining a server copy. Namecheap provides the
+          domain&apos;s DNS. On August 29, 2026, a fresh message from an unrelated external mailbox reached
+          Gmail with the AI Policy File Support label, and a reply from hello@aipolicyfile.com reached
+          the sender. A separate outbound message passed SPF, DKIM, and DMARC. Gmail currently uses
+          Migadu&apos;s SMTP service for this reply identity. Google has announced removal of third-party Send-as
+          support from Gmail web and mobile in January 2027, so the reply interface must migrate before
+          then. Account security, retention, deletion/export, and incident controls still require
+          launch verification. Do not send confidential, privileged, highly sensitive, card, or bank
+          information.
         </p>
 
         <h2 className="font-display text-xl font-semibold text-slate-900">Hosting and logs</h2>
@@ -255,8 +258,9 @@ export default function PrivacyPage() {
         <h2 className="font-display text-xl font-semibold text-slate-900">Recipients and international processing</h2>
         <p>
           Recipient categories are Vercel for hosting and request logs, Telegram for founding-list
-          delivery, Google for consented analytics, Namecheap and the receiving mailbox provider for
-          contact email, and public authorities when disclosure is legally required. These providers
+          delivery, Google for consented analytics and the support receiving/reply interface, Migadu
+          for support mailbox hosting and forwarding, Namecheap for domain DNS, and public authorities
+          when disclosure is legally required. These providers
           may process data in the United States and other countries. The
           applicable provider account, contract, and data-processing terms determine whether an
           adequacy decision, standard contractual clauses, or another transfer mechanism applies.
@@ -299,8 +303,9 @@ export default function PrivacyPage() {
 
         <h2 className="font-display text-xl font-semibold text-slate-900">Contact</h2>
         <p>
-          The published controller address is hello@aipolicyfile.com. Inbound delivery was externally
-          verified on August 29, 2026 as described above. We may need to verify that you
+          The published controller address is hello@aipolicyfile.com. Inbound delivery, reply receipt,
+          and separate outbound authentication were externally verified on August 29, 2026 as
+          described above. We may need to verify that you
           control the submitted or purchase email address before acting on a request, but we will not
           ask for full payment credentials.
         </p>

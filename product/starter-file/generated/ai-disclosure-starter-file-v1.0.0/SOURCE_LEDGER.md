@@ -31,15 +31,15 @@ Automated retrieval does not replace substantive human review. The linked offici
 
 ### Official sources
 
-- **United States Congress — 15 U.S.C. § 45.** https://www.govinfo.gov/link/uscode/15/45  
+- **United States Congress — 15 U.S.C. § 45.** https://www.govinfo.gov/link/uscode/15/45\
   Source ID: us-ftc-section-5; type: statute; status: in_force; binding effect: binding_statute; retrieved: 2026-08-29. Document: 15-USC-45.
-- **Federal Trade Commission — Guides Concerning the Use of Endorsements and Testimonials in Advertising.** https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255  
+- **Federal Trade Commission — Guides Concerning the Use of Endorsements and Testimonials in Advertising.** https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255\
   Source ID: us-ftc-endorsement-guides; type: administrative_interpretive_guides; status: current; binding effect: administrative_interpretation_not_standalone_rule; retrieved: 2026-08-29. Document: 16-CFR-Part-255. SHA-256: feb1c8cfee82158c16c4210ef320bc93ffb2f414aa2bdce6e6772a77064180ea.
-- **Federal Trade Commission staff — The FTC's Endorsement Guides: What People Are Asking.** https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking  
+- **Federal Trade Commission staff — The FTC's Endorsement Guides: What People Are Asking.** https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking\
   Source ID: us-ftc-endorsement-qa; type: staff_guidance; status: current; binding effect: nonbinding_staff_guidance_no_safe_harbor; retrieved: 2026-08-29.
-- **Federal Trade Commission — Revised Endorsement Guides final publication.** https://www.federalregister.gov/d/2023-14795  
+- **Federal Trade Commission — Revised Endorsement Guides final publication.** https://www.federalregister.gov/d/2023-14795\
   Source ID: us-ftc-endorsement-guides-final; type: federal_register_final_document; status: published; binding effect: official_final_publication_of_interpretive_guides; retrieved: 2026-08-29. Document: FR-Doc-2023-14795-88-FR-48092.
-- **Federal Trade Commission — Rule on the Use of Consumer Reviews and Testimonials.** https://www.ecfr.gov/current/title-16/chapter-I/subchapter-D/part-465  
+- **Federal Trade Commission — Rule on the Use of Consumer Reviews and Testimonials.** https://www.ecfr.gov/current/title-16/chapter-I/subchapter-D/part-465\
   Source ID: us-ftc-consumer-review-rule; type: trade_regulation_rule; status: in_force; binding effect: binding_rule; retrieved: 2026-08-29. Document: 16-CFR-Part-465. Note: Adjacent binding rule; it does not amend Part 255.
 
 ## EU AI Act Art. 50
@@ -58,19 +58,19 @@ Automated retrieval does not replace substantive human review. The linked offici
 
 ### Official sources
 
-- **European Parliament and Council — Regulation (EU) 2024/1689.** https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng  
+- **European Parliament and Council — Regulation (EU) 2024/1689.** https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng\
   Source ID: eu-ai-act-base; type: regulation; status: in_force; binding effect: binding_regulation; retrieved: 2026-08-29. Document: CELEX-32024R1689.
-- **European Parliament and Council — Regulation (EU) 2026/1744.** https://eur-lex.europa.eu/eli/reg/2026/1744/oj/eng  
+- **European Parliament and Council — Regulation (EU) 2026/1744.** https://eur-lex.europa.eu/eli/reg/2026/1744/oj/eng\
   Source ID: eu-ai-act-amendment-2026-1744; type: amending_regulation; status: in_force; binding effect: binding_regulation; retrieved: 2026-08-29. Document: CELEX-32026R1744.
-- **EUR-Lex — Consolidated Regulation (EU) 2024/1689.** https://eur-lex.europa.eu/eli/reg/2024/1689/2026-07-27/eng  
+- **EUR-Lex — Consolidated Regulation (EU) 2024/1689.** https://eur-lex.europa.eu/eli/reg/2024/1689/2026-07-27/eng\
   Source ID: eu-ai-act-consolidated; type: consolidated_text; status: current_documentation_copy; binding effect: documentation_only_non_authentic; retrieved: 2026-08-29. Document: CELEX-02024R1689-20260727.
-- **European Commission — Guidelines on Article 50 transparency obligations.** https://digital-strategy.ec.europa.eu/en/library/guidelines-transparency-obligations-providers-and-deployers-ai-systems  
+- **European Commission — Guidelines on Article 50 transparency obligations.** https://digital-strategy.ec.europa.eu/en/library/guidelines-transparency-obligations-providers-and-deployers-ai-systems\
   Source ID: eu-art50-guidelines; type: guidelines; status: current; binding effect: nonbinding_guidelines; retrieved: 2026-08-29. Document: C(2026)-5054-final. SHA-256: 30861fc5de31205846f023068069c92fabc7271ebeac6af7bef68b97f0a33f66.
-- **European Commission — Code of Practice on Transparency of AI-Generated Content.** https://digital-strategy.ec.europa.eu/en/policies/code-practice-ai-generated-content  
+- **European Commission — Code of Practice on Transparency of AI-Generated Content.** https://digital-strategy.ec.europa.eu/en/policies/code-practice-ai-generated-content\
   Source ID: eu-art50-code; type: code_of_practice; status: current; binding effect: voluntary_code_formally_assessed_adequate; retrieved: 2026-08-29. SHA-256: 7bd22c5a3c56eaefda27a5bf7a6118198ef2a9c9255241bd97abf7cdedf9bc28. Note: Commission and AI Board assessed the Code as adequate for Article 50(2), (4), and (5); adherence is not conclusive evidence of compliance.
-- **European Commission — Commission opinion on adequacy of the Article 50 Code of Practice.** https://ec.europa.eu/newsroom/dae/redirection/document/130913  
+- **European Commission — Commission opinion on adequacy of the Article 50 Code of Practice.** https://ec.europa.eu/newsroom/dae/redirection/document/130913\
   Source ID: eu-art50-code-commission-opinion; type: commission_opinion; status: adopted; binding effect: formal_adequacy_assessment_not_conclusive_compliance_proof; retrieved: 2026-08-29. Document: C(2026)-4839-final. SHA-256: e9b85373cde28a6081fab307fa17fa4c90c2560a1c9a145fb461f696bca424ce.
-- **European Artificial Intelligence Board — AI Board assessment of the Article 50 Code of Practice.** https://ec.europa.eu/newsroom/dae/redirection/document/130916  
+- **European Artificial Intelligence Board — AI Board assessment of the Article 50 Code of Practice.** https://ec.europa.eu/newsroom/dae/redirection/document/130916\
   Source ID: eu-art50-code-board-assessment; type: board_assessment; status: adopted; binding effect: formal_adequacy_assessment; retrieved: 2026-08-29. SHA-256: a01d832e0d4b10ebb66d27d0e8cf621aabb18aa56e5c24d39d6b4000a9adfcd2.
 
 ## New York GBL § 396-b
@@ -89,11 +89,11 @@ Automated retrieval does not replace substantive human review. The linked offici
 
 ### Official sources
 
-- **New York State Legislature — New York General Business Law § 396-b.** https://www.nysenate.gov/legislation/laws/GBS/396-B  
+- **New York State Legislature — New York General Business Law § 396-b.** https://www.nysenate.gov/legislation/laws/GBS/396-B\
   Source ID: ny-gbl-396-b; type: codified_statute; status: in_force; binding effect: binding_statute; retrieved: 2026-08-29. Document: NY-GBL-396-B.
-- **New York State Legislature — S.8420-A enacted bill.** https://www.nysenate.gov/legislation/bills/2025/S8420/amendment/A  
+- **New York State Legislature — S.8420-A enacted bill.** https://www.nysenate.gov/legislation/bills/2025/S8420/amendment/A\
   Source ID: ny-s8420-a; type: chaptered_bill; status: enacted; binding effect: enacted_amendment; retrieved: 2026-08-29. Document: Chapter-617-Laws-2025.
-- **Governor of New York — Official announcement confirming the June 9, 2026 effective date.** https://www.governor.ny.gov/news/governor-hochul-announces-first-nation-law-requiring-disclosure-when-advertisements-include-ai  
+- **Governor of New York — Official announcement confirming the June 9, 2026 effective date.** https://www.governor.ny.gov/news/governor-hochul-announces-first-nation-law-requiring-disclosure-when-advertisements-include-ai\
   Source ID: ny-s8420-effective-date-announcement; type: government_announcement; status: published; binding effect: official_explanatory_source; retrieved: 2026-08-29.
 
 ## California B.O.T. Act
@@ -112,9 +112,9 @@ Automated retrieval does not replace substantive human review. The linked offici
 
 ### Official sources
 
-- **California Legislature — California Business and Professions Code § 17941.** https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=17941  
+- **California Legislature — California Business and Professions Code § 17941.** https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=17941\
   Source ID: ca-bpc-17941; type: codified_statute; status: in_force; binding effect: binding_statute; retrieved: 2026-08-29. Document: CA-BPC-17941.
-- **California Legislature — SB 1001 chaptered bill.** https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=201720180SB1001  
+- **California Legislature — SB 1001 chaptered bill.** https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=201720180SB1001\
   Source ID: ca-sb1001-ch892-2018; type: chaptered_bill; status: enacted; binding effect: enacted_amendment; retrieved: 2026-08-29. Document: Chapter-892-Statutes-2018.
 
 ## California AI Transparency Act
@@ -133,13 +133,13 @@ Automated retrieval does not replace substantive human review. The linked offici
 
 ### Official sources
 
-- **California Legislature — California Business and Professions Code, Division 8, Chapter 25.** https://www.leginfo.legislature.ca.gov/faces/codes_displayText.xhtml?article=&chapter=25.&division=8.&lawCode=BPC&part=&title=  
+- **California Legislature — California Business and Professions Code, Division 8, Chapter 25.** https://www.leginfo.legislature.ca.gov/faces/codes_displayText.xhtml?article=&chapter=25.&division=8.&lawCode=BPC&part=&title=\
   Source ID: ca-bpc-chapter-25; type: codified_statute; status: in_force; binding effect: binding_statute; retrieved: 2026-08-29. Document: CA-BPC-Chapter-25.
-- **California Legislature — Pending SB 1000 official status and history.** https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB1000  
+- **California Legislature — Pending SB 1000 official status and history.** https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB1000\
   Source ID: ca-sb1000-2025-2026; type: pending_bill; status: passed_legislature_not_chaptered; binding effect: not_current_law; retrieved: 2026-08-29. Document: 20250SB1000. Note: Passed the Legislature and was ordered to enrolling; verify chaptering before treating it as law.
-- **California Legislature — AB 853 chaptered amendment.** https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260AB853  
+- **California Legislature — AB 853 chaptered amendment.** https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260AB853\
   Source ID: ca-ab853-2025; type: chaptered_bill; status: enacted; binding effect: enacted_amendment; retrieved: 2026-08-29. Document: Chapter-674-Statutes-2025.
-- **California Legislature — SB 942 chaptered text.** https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202320240SB942  
+- **California Legislature — SB 942 chaptered text.** https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202320240SB942\
   Source ID: ca-sb942-2024; type: chaptered_bill; status: enacted; binding effect: enacted_base_act; retrieved: 2026-08-29. Document: Chapter-291-Statutes-2024.
 
 ## Educational limitation

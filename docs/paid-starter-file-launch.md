@@ -1,18 +1,17 @@
 # Paid Starter File launch plan
 
-Last updated: 2026-08-29.
+Last updated: 2026-08-30.
 
 ## Decision: NO-GO
 
 Do not accept payment yet. The public `/starter-file` route is intentionally fail-closed, and `STARTER_FILE_SALES_ENABLED` must remain unset or false.
 
-Verified blockers on 2026-08-29:
+Verified blockers on 2026-08-30:
 
 1. The substantive human legal-source review is dated 2026-08-02 and was due again on 2026-08-09, so `getLegalReviewStatus().overdue` is true.
-2. Inbound delivery to `hello@aipolicyfile.com` is repaired and externally verified, but the outbound reply identity and workflow have not yet passed a customer-facing send-and-reply test.
-3. Gumroad and Paddle are candidates only. Neither provider has been selected, configured, signed into, or verified for identity, security, payout, tax, checkout, delivery, refund, retention, or privacy behavior.
-4. A deterministic blocked inspection ZIP is reconciled with catalog `.2` and the public offer, but it must be rebuilt after human source sign-off and still needs a clean extracted-file browser/network inspection before upload.
-5. No provider test purchase, receipt, download, redelivery, support, or refund flow has passed.
+2. Gumroad and Paddle are candidates only. Neither provider has been selected, configured, signed into, or verified for identity, security, payout, tax, checkout, delivery, refund, retention, or privacy behavior.
+3. A deterministic blocked inspection ZIP is reconciled with catalog `.2` and the public offer, but it must be rebuilt after human source sign-off and still needs a clean extracted-file browser/network inspection before upload.
+4. No merchant-backed order-support, test-purchase, receipt, download, redelivery, or refund flow has passed.
 
 ## Offer contract
 
@@ -23,8 +22,8 @@ Verified blockers on 2026-08-29:
 - Core package: a self-contained `ai-disclosure-starter-file.html` worksheet, `README.txt`, and `BUSINESS-LICENSE.txt`. The final checkout listing and README must publish the complete manifest, including the reconciled source ledger and sample output, and that manifest must match the delivered archive byte-for-byte.
 - Operation: the worksheet runs browser-locally without an account, remote script, analytics, or AI service. It must work offline. Entries are working-memory only unless the customer prints or saves a copy. User-initiated official-source links may open external sites.
 - Included service: the purchased snapshot only. It does not include legal review, a cloud dashboard, hosted workspace, monitoring, or automatic updates.
-- Refund: full refund for a request sent within 14 calendar days after purchase. The buyer supplies the order ID and purchase email, not card or bank details. AI Policy File validates the order and initiates the refund through the merchant of record to the original payment method. Provider and bank posting times apply; mandatory rights remain intact.
-- License: one purchasing business may customize the files for its own operations and use its completed outputs on its own channels. Employees and contractors may act for that business. No resale, redistribution, publication, sublicensing, hosted-service use, or client reuse of the blank files. Agencies and consultants need one license per client business.
+- Refund: full refund for a request sent within 14 calendar days after purchase. The buyer supplies the order ID and purchase email, not card or bank details. AI Policy File validates the order and initiates the refund through the merchant of record to the original payment method. Provider and bank posting times apply; mandatory rights remain intact. When the merchant confirms a full refund, hosted download access and the blank-file license end.
+- License: one purchasing business may customize the files for its own operations and use its completed outputs on its own channels. Employees and contractors may act for that business. No resale, redistribution, publication, sublicensing, hosted-service use, or client reuse of the blank files. Agencies and consultants need one license per client business. After a confirmed full refund, the buyer must stop using or distributing blank files and delete or destroy controlled copies. Downloaded files cannot be remotely erased; lawful outputs created and published before the refund remain, but no new blank-file use is permitted.
 - Boundary: educational information only. The file does not determine jurisdiction, coverage, compliance, legal duties, defenses, or acceptable wording for a buyer's facts, and it creates no attorney-client relationship.
 
 ## Application sales gates
@@ -46,12 +45,12 @@ The route is forced dynamic so the review date and kill switch are evaluated on 
 The blocked inspection build generated on 2026-08-30 UTC is not uploadable for sale, but it proves the packaging path:
 
 - Archive: `product/starter-file/generated/ai-disclosure-starter-file-v1.0.0.zip`
-- Size: 201,520 bytes
-- SHA-256: `2909dc6754fcf93fa2548fb06ff34ae84fc404922b53bdd2eca3e7e48a29eef8`
+- Size: 202,783 bytes
+- SHA-256: `bce23049da581c96bc7e83314e2daf7e4f682b94b3ba6e2b2cf63f56c87dc66b`
 - Catalog: `legal-catalog-2026-08-29.2`
 - Contents: one versioned directory with exactly the eight entries declared by `manifest.json`
 - Gate: `releaseReady=false`, `releaseStatus=blocked_source_review_overdue`; the CLI exits 2
-- Verification: 50/50 repository tests, ESLint, TypeScript, the Next.js production build, dependency audit, and official-source monitor passed on 2026-08-29; the ZIP opened with all expected entries and repeated builds were byte-for-byte identical. The legal-freshness and product-release commands correctly remain nonzero while review is overdue. Repeat the full suite on the final post-review archive.
+- Verification: 50/50 repository tests, ESLint, TypeScript, the Next.js production build, dependency audit, and official-source monitor passed on 2026-08-30; the ZIP opened with all expected entries and repeated builds were byte-for-byte identical. The legal-freshness and product-release commands correctly remain nonzero while review is overdue. Repeat the full suite on the final post-review archive.
 
 ## Merchant recommendation
 
@@ -62,21 +61,29 @@ Why Gumroad first:
 - Gumroad states that it acts as merchant of record and handles worldwide sales-tax collection and remittance.
 - Its official customer documentation says the buyer receives a receipt containing the download link. A buyer can regain access from that receipt or from the Gumroad Library, and the seller dashboard can resend receipts.
 - That hosted delivery and redelivery path avoids building a first-party customer database or a custom delivery service for the validation batch.
+- The launch target is direct web checkout only, subject to written Gumroad confirmation. Leave the category blank, keep Discover off, and do not opt into Gumroad Affiliates; category selection can enroll an eligible product in Discover, and Discover products are automatically available to affiliates.
+
+Gumroad eligibility must be confirmed in writing before publication. Its prohibited-products page restricts AI services. This ZIP is a static offline worksheet: it makes no AI call, provides no chatbot or generation service, creates no account, and includes no subscription, off-platform fulfillment, or ongoing hosted service. That factual distinction supports an eligibility request but is not permission to publish. Use the prepared request in `gumroad-eligibility-request.md` and retain the provider response with the launch evidence.
 
 Why evaluate Paddle after 10 qualifying sales:
 
-- On 2026-08-29, Paddle's public standard rate was 5% + $0.50 per checkout transaction, while Gumroad's public direct/profile-link rate was 10% + $0.50. Gumroad lists a different rate for Discover sales.
+- On 2026-08-29, Paddle's public standard rate was 5% + $0.50 per checkout transaction, while Gumroad's public direct/profile-link rate was 10% + $0.50. Gumroad lists a 30% rate for Discover sales.
 - Paddle also publicly describes itself as merchant of record and says there is no lock-in and data is portable.
 - At sustained demand, the lower published transaction rate and a more configurable long-term checkout justify migration work.
 
-These are public-plan observations, not verified account economics. Before activation and again before migration, inspect the actual provider account and confirm eligibility, prohibited-product rules, payment methods, currency conversion, processor charges, taxes, reserves, chargebacks, payout timing, refund-fee treatment, support, data exports, and any negotiated or changed terms.
+These are public-plan observations, not verified account economics. Before activation and again before migration, inspect the actual provider account and transaction disclosures and record eligibility, prohibited-product rules, payment methods, currency conversion, any additional or retained charges, taxes, reserves, chargebacks, payout timing, refund-fee treatment, support, data exports, and any negotiated or changed terms.
 
 Official public references checked on 2026-08-29:
 
 - Gumroad pricing and merchant-of-record statement: <https://gumroad.com/pricing>
+- Gumroad prohibited-products policy and eligibility contact instruction: <https://gumroad.com/prohibited>
+- Gumroad Discover enrollment and eligibility: <https://gumroad.com/help/article/79-gumroad-discover>
+- Gumroad affiliate behavior: <https://gumroad.com/help/article/333-affiliates-on-gumroad.html>
 - Gumroad customer delivery and Library access: <https://gumroad.com/help/article/282-how-do-purchases-work-for-my-customers>
 - Gumroad sales dashboard, receipt resend, refund, and CSV export: <https://gumroad.com/help/article/268-customer-dashboard>
 - Gumroad buyer refund path: <https://gumroad.com/help/article/190-how-do-i-get-a-refund.html>
+- Gumroad test-purchase limits: <https://gumroad.com/help/article/62-testing-a-purchase.html>
+- Gumroad payout identity and destination setup: <https://gumroad.com/help/article/260-your-payout-settings-page>
 - Paddle pricing and portability statement: <https://www.paddle.com/pricing>
 - Paddle merchant-of-record overview: <https://www.paddle.com/paddle-101>
 - Paddle refund process and posting estimates: <https://www.paddle.com/help/manage/your-customers/how-do-i-issue-refunds>
@@ -91,54 +98,65 @@ Every item must be evidenced before setting `STARTER_FILE_SALES_ENABLED=true`.
 - [x] Reconcile the HTML, README, business license, source ledger, sample output, and any other file into one complete manifest in the blocked inspection build.
 - [ ] Put the product version, source-data version, substantive review date, next review date, complete manifest, refund process, and limitations in the README and checkout listing.
 - [ ] Produce the ZIP from the reconciled files, record its SHA-256 hash and each member hash, and verify a clean extraction on Windows and macOS.
-- [ ] Open the extracted HTML with the network offline and exercise every input, reset, print, and save/copy path.
-- [ ] Inspect network activity in a clean browser: no request occurs while opening or completing the file; only a deliberate external-source click may initiate a request.
+- [x] Exercise all eight text fields and all eight screening choices in the blocked inspection HTML with synthetic values. On 2026-08-30, entry produced no network request, reload cleared every value, and generation/download/print actions remained disabled by the overdue-source gate.
+- [ ] On the final post-review archive, open the extracted HTML with the network offline and exercise every input, reset, generate, print, and save/copy path.
+- [ ] Inspect the final extracted HTML in a clean extension-free browser: no request occurs while opening or completing the file; only a deliberate external-source click may initiate a request. The 2026-08-30 Chrome inspection attributed non-document load traffic to installed browser extensions, so it does not clear this final clean-browser gate.
 - [x] Scan the blocked inspection archive for credentials, internal paths, customer data, analytics, remote scripts, and trackers with automated tests; repeat the scan on the final post-review archive and manually inspect links and legal claims.
 - [x] Confirm the blocked inspection build and public code describe the same $19 one-time offer, no subscription, 14-day refund, one-business license, static-source snapshot, and educational/non-legal boundary; repeat on the provider listing.
 
 ### Support and privacy
 
-- [x] Repair the Namecheap forwarding route for `hello@aipolicyfile.com`; it forwards to the owner-controlled receiving mailbox.
-- [x] From an unrelated external mailbox, send a new message to the alias and verify receipt in the intended mailbox without a delivery error. Test `APF-20260829-01` arrived in Gmail with the `AI Policy File Support` label, `INBOX`, and `UNREAD`.
-- [ ] Reply from the support workflow and verify that the external sender receives it and sees an appropriate From/Reply-To identity.
-- [ ] Verify the receiving provider, account owner, MFA, recovery methods, delegated access, spam handling, retention, deletion, export, and incident process.
+- [x] Replace the inbound-only Namecheap forwarder with `hello@aipolicyfile.com` on the existing Migadu Micro/yearly account; keep Namecheap BasicDNS and use both Migadu MX records, verification TXT, SPF, and all three DKIM rotation CNAMEs.
+- [x] Forward a copy to the owner-controlled Gmail mailbox while retaining a copy in Migadu. Fresh external test `APF-20260829-04` arrived with the `AI Policy File Support` label, `INBOX`, and `UNREAD`.
+- [x] Reply from the support workflow and verify that the external sender receives it from `hello@aipolicyfile.com`. The reply arrived, and separate outbound test `APF-20260829-03` passed SPF, DKIM, and DMARC at Google.
+- [x] Verify the Gmail receiving identity, 2-Step Verification status, configured recovery methods, delegated access, Send-as route, and same-address reply setting. Recovery values are not recorded in the repo; no Gmail delegates were listed.
+- [x] Document spam review, minimal-data handling, provisional retention, deletion/export testing, migration, and incident procedures in `support-mail-runbook.md`.
+- [ ] Owner: complete Google Security Checkup's recovery confirmation and review its device and linked-app recommendations; verify/enable Migadu and Namecheap MFA and recovery; then run synthetic spam, deletion, export, and recovery exercises from the runbook.
 - [ ] Do not put paid-customer records, refund details, files, or legal questions in Telegram.
 - [ ] Update the Privacy Policy and data inventory with the selected merchant, fields, purposes, legal bases where applicable, recipients, countries/safeguards, retention, deletion, export, support route, and provider links.
 - [ ] Update Terms with the selected merchant and the final complete ZIP manifest.
 
 #### Support reply decision
 
-Namecheap Free Email Forwarding is suitable only for inbound routing: it does not create a mailbox or support outgoing mail. Google's custom-address Gmail flow requires SMTP credentials, and Google says third-party Send-as support in Gmail web and mobile will be removed in January 2027. Do not build the launch support workflow around Gmail Send-as.
+The existing Migadu Micro/yearly organization was verified under `raiderj77@gmail.com`, renews March 28, 2027, and supports the additional domain and address without a new subscription. `aipolicyfile.com` is active there with `hello@aipolicyfile.com` as a real mailbox, a retained server copy, and forwarding to Gmail. Gmail sends through `smtp.migadu.com` on port 587 with TLS and replies from the same address that received the message.
 
-The lowest-cost stable recommendation is one Namecheap Private Email Launch mailbox for `hello@aipolicyfile.com` (publicly listed at $14.88/year with a 30-day trial when checked on 2026-08-29). After separate owner approval for the paid service, replace the free forwarder with the mailbox, enable mailbox 2FA, configure SPF/DKIM/DMARC, forward a copy to the owner's Gmail while retaining a server copy, and use Namecheap webmail or a directly configured mail client for replies. Re-run external inbound, authenticated outbound, reply, spam, recovery, retention, deletion/export, and incident tests before sales open.
+This is an owner-authorized temporary Gmail interface, not a permanent dependency. Google says third-party Send-as support in Gmail web and mobile will be removed in January 2027. Migrate replies to Migadu webmail or another directly configured client, then rerun inbound, authenticated outbound, reply, spam, recovery, retention, deletion/export, and incident tests before that deadline. Do not reopen Namecheap Private Email purchasing unless the existing Migadu plan becomes unsuitable.
+
+The operational procedure and remaining account-security gates are recorded in `support-mail-runbook.md`.
 
 Official references checked on 2026-08-29:
 
 - Namecheap free forwarding limits: <https://www.namecheap.com/support/knowledgebase/article.aspx/308/2214/how-to-set-up-free-email-forwarding/>
 - Google custom Send-as and SMTP requirement: <https://support.google.com/mail/answer/22370>
 - Google third-party account and Send-as retirement: <https://support.google.com/mail/answer/17101213>
-- Namecheap Private Email plan comparison: <https://www.namecheap.com/support/knowledgebase/article.aspx/10789/2179/private-email-plans-comparison/>
-- Namecheap Private Email DNS records: <https://www.namecheap.com/support/knowledgebase/article.aspx/1338/2176/how-to-set-up-namecheap-private-email-dns-records-for-domains-on-namecheap-basicpremium-nameservers/>
-- Namecheap Private Email forwarding: <https://www.namecheap.com/support/knowledgebase/article.aspx/10784/2178/how-to-set-up-forwarding-in-namecheap-private-email/>
+- Migadu plan and feature reference: <https://www.migadu.com/pricing/>
 
 ### Merchant account and checkout
 
 - [ ] Select the provider; verify the exact signed-in business/account identity and enable MFA.
+- [ ] Obtain and retain written Gumroad confirmation that this static downloadable worksheet is eligible despite the prohibited-products policy for AI services. Do not infer approval from account creation or a draft product.
 - [ ] Verify product eligibility, merchant-of-record status for this transaction, seller identity, payout destination, tax handling, statement descriptor, support contact, and all live fees in the account.
+- [ ] The owner must personally complete the provider's legal identity, taxpayer, address, payout-destination, identity-document, and payment-terms steps. Do not place those values in project files or chat logs.
 - [ ] Configure a one-time USD $19 digital product with no membership, recurring billing, quantity surprise, tip, add-on, or marketing opt-in enabled by default.
+- [ ] Use a direct web-checkout link for the validation batch. Leave category blank, keep Discover off, and do not opt into Gumroad Affiliates; verify these settings again after every product edit.
 - [ ] Upload the exact hashed ZIP; make its product version and archive hash traceable in the provider record.
 - [ ] Publish accurate deliverables, license, source date, no-update boundary, 14-day refund policy, and educational disclaimer at checkout.
 - [ ] Verify receipt, tax invoice where applicable, download, repeat download/redelivery, order lookup, data export, full refund, customer notification, and product pause controls.
-- [ ] Confirm what happens to access after a refund and document the chosen license treatment without promising technical revocation the provider cannot enforce.
+- [ ] Confirm the live purchase surfaces and refund authority. Keep the initial offer on web checkout; if an app-store purchase surface cannot be disabled, update the listing, Terms, and support process before sale to reflect the applicable platform-controlled refund path.
+- [ ] Verify that a confirmed full refund ends provider-hosted access. Confirm the Terms, listing, receipt, README, and license all terminate the blank-file license, require the buyer to stop use or distribution and delete or destroy controlled copies, disclose that downloaded files cannot be remotely erased, preserve only lawful outputs created and published before the refund, and prohibit new blank-file use.
 
 ### Preview and production
 
 - [ ] Set the allowlisted checkout URL in Preview while keeping `STARTER_FILE_SALES_ENABLED` false; verify that no live link renders.
 - [x] Verify invalid HTTP, first-party, local, credential-bearing, and unsupported-host URLs all remain disabled in automated tests.
-- [ ] With a provider test mode or provider-supported test purchase, verify the complete checkout, receipt, ZIP download, archive hash, redelivery, support, and refund path. Do not charge the owner's own card if the provider prohibits that test method.
+- [ ] Use Gumroad's provider-supported test purchase to verify checkout, receipt/email, ZIP download, archive hash, and redelivery. Record that a test purchase does not create a normal sale or validate a real refund, payout, or post-refund access state.
+- [ ] Ask Gumroad for the approved way to exercise a real full-refund and post-refund-access test. Do not buy the owner's own product or charge an owner-controlled card to manufacture a sale.
 - [ ] Verify the production Terms, Privacy Policy, data inventory, support route, and checkout copy match the configured provider and product.
 - [ ] Set the production checkout URL, deploy with sales still false, and recheck source status and the disabled route.
 - [ ] Set `STARTER_FILE_SALES_ENABLED=true` only after recorded owner launch authorization, redeploy, and verify the production link, price, one-time billing, destination hostname, and final checkout before announcing it.
+
+### Post-launch obligations
+
 - [ ] Monitor the first 10 qualifying orders for delivery, support, refund, privacy, fraud, chargeback, payout, fee, and tax anomalies without copying sensitive data into project logs.
 
 ## Gumroad-to-Paddle exit plan

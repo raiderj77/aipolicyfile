@@ -111,7 +111,8 @@ export default function StarterFilePurchase({
 
       <p className="mt-3 text-xs leading-relaxed text-slate-600">
         Refund requests may be sent within 14 calendar days of purchase. The
-        product is educational information, not legal advice.
+        product is educational information, not legal advice. A confirmed full
+        refund ends hosted access and the blank-file license.
       </p>
     </aside>
   );

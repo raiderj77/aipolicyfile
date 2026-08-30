@@ -213,7 +213,8 @@ export default function StarterFilePage() {
               Once support is verified and sales open, email
               hello@aipolicyfile.com within 14 calendar days of purchase with the
               order ID and purchase email. We will validate the order and initiate
-              a full refund through the merchant of record.
+              a full refund through the merchant of record. A confirmed full refund
+              ends hosted download access and the blank-file license.
             </p>
           </div>
           <div>
@@ -224,6 +225,10 @@ export default function StarterFilePage() {
               One purchasing business may customize and use the file and its
               completed outputs for its own operations and channels. The blank
               file may not be resold, shared, sublicensed, or reused for clients.
+              After a confirmed full refund, stop using or distributing the blank
+              files and delete or destroy your copies; previously published lawful
+              outputs do not have to be withdrawn, but no new blank-file use is
+              permitted.
             </p>
           </div>
           <div>

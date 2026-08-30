@@ -17,7 +17,7 @@ export default function TermsPage() {
       <h1 className="font-display text-3xl font-bold tracking-tight text-slate-900">
         Terms of Use
       </h1>
-      <p className="mt-2 text-sm text-slate-600">Last updated: August 29, 2026</p>
+      <p className="mt-2 text-sm text-slate-600">Last updated: August 30, 2026</p>
       <div className="mt-6 space-y-4 leading-relaxed text-slate-700">
         <p>
           By using aipolicyfile.com you agree to these terms. If you do not
@@ -45,13 +45,13 @@ export default function TermsPage() {
         </h2>
         <p>
           The AI Disclosure Starter File is a planned one-time digital product and
-          is not currently open for sale. A scheduled source review is overdue,
-          while the outbound support-reply identity and workflow still require
-          verification. Inbound delivery to hello@aipolicyfile.com was repaired
-          and externally retested on August 29, 2026. Checkout must remain closed
-          until the source review is current, the complete support workflow, product,
-          and refund process are verified, a valid external checkout is configured,
-          and sales are explicitly enabled on the server.
+          is not currently open for sale. A scheduled source review is overdue.
+          Inbound delivery and reply receipt through hello@aipolicyfile.com were
+          externally round-trip tested on August 29, 2026. A separate outbound
+          message passed SPF, DKIM, and DMARC. Checkout must remain closed until
+          the source review is current, the product and refund process are
+          verified, a valid external checkout is configured, and sales are
+          explicitly enabled on the server.
         </p>
         <p>
           Gumroad and Paddle are merchant-of-record candidates. Neither provider
@@ -110,6 +110,17 @@ export default function TermsPage() {
           This policy does not limit any non-waivable refund, cancellation, or
           consumer right that applies to you.
         </p>
+        <p>
+          If the purchase is fully refunded, hosted download access and the
+          business-use license for the blank product files end when the merchant
+          confirms the refund. The purchasing business must stop using or
+          distributing the blank product files and delete or destroy every copy
+          under its control. Files already downloaded cannot be remotely erased.
+          A full refund does not require the business to retract or destroy lawful
+          disclosure text or other completed outputs that it created and published
+          before the refund, but it may not make any new use of the blank product
+          files after the refund. Mandatory consumer rights remain unaffected.
+        </p>
 
         <h2 className="font-display text-xl font-semibold text-slate-900">
           Business-use license
@@ -128,8 +139,11 @@ export default function TermsPage() {
           certification, or a compliance guarantee. An agency or consultant needs
           a separate license for each client business whose operations are entered
           into the file. Source-version and limitation notices must remain in the
-          files. The license ends after a material breach that is not cured after
-          notice, without limiting rights in lawfully created public outputs.
+          files. The license also ends when a full refund is confirmed or after a
+          material breach that is not cured after notice. Ending the license does
+          not require retraction or destruction of lawful completed outputs created
+          and published before termination, but it permits no new use of the blank
+          product files.
         </p>
 
         <h2 className="font-display text-xl font-semibold text-slate-900">

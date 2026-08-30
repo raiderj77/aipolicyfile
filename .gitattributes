@@ -1,0 +1,9 @@
+# Deterministic product payloads must match their manifest hashes and ZIP bytes on every platform.
+product/starter-file/generated/**/*.txt text eol=lf
+product/starter-file/generated/**/*.html text eol=lf
+product/starter-file/generated/**/*.md text eol=lf
+product/starter-file/generated/**/*.json text eol=lf
+product/starter-file/generated/*.zip binary
+
+# The generator itself uses literal newlines to produce the deterministic payloads.
+scripts/build-starter-file.mjs text eol=lf

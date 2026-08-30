@@ -568,7 +568,7 @@ export function renderPrintableOutput(model) {
   const resultSections = model.results
     .map((result) => {
       const example = result.exampleDisclosure
-        ? `<h4>Editable example</h4><blockquote>${escapeHtml(result.exampleDisclosure.text)}</blockquote><p>${escapeHtml(result.exampleDisclosure.label)}</p>`
+        ? `  <h4>Editable example</h4><blockquote>${escapeHtml(result.exampleDisclosure.text)}</blockquote><p>${escapeHtml(result.exampleDisclosure.label)}</p>`
         : "";
       return `<section>
   <h3>${escapeHtml(result.frameworkName)}</h3>
@@ -580,7 +580,7 @@ export function renderPrintableOutput(model) {
   <ul>${result.matchedAnswers.map((answer) => `<li>${escapeHtml(answer.label)}: <strong>${escapeHtml(answer.answer)}</strong></li>`).join("")}</ul>
   <h4>Unresolved facts</h4>
   <ul>${result.unresolvedFacts.map((fact) => `<li>${escapeHtml(fact)}</li>`).join("")}</ul>
-  ${example}
+${example}
   <h4>Official sources</h4>
   <ul>${result.officialSources.map((source) => `<li><a href="${escapeHtml(source.url)}">${escapeHtml(source.authority)} — ${escapeHtml(source.title)}</a> (retrieved ${escapeHtml(source.retrievedAt)})</li>`).join("")}</ul>
   <h4>Provenance</h4>
@@ -1003,7 +1003,7 @@ function renderSourceLedgerMarkdown(ledger) {
       "",
       ...framework.officialSources.map(
         (source) =>
-          `- **${source.authority} — ${source.title}.** ${source.canonicalUrl}  \n  Source ID: ${source.sourceId}; type: ${source.sourceType}; status: ${source.legalStatus}; binding effect: ${source.bindingEffect}; retrieved: ${source.retrievedAt}.${source.documentId ? ` Document: ${source.documentId}.` : ""}${source.contentSha256 ? ` SHA-256: ${source.contentSha256}.` : ""}${source.notes ? ` Note: ${source.notes}` : ""}`,
+          `- **${source.authority} — ${source.title}.** ${source.canonicalUrl}\\\n  Source ID: ${source.sourceId}; type: ${source.sourceType}; status: ${source.legalStatus}; binding effect: ${source.bindingEffect}; retrieved: ${source.retrievedAt}.${source.documentId ? ` Document: ${source.documentId}.` : ""}${source.contentSha256 ? ` SHA-256: ${source.contentSha256}.` : ""}${source.notes ? ` Note: ${source.notes}` : ""}`,
       ),
       "",
     );
@@ -1080,6 +1080,8 @@ The merchant-upload archive is \`${ARTIFACT_DIRECTORY}.zip\`; it contains this v
 
 For product-file problems, use the verified seller support channel shown at checkout. You may request a full refund for any reason within 14 calendar days after purchase. Include the order ID and purchase email, but never send card or bank details. The seller validates the order and initiates the refund through the merchant of record to the original payment method; provider and financial-institution posting times apply, and mandatory rights remain intact.
 
+A confirmed full refund ends hosted download access and the business-use license for the blank product files. Stop using or distributing those files and delete or destroy copies under your control. Downloaded files cannot be remotely erased. Lawful completed outputs created and published before the refund do not need to be retracted or destroyed, but no new use of the blank files is permitted.
+
 Source or wording questions should be verified against the official links in the ledger. This product does not include ongoing monitoring or alerts.
 `;
 }
@@ -1092,6 +1094,10 @@ Copyright (c) 2026 AI Policy File. All rights reserved except for the limited li
 After one authorized $19 purchase, one purchasing business receives a limited, non-exclusive, non-transferable license to use, copy, edit, print, and export this artifact for that business's own operations and channels. Its employees and contractors may use the files only while acting for that business. The business may publish disclosure text it creates with the artifact.
 
 The purchasing business may not resell, sublicense, share, post, publish, or redistribute the blank artifact, its source-ledger compilation, or substantially equivalent copies as a template, product, library, hosted service, or client deliverable. An agency or consultant needs a separate license for each client business whose operations are entered into the file. One purchase does not include updates, alerts, hosting, accounts, consulting, or ongoing source review.
+
+If the purchase is fully refunded, hosted download access and the business-use license for the blank product files end when the merchant confirms the refund. The purchasing business must stop using or distributing the blank product files and delete or destroy every copy under its control. Files already downloaded cannot be remotely erased. A full refund does not require the business to retract or destroy lawful disclosure text or other completed outputs that it created and published before the refund, but it may not make any new use of the blank product files after the refund. Mandatory consumer rights remain unaffected.
+
+This license also ends after a material breach that is not cured after notice. Ending the license does not require retraction or destruction of lawful completed outputs created and published before termination, but it permits no new use of the blank product files.
 
 Official government and regulator materials remain subject to their own terms and public-law status. This license does not claim ownership of those materials or their links.
 

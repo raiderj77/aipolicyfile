@@ -65,4 +65,6 @@ The merchant-upload archive is `ai-disclosure-starter-file-v1.0.0.zip`; it conta
 
 For product-file problems, use the verified seller support channel shown at checkout. You may request a full refund for any reason within 14 calendar days after purchase. Include the order ID and purchase email, but never send card or bank details. The seller validates the order and initiates the refund through the merchant of record to the original payment method; provider and financial-institution posting times apply, and mandatory rights remain intact.
 
+A confirmed full refund ends hosted download access and the business-use license for the blank product files. Stop using or distributing those files and delete or destroy copies under your control. Downloaded files cannot be remotely erased. Lawful completed outputs created and published before the refund do not need to be retracted or destroyed, but no new use of the blank files is permitted.
+
 Source or wording questions should be verified against the official links in the ledger. This product does not include ongoing monitoring or alerts.
