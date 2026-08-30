@@ -79,17 +79,37 @@
           "sourceId": "us-ftc-consumer-review-rule",
           "sourceType": "trade_regulation_rule",
           "title": "Rule on the Use of Consumer Reviews and Testimonials"
+        },
+        {
+          "authority": "Federal Trade Commission",
+          "bindingEffect": "supplemental_official_explanation",
+          "canonicalUrl": "https://www.ftc.gov/news-events/news/press-releases/2023/06/federal-trade-commission-announces-updated-advertising-guides-combat-deceptive-reviews-endorsements",
+          "jurisdiction": "United States",
+          "legalStatus": "published",
+          "notes": "Supplemental support for the implemented June 29, 2023 finalization date.",
+          "publishedDate": "2023-06-29",
+          "retrievedAt": "2026-08-29",
+          "sourceId": "us-ftc-endorsement-guides-finalization-announcement",
+          "sourceType": "government_announcement",
+          "title": "Federal Trade Commission announces updated Endorsement Guides"
         }
       ],
       "review": {
+        "authorizationStartsAt": "2026-08-02T00:00:00Z",
+        "automatedAccessLimitedSourceIds": [],
+        "automatedAllowlistSourceIds": [],
         "automatedSourceCheckNote": "All configured automated checks for this framework completed without a detected failure.",
         "automatedSourceCheckStatus": "passed",
         "checkerVersion": "checker-2026-08-29.1",
+        "dateWindowAuthorized": true,
         "lastAutomatedSourceCheckDate": "2026-08-29",
         "lastSubstantiveHumanReviewDate": "2026-08-02",
         "nextReviewDue": "2026-08-09",
+        "reviewAuthorizationState": "historical_metadata_only",
+        "reviewMetadataLinked": true,
+        "reviewRecordId": "legacy-metadata-2026-08-02",
         "reviewer": "Jason Ramirez (site owner; not an attorney)",
-        "sourceDataVersion": "us-ftc-sources-2026-08-29.2",
+        "sourceDataVersion": "us-ftc-sources-2026-08-29.3",
         "templateVersion": null
       },
       "rolesAffected": [
@@ -210,17 +230,36 @@
           "sourceId": "eu-art50-code-board-assessment",
           "sourceType": "board_assessment",
           "title": "AI Board assessment of the Article 50 Code of Practice"
+        },
+        {
+          "authority": "European Commission",
+          "bindingEffect": "supplemental_official_explanation",
+          "canonicalUrl": "https://digital-strategy.ec.europa.eu/en/library/commission-opinion-assessment-code-practice-transparency-ai-generated-content",
+          "jurisdiction": "European Union",
+          "legalStatus": "published",
+          "notes": "Supplemental official explanation of the Commission and AI Board adequacy assessments; adherence is not conclusive evidence of compliance.",
+          "retrievedAt": "2026-08-29",
+          "sourceId": "eu-art50-adequacy-opinion-landing",
+          "sourceType": "government_announcement",
+          "title": "Commission opinion on assessment of the Code of Practice on transparency of AI-generated content"
         }
       ],
       "review": {
+        "authorizationStartsAt": "2026-08-02T00:00:00Z",
+        "automatedAccessLimitedSourceIds": [],
+        "automatedAllowlistSourceIds": [],
         "automatedSourceCheckNote": "All configured automated checks for this framework completed without a detected failure.",
         "automatedSourceCheckStatus": "passed",
         "checkerVersion": "checker-2026-08-29.1",
+        "dateWindowAuthorized": true,
         "lastAutomatedSourceCheckDate": "2026-08-29",
         "lastSubstantiveHumanReviewDate": "2026-08-02",
         "nextReviewDue": "2026-08-09",
+        "reviewAuthorizationState": "historical_metadata_only",
+        "reviewMetadataLinked": true,
+        "reviewRecordId": "legacy-metadata-2026-08-02",
         "reviewer": "Jason Ramirez (site owner; not an attorney)",
-        "sourceDataVersion": "eu-art50-sources-2026-08-29.2",
+        "sourceDataVersion": "eu-art50-sources-2026-08-29.3",
         "templateVersion": "eu-art50-deepfake-en-v1"
       },
       "rolesAffected": [
@@ -279,12 +318,26 @@
         }
       ],
       "review": {
+        "authorizationStartsAt": "2026-08-02T00:00:00Z",
+        "automatedAccessLimitedSourceIds": [
+          "ny-gbl-396-b",
+          "ny-s8420-a"
+        ],
+        "automatedAllowlistSourceIds": [
+          "ny-gbl-396-b",
+          "ny-s8420-a",
+          "ny-s8420-effective-date-announcement"
+        ],
         "automatedSourceCheckNote": "On August 29, 2026, direct automation returned HTTP 403 for the two New York legislative pages (§ 396-b and S.8420-A). The allowlisted Governor-page block was not observed, so that allowlist and metadata require review; automated coverage remains limited despite manual opening.",
         "automatedSourceCheckStatus": "access_limited",
         "checkerVersion": "checker-2026-08-29.1",
+        "dateWindowAuthorized": true,
         "lastAutomatedSourceCheckDate": "2026-08-29",
         "lastSubstantiveHumanReviewDate": "2026-08-02",
         "nextReviewDue": "2026-08-09",
+        "reviewAuthorizationState": "historical_metadata_only",
+        "reviewMetadataLinked": true,
+        "reviewRecordId": "legacy-metadata-2026-08-02",
         "reviewer": "Jason Ramirez (site owner; not an attorney)",
         "sourceDataVersion": "ny-gbl-396-b-2026-06-12.2",
         "templateVersion": "ny-gbl-396-b-disclosure-en-v1"
@@ -303,6 +356,18 @@
       "name": "California B.O.T. Act",
       "officialSources": [
         {
+          "authority": "California Legislature",
+          "bindingEffect": "binding_statute_definitions",
+          "canonicalUrl": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=17940",
+          "documentId": "CA-BPC-17940",
+          "jurisdiction": "California",
+          "legalStatus": "in_force",
+          "retrievedAt": "2026-08-29",
+          "sourceId": "ca-bpc-17940",
+          "sourceType": "codified_statute",
+          "title": "California Business and Professions Code § 17940"
+        },
+        {
           "applicableDate": "2019-07-01",
           "authority": "California Legislature",
           "bindingEffect": "binding_statute",
@@ -315,6 +380,31 @@
           "sourceId": "ca-bpc-17941",
           "sourceType": "codified_statute",
           "title": "California Business and Professions Code § 17941"
+        },
+        {
+          "authority": "California Legislature",
+          "bindingEffect": "binding_statute_qualifications",
+          "canonicalUrl": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=17942",
+          "documentId": "CA-BPC-17942",
+          "jurisdiction": "California",
+          "legalStatus": "in_force",
+          "retrievedAt": "2026-08-29",
+          "sourceId": "ca-bpc-17942",
+          "sourceType": "codified_statute",
+          "title": "California Business and Professions Code § 17942"
+        },
+        {
+          "applicableDate": "2019-07-01",
+          "authority": "California Legislature",
+          "bindingEffect": "binding_statute_operative_date",
+          "canonicalUrl": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=17943",
+          "documentId": "CA-BPC-17943",
+          "jurisdiction": "California",
+          "legalStatus": "in_force",
+          "retrievedAt": "2026-08-29",
+          "sourceId": "ca-bpc-17943",
+          "sourceType": "codified_statute",
+          "title": "California Business and Professions Code § 17943"
         },
         {
           "adoptedDate": "2018-09-28",
@@ -333,14 +423,21 @@
         }
       ],
       "review": {
+        "authorizationStartsAt": "2026-08-02T00:00:00Z",
+        "automatedAccessLimitedSourceIds": [],
+        "automatedAllowlistSourceIds": [],
         "automatedSourceCheckNote": "All configured automated checks for this framework completed without a detected failure.",
         "automatedSourceCheckStatus": "passed",
         "checkerVersion": "checker-2026-08-29.1",
+        "dateWindowAuthorized": true,
         "lastAutomatedSourceCheckDate": "2026-08-29",
         "lastSubstantiveHumanReviewDate": "2026-08-02",
         "nextReviewDue": "2026-08-09",
+        "reviewAuthorizationState": "historical_metadata_only",
+        "reviewMetadataLinked": true,
+        "reviewRecordId": "legacy-metadata-2026-08-02",
         "reviewer": "Jason Ramirez (site owner; not an attorney)",
-        "sourceDataVersion": "ca-bpc-17941-2026-08-29.2",
+        "sourceDataVersion": "ca-bpc-17941-2026-08-29.3",
         "templateVersion": "ca-bot-disclosure-en-v1"
       },
       "rolesAffected": [
@@ -385,6 +482,20 @@
         },
         {
           "authority": "California Legislature",
+          "bindingEffect": "not_current_law",
+          "canonicalUrl": "https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260SB1000",
+          "documentId": "20250SB1000-current-text",
+          "jurisdiction": "California",
+          "legalStatus": "passed_legislature_not_chaptered",
+          "notes": "Passed text used only to identify proposed changes; live status controls whether it remains pending.",
+          "officialPageLastUpdated": "2026-08-21",
+          "retrievedAt": "2026-08-29",
+          "sourceId": "ca-sb1000-2025-2026-text",
+          "sourceType": "pending_bill_text",
+          "title": "Pending SB 1000 current bill text"
+        },
+        {
+          "authority": "California Legislature",
           "bindingEffect": "enacted_amendment",
           "canonicalUrl": "https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260AB853",
           "documentId": "Chapter-674-Statutes-2025",
@@ -409,14 +520,21 @@
         }
       ],
       "review": {
+        "authorizationStartsAt": "2026-08-02T00:00:00Z",
+        "automatedAccessLimitedSourceIds": [],
+        "automatedAllowlistSourceIds": [],
         "automatedSourceCheckNote": "All configured automated checks for this framework completed without a detected failure.",
         "automatedSourceCheckStatus": "passed",
         "checkerVersion": "checker-2026-08-29.1",
+        "dateWindowAuthorized": true,
         "lastAutomatedSourceCheckDate": "2026-08-29",
         "lastSubstantiveHumanReviewDate": "2026-08-02",
         "nextReviewDue": "2026-08-09",
+        "reviewAuthorizationState": "historical_metadata_only",
+        "reviewMetadataLinked": true,
+        "reviewRecordId": "legacy-metadata-2026-08-02",
         "reviewer": "Jason Ramirez (site owner; not an attorney)",
-        "sourceDataVersion": "ca-ai-transparency-2026-08-29.2",
+        "sourceDataVersion": "ca-ai-transparency-2026-08-29.3",
         "templateVersion": null
       },
       "rolesAffected": [
@@ -431,7 +549,7 @@
       "whoItHits": "Defined covered providers and affected third-party licensees; defined large online platforms and GenAI system hosting platforms beginning January 1, 2027; and defined capture device manufacturers for specified devices beginning January 1, 2028."
     }
   ],
-  "legalSourceDataVersion": "legal-catalog-2026-08-29.2",
+  "legalSourceDataVersion": "legal-catalog-2026-08-29.3",
   "reviewStatus": {
     "asOfDate": "2026-08-30",
     "lastAutomatedSourceCheckDate": "2026-08-29",
@@ -444,6 +562,13 @@
       "nySynthetic",
       "caBot",
       "caSb942"
+    ],
+    "reviewAuthorizationStates": [
+      "historical_metadata_only"
+    ],
+    "reviewMetadataLinked": true,
+    "reviewRecordIds": [
+      "legacy-metadata-2026-08-02"
     ],
     "state": "SOURCE REVIEW OVERDUE"
   },

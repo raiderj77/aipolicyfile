@@ -6,12 +6,14 @@ if (review.overdue) {
   console.error(
     `SOURCE REVIEW OVERDUE: substantive review was due ${review.nextReviewDue}. ` +
       `Last substantive review: ${review.reviewedDate}. ` +
+      `Review record: ${review.reviewRecordId} (${review.reviewAuthorizationState}; ` +
+      `metadata linked: ${review.reviewMetadataLinked}). ` +
       `Last automated source check: ${review.lastAutomatedSourceCheckDate}.`,
   );
   process.exitCode = 1;
 } else {
   console.log(
     `Legal source review is current through ${review.nextReviewDue}; ` +
-      `last substantive review ${review.reviewedDate}.`,
+      `last substantive review ${review.reviewedDate}; review record ${review.reviewRecordId}.`,
   );
 }

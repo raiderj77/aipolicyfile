@@ -119,6 +119,45 @@ test("canonical review dates fail closed on the first day after the due date", (
     () => calculateReviewStatus(nextDay.frameworks, "08/10/2026"),
     /Invalid as-of date/,
   );
+  assert.throws(
+    () => calculateReviewStatus(nextDay.frameworks, "2026-02-30", "2026-03-02T12:00:00Z"),
+    /Invalid as-of date/,
+  );
+  assert.throws(
+    () => calculateReviewStatus(nextDay.frameworks, "2026-08-10", "2026-08-11T00:00:00Z"),
+    /must fall on the as-of UTC date/,
+  );
+});
+
+test("review currentness starts at the exact owner-authorization timestamp", () => {
+  const frameworks = [
+    {
+      id: "synthetic",
+      review: {
+        dateWindowAuthorized: true,
+        authorizationStartsAt: "2026-08-30T08:10:00-07:00",
+        lastSubstantiveHumanReviewDate: "2026-08-30",
+        nextReviewDue: "2026-09-06",
+        lastAutomatedSourceCheckDate: "2026-08-30",
+        reviewRecordId: "legal-review-2026-08-30-owner",
+        reviewAuthorizationState: "signed",
+        reviewMetadataLinked: true,
+      },
+    },
+  ];
+  assert.equal(
+    calculateReviewStatus(frameworks, "2026-08-30", "2026-08-30T15:09:59.999Z").overdue,
+    true,
+  );
+  assert.equal(
+    calculateReviewStatus(frameworks, "2026-08-30", "2026-08-30T15:10:00.000Z").overdue,
+    false,
+  );
+  frameworks[0].review.dateWindowAuthorized = false;
+  assert.equal(
+    calculateReviewStatus(frameworks, "2026-08-30", "2026-08-30T15:10:00.000Z").overdue,
+    true,
+  );
 });
 
 test("source ledger carries every canonical framework, official source, and review version", () => {
@@ -295,7 +334,9 @@ test("versioned bundle builds byte-for-byte deterministically and hashes every p
     ]) {
       assert.match(firstFiles[fileName], /SOURCE REVIEW OVERDUE/, fileName);
     }
-    assert.match(firstFiles["README.txt"], /Legal source data: `legal-catalog-2026-08-29\.2`/);
+    assert.ok(
+      firstFiles["README.txt"].includes(`Legal source data: \`${LEGAL_SOURCE_DATA_VERSION}\``),
+    );
     assert.match(firstFiles["README.txt"], /full refund for any reason within 14 calendar days/i);
     assert.match(firstFiles["README.txt"], /order ID and purchase email/i);
     assert.match(firstFiles["README.txt"], /confirmed full refund ends hosted download access/i);
@@ -312,6 +353,50 @@ test("versioned bundle builds byte-for-byte deterministically and hashes every p
   } finally {
     await rm(firstRoot, { recursive: true, force: true });
     await rm(secondRoot, { recursive: true, force: true });
+  }
+});
+
+test("default CLI-equivalent builds do not persist the ephemeral gate timestamp", async () => {
+  const firstRoot = await mkdtemp(path.join(productRoot, ".test-default-a-"));
+  const secondRoot = await mkdtemp(path.join(productRoot, ".test-default-b-"));
+  try {
+    const first = await buildStarterFile({ outputRoot: firstRoot });
+    const second = await buildStarterFile({ outputRoot: secondRoot });
+    assert.equal(first.archiveSha256, second.archiveSha256);
+    assert.deepEqual(await readFile(first.archivePath), await readFile(second.archivePath));
+    assert.equal(Object.hasOwn(first.ledger.reviewStatus, "asOfTimestamp"), false);
+  } finally {
+    await rm(firstRoot, { recursive: true, force: true });
+    await rm(secondRoot, { recursive: true, force: true });
+  }
+});
+
+test("committed merchant bundle exactly matches a fresh deterministic build", async () => {
+  const committedManifest = JSON.parse(
+    await readFile(path.join(generatedDirectory, "manifest.json"), "utf8"),
+  );
+  const freshRoot = await mkdtemp(path.join(productRoot, ".test-committed-build-"));
+  try {
+    const fresh = await buildStarterFile({
+      outputRoot: freshRoot,
+      asOfDate: committedManifest.builtAsOf,
+      // The exact wall-clock gate time is deliberately not serialized. End of
+      // the recorded UTC build date deterministically reproduces a bundle that
+      // could only have been committed after its signed authorization existed.
+      asOfTimestamp: `${committedManifest.builtAsOf}T23:59:59.999Z`,
+    });
+    assert.deepEqual(
+      await readDirectory(generatedDirectory),
+      await readDirectory(fresh.outputDirectory),
+      "committed generated files must be rebuilt whenever source or generator inputs change",
+    );
+    assert.deepEqual(
+      await readFile(path.join(productRoot, "generated", `${ARTIFACT_DIRECTORY}.zip`)),
+      await readFile(fresh.archivePath),
+      "committed merchant ZIP must match the fresh deterministic archive",
+    );
+  } finally {
+    await rm(freshRoot, { recursive: true, force: true });
   }
 });
 
@@ -396,6 +481,8 @@ test("overdue bundle disables actions in HTML, at runtime, and in print CSS", as
   assert.match(html, /SOURCE REVIEW OVERDUE — RELEASE AND EXPORT REFUSED/);
   assert.match(html, /id="generate" type="button" disabled/);
   assert.match(html, /today > framework\.review\.nextReviewDue/);
+  assert.match(html, /framework\.review\.dateWindowAuthorized !== true/);
+  assert.match(html, /now < authorizationStart/);
   assert.match(html, /body\.review-overdue \.page-content\{display:none!important\}/);
   assert.doesNotMatch(html, /\.hero,\.sidebar,\.form-panel,\.actions/);
   assert.match(html, /\.form-panel>h2,\.form-panel>\.privacy,\.form-panel form\{display:none\}/);

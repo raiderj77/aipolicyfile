@@ -7,3 +7,10 @@ product/starter-file/generated/*.zip binary
 
 # The generator itself uses literal newlines to produce the deterministic payloads.
 scripts/build-starter-file.mjs text eol=lf
+
+# Signed legal-review evidence hashes use canonical LF text across platforms.
+docs/legal-review/**/*.md text eol=lf
+docs/legal-review/**/*.json text eol=lf
+docs/legal-source-review-governance.md text eol=lf
+scripts/check-legal-review-governance.mjs text eol=lf
+src/lib/legalReviewRecords.ts text eol=lf

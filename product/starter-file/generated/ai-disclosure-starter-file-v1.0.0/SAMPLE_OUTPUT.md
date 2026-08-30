@@ -8,7 +8,7 @@ This educational draft is blocked from release because at least one source revie
 - Artifact template version: ai-disclosure-starter-file-en-v1
 - Generated on: 2026-08-30
 - Source review status: SOURCE REVIEW OVERDUE
-- Legal source data version: legal-catalog-2026-08-29.2
+- Legal source data version: legal-catalog-2026-08-29.3
 - Checker version: checker-2026-08-29.1
 - Last substantive human review: 2026-08-02
 - Next review due: 2026-08-09
@@ -76,10 +76,11 @@ AI use alone does not trigger the FTC Endorsement Guides. Payment, gifts, affili
 - [Federal Trade Commission staff — The FTC's Endorsement Guides: What People Are Asking](https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking) (retrieved 2026-08-29)
 - [Federal Trade Commission — Revised Endorsement Guides final publication](https://www.federalregister.gov/d/2023-14795) (retrieved 2026-08-29)
 - [Federal Trade Commission — Rule on the Use of Consumer Reviews and Testimonials](https://www.ecfr.gov/current/title-16/chapter-I/subchapter-D/part-465) (retrieved 2026-08-29)
+- [Federal Trade Commission — Federal Trade Commission announces updated Endorsement Guides](https://www.ftc.gov/news-events/news/press-releases/2023/06/federal-trade-commission-announces-updated-advertising-guides-combat-deceptive-reviews-endorsements) (retrieved 2026-08-29)
 
 #### Provenance
 
-- Source version: us-ftc-sources-2026-08-29.2
+- Source version: us-ftc-sources-2026-08-29.3
 - Substantive review date: 2026-08-02
 - Next review due: 2026-08-09
 - Automated source check: 2026-08-29 (passed)
@@ -120,10 +121,11 @@ Verify the unanswered screening fact listed below. No applicability conclusion i
 - [European Commission — Code of Practice on Transparency of AI-Generated Content](https://digital-strategy.ec.europa.eu/en/policies/code-practice-ai-generated-content) (retrieved 2026-08-29)
 - [European Commission — Commission opinion on adequacy of the Article 50 Code of Practice](https://ec.europa.eu/newsroom/dae/redirection/document/130913) (retrieved 2026-08-29)
 - [European Artificial Intelligence Board — AI Board assessment of the Article 50 Code of Practice](https://ec.europa.eu/newsroom/dae/redirection/document/130916) (retrieved 2026-08-29)
+- [European Commission — Commission opinion on assessment of the Code of Practice on transparency of AI-generated content](https://digital-strategy.ec.europa.eu/en/library/commission-opinion-assessment-code-practice-transparency-ai-generated-content) (retrieved 2026-08-29)
 
 #### Provenance
 
-- Source version: eu-art50-sources-2026-08-29.2
+- Source version: eu-art50-sources-2026-08-29.3
 - Substantive review date: 2026-08-02
 - Next review due: 2026-08-09
 - Automated source check: 2026-08-29 (passed)
@@ -187,12 +189,15 @@ Your answers did not identify a sales or influence chatbot. If that changes, rev
 
 #### Official sources
 
+- [California Legislature — California Business and Professions Code § 17940](https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=17940) (retrieved 2026-08-29)
 - [California Legislature — California Business and Professions Code § 17941](https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=17941) (retrieved 2026-08-29)
+- [California Legislature — California Business and Professions Code § 17942](https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=17942) (retrieved 2026-08-29)
+- [California Legislature — California Business and Professions Code § 17943](https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=17943) (retrieved 2026-08-29)
 - [California Legislature — SB 1001 chaptered bill](https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=201720180SB1001) (retrieved 2026-08-29)
 
 #### Provenance
 
-- Source version: ca-bpc-17941-2026-08-29.2
+- Source version: ca-bpc-17941-2026-08-29.3
 - Substantive review date: 2026-08-02
 - Next review due: 2026-08-09
 - Automated source check: 2026-08-29 (passed)
@@ -224,12 +229,13 @@ Your answers did not identify one of the screened provider, licensee, platform, 
 
 - [California Legislature — California Business and Professions Code, Division 8, Chapter 25](https://www.leginfo.legislature.ca.gov/faces/codes_displayText.xhtml?article=&chapter=25.&division=8.&lawCode=BPC&part=&title=) (retrieved 2026-08-29)
 - [California Legislature — Pending SB 1000 official status and history](https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB1000) (retrieved 2026-08-29)
+- [California Legislature — Pending SB 1000 current bill text](https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260SB1000) (retrieved 2026-08-29)
 - [California Legislature — AB 853 chaptered amendment](https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260AB853) (retrieved 2026-08-29)
 - [California Legislature — SB 942 chaptered text](https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202320240SB942) (retrieved 2026-08-29)
 
 #### Provenance
 
-- Source version: ca-ai-transparency-2026-08-29.2
+- Source version: ca-ai-transparency-2026-08-29.3
 - Substantive review date: 2026-08-02
 - Next review due: 2026-08-09
 - Automated source check: 2026-08-29 (passed)

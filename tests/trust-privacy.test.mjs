@@ -13,6 +13,7 @@ import {
   GA4_MEASUREMENT_ID,
 } from "../src/lib/analytics.ts";
 import { CORRECTIONS } from "../src/lib/corrections.ts";
+import { LEGAL_REVIEW_DATE, NEXT_LEGAL_REVIEW_DUE } from "../src/lib/laws.ts";
 
 import {
   buildTelegramMessage,
@@ -179,10 +180,11 @@ test("legal review dates are bounded and overdue status propagates to every outp
   const monitoringConsumers = await Promise.all(
     monitoringPaths.map((path) => readFile(new URL(path, import.meta.url), "utf8")),
   );
-  const reviewed = laws.match(/LEGAL_REVIEW_DATE = "(\d{4}-\d{2}-\d{2})"/)?.[1];
-  const due = laws.match(/NEXT_LEGAL_REVIEW_DUE = "(\d{4}-\d{2}-\d{2})"/)?.[1];
-  assert.ok(reviewed, "LEGAL_REVIEW_DATE must be present");
-  assert.ok(due, "NEXT_LEGAL_REVIEW_DUE must be present");
+  const reviewed = LEGAL_REVIEW_DATE;
+  const due = NEXT_LEGAL_REVIEW_DUE;
+  assert.match(reviewed, /^\d{4}-\d{2}-\d{2}$/, "LEGAL_REVIEW_DATE must be registered");
+  assert.match(due, /^\d{4}-\d{2}-\d{2}$/, "NEXT_LEGAL_REVIEW_DUE must be registered");
+  assert.match(laws, /findLegalReviewRecord\(LEGAL_REVIEW_RECORD_ID\)/);
   const reviewedAt = Date.parse(`${reviewed}T00:00:00Z`);
   const dueAt = Date.parse(`${due}T23:59:59Z`);
   assert.match(laws, /getLegalReviewStatus/);

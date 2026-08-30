@@ -19,9 +19,9 @@
   "builtAsOf": "2026-08-30",
   "files": [
     {
-      "bytes": 128910,
+      "bytes": 135655,
       "path": "ai-disclosure-starter-file.html",
-      "sha256": "551503fd119c19e31e8cafddb034821a4c7c182fad435f3c3261e5e2e682d1ae"
+      "sha256": "73fcd30e9e594f39745383db1fca193d397f4ee41ee93582085333152c64fd81"
     },
     {
       "bytes": 2558,
@@ -29,29 +29,29 @@
       "sha256": "46d7e0dc1290bab13aacf37c9d86a73478763ac5f42853da0ab610c031b7d180"
     },
     {
-      "bytes": 4872,
+      "bytes": 4969,
       "path": "README.txt",
-      "sha256": "c1e7c3efb00faa1cc4c802da7d9276bfe5b99967b2d0041fbb2383511e29e2e6"
+      "sha256": "d63b435192f1de7e658d7a82bd2ab710b19d6cc9f8945dc614372c293fe61cfa"
     },
     {
-      "bytes": 15939,
+      "bytes": 17389,
       "path": "SAMPLE_OUTPUT.html",
-      "sha256": "ff0ad26fb4f3f56370aa44d2bb264ec43122fdf324575ebdbec97eca75d2a31b"
+      "sha256": "605504b2ba3324bed8e54438566219059e011b54fbe3595a79da5bbf31caab9d"
     },
     {
-      "bytes": 12071,
+      "bytes": 13407,
       "path": "SAMPLE_OUTPUT.md",
-      "sha256": "308482fb4f6b027f88482ccff2b6170bce292ce89c81c71846675bd33564388c"
+      "sha256": "fffcfdeeef73c61d27acdbd100e55f529e2b84dd7dd2c49393408815b9742e71"
     },
     {
-      "bytes": 12048,
+      "bytes": 15234,
       "path": "SOURCE_LEDGER.md",
-      "sha256": "3d38e622bf6df654ecee704a62c049e5ad565ddc19691755a7d707a1e46a3b34"
+      "sha256": "cd51f0c7b8761ba29708545d74b78e50e431c6b553f4601dd49205cac4e15282"
     },
     {
-      "bytes": 21987,
+      "bytes": 28118,
       "path": "source-ledger.json",
-      "sha256": "507ad78fed71bdafacf55ebadecdf53e134bcd777559582cc5c8cfeca3136ce5"
+      "sha256": "a7b8b98080dd80a1f689e4f6d9b327d6bb3ec208d38fdf07927d1a42c303534c"
     }
   ],
   "price": {
@@ -77,12 +77,19 @@
       "caBot",
       "caSb942"
     ],
+    "reviewAuthorizationStates": [
+      "historical_metadata_only"
+    ],
+    "reviewMetadataLinked": true,
+    "reviewRecordIds": [
+      "legacy-metadata-2026-08-02"
+    ],
     "state": "SOURCE REVIEW OVERDUE"
   },
   "versions": {
     "artifactTemplate": "ai-disclosure-starter-file-en-v1",
     "checker": "checker-2026-08-29.1",
-    "legalSourceData": "legal-catalog-2026-08-29.2",
+    "legalSourceData": "legal-catalog-2026-08-29.3",
     "sourceLedgerSchema": "ai-policy-file-source-ledger-v1"
   }
 }

@@ -3,31 +3,33 @@ import { LAWS } from "../src/lib/laws.ts";
 
 const USER_AGENT = "AI-Policy-File-source-monitor/1.0 (+https://aipolicyfile.com/editorial-standards)";
 const BLOCKED_STATUS = new Set([401, 403, 429]);
-const EXPECTED_AUTOMATION_BLOCKS = new Map([
-  ["ny-gbl-396-b", new Set([403, 429])],
-  ["ny-s8420-a", new Set([403, 429])],
-  ["ny-s8420-effective-date-announcement", new Set([403, 429])],
-]);
+const EXPECTED_AUTOMATION_BLOCKS = new Map(
+  Object.values(LAWS).flatMap((law) =>
+    law.review.automatedAllowlistSourceIds.map((sourceId) => [sourceId, new Set([403, 429])]),
+  ),
+);
 const failures = [];
 const warnings = [];
 const observedExpectedBlocks = new Set();
 
 async function fetchWithRetry(url, options = {}) {
+  const { attempts = 3, timeoutMs = 30_000, ...fetchOptions } = options;
   let lastError;
-  for (let attempt = 1; attempt <= 2; attempt += 1) {
+  for (let attempt = 1; attempt <= attempts; attempt += 1) {
     try {
       const response = await fetch(url, {
         redirect: "follow",
-        signal: AbortSignal.timeout(20_000),
-        ...options,
-        headers: { "User-Agent": USER_AGENT, ...(options.headers ?? {}) },
+        signal: AbortSignal.timeout(timeoutMs),
+        ...fetchOptions,
+        headers: { "User-Agent": USER_AGENT, ...(fetchOptions.headers ?? {}) },
       });
-      if (response.status < 500 || attempt === 2) return response;
+      if (response.status < 500 || attempt === attempts) return response;
       await response.body?.cancel();
     } catch (error) {
       lastError = error;
-      if (attempt === 2) throw error;
+      if (attempt === attempts) throw error;
     }
+    await new Promise((resolve) => setTimeout(resolve, 500 * attempt));
   }
   throw lastError;
 }
@@ -41,32 +43,41 @@ async function sha256Response(url) {
 
 const sources = Object.values(LAWS).flatMap((law) => law.officialSources);
 const uniqueCanonicalSources = [...new Map(sources.map((source) => [source.canonicalUrl, source])).values()];
+const sourcesByOrigin = new Map();
+for (const source of uniqueCanonicalSources) {
+  const origin = new URL(source.canonicalUrl).origin;
+  const group = sourcesByOrigin.get(origin) ?? [];
+  group.push(source);
+  sourcesByOrigin.set(origin, group);
+}
 
 await Promise.all(
-  uniqueCanonicalSources.map(async (source) => {
-    try {
-      const response = await fetchWithRetry(source.canonicalUrl, {
-        headers: { Accept: "text/html,application/xhtml+xml,application/pdf;q=0.9,*/*;q=0.8" },
-      });
-      await response.body?.cancel();
-      if (response.ok || (response.status >= 300 && response.status < 400)) return;
-      if (BLOCKED_STATUS.has(response.status)) {
-        const expectedStatuses = EXPECTED_AUTOMATION_BLOCKS.get(source.sourceId);
-        if (expectedStatuses?.has(response.status)) {
-          observedExpectedBlocks.add(source.sourceId);
-          warnings.push(
-            `${source.sourceId}: allowlisted automation access limit returned HTTP ${response.status}`,
+  [...sourcesByOrigin.values()].map(async (originSources) => {
+    for (const source of originSources) {
+      try {
+        const response = await fetchWithRetry(source.canonicalUrl, {
+          headers: { Accept: "text/html,application/xhtml+xml,application/pdf;q=0.9,*/*;q=0.8" },
+        });
+        await response.body?.cancel();
+        if (response.ok || (response.status >= 300 && response.status < 400)) continue;
+        if (BLOCKED_STATUS.has(response.status)) {
+          const expectedStatuses = EXPECTED_AUTOMATION_BLOCKS.get(source.sourceId);
+          if (expectedStatuses?.has(response.status)) {
+            observedExpectedBlocks.add(source.sourceId);
+            warnings.push(
+              `${source.sourceId}: allowlisted automation access limit returned HTTP ${response.status}`,
+            );
+            continue;
+          }
+          failures.push(
+            `${source.sourceId}: unexpected automation access block returned HTTP ${response.status}`,
           );
-          return;
+          continue;
         }
-        failures.push(
-          `${source.sourceId}: unexpected automation access block returned HTTP ${response.status}`,
-        );
-        return;
+        failures.push(`${source.sourceId}: official link returned HTTP ${response.status}`);
+      } catch (error) {
+        failures.push(`${source.sourceId}: official link request failed (${error instanceof Error ? error.message : String(error)})`);
       }
-      failures.push(`${source.sourceId}: official link returned HTTP ${response.status}`);
-    } catch (error) {
-      failures.push(`${source.sourceId}: official link request failed (${error instanceof Error ? error.message : String(error)})`);
     }
   }),
 );
@@ -104,13 +115,17 @@ if (!ftc?.contentSha256) {
   failures.push("us-ftc-endorsement-guides: missing comparison fingerprint");
 } else {
   let checkedCurrentFtc = false;
+  let lastFtcComparisonError;
   for (let daysAgo = 0; daysAgo <= 7 && !checkedCurrentFtc; daysAgo += 1) {
     const date = new Date();
     date.setUTCDate(date.getUTCDate() - daysAgo);
     const dateLabel = date.toISOString().slice(0, 10);
     const url = `https://www.ecfr.gov/api/versioner/v1/full/${dateLabel}/title-16.xml?part=255`;
     try {
-      const response = await fetchWithRetry(url);
+      // Only an authoritative 404 means this date is not yet published and
+      // permits checking the prior date. A timeout or 5xx must remain a
+      // failure so an older pre-change snapshot cannot conceal a new version.
+      const response = await fetchWithRetry(url, { attempts: 3, timeoutMs: 15_000 });
       if (response.status === 404) continue;
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const actual = createHash("sha256").update(Buffer.from(await response.arrayBuffer())).digest("hex");
@@ -119,11 +134,15 @@ if (!ftc?.contentSha256) {
         failures.push(`us-ftc-endorsement-guides: current eCFR snapshot ${dateLabel} differs; substantive review required (${actual})`);
       }
     } catch (error) {
-      failures.push(`us-ftc-endorsement-guides: current eCFR comparison failed (${error instanceof Error ? error.message : String(error)})`);
-      checkedCurrentFtc = true;
+      lastFtcComparisonError = error instanceof Error ? error.message : String(error);
+      break;
     }
   }
-  if (!checkedCurrentFtc) failures.push("us-ftc-endorsement-guides: no eCFR snapshot was available for the last eight UTC dates");
+  if (!checkedCurrentFtc) {
+    failures.push(lastFtcComparisonError
+      ? `us-ftc-endorsement-guides: current eCFR comparison failed (${lastFtcComparisonError})`
+      : "us-ftc-endorsement-guides: no eCFR snapshot was available for the last eight UTC dates");
+  }
 }
 
 try {

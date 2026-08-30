@@ -21,8 +21,10 @@ Open `ai-disclosure-starter-file.html` in a current browser. No installation, ac
 
 ## Embedded source snapshot
 
-- Legal source data: `legal-catalog-2026-08-29.2`
+- Legal source data: `legal-catalog-2026-08-29.3`
 - Checker: `checker-2026-08-29.1`
+- Review record: `legacy-metadata-2026-08-02`
+- Review authorization: `historical_metadata_only`
 - Last substantive human review: `2026-08-02`
 - Next scheduled review due: `2026-08-09`
 - Last automated source check: `2026-08-29`

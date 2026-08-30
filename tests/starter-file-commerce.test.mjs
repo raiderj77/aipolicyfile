@@ -100,6 +100,7 @@ test("public and merchant Starter File copy fixes the price, billing model, refu
   assert.match(terms, /separate license for each client business/i);
 
   const refundCopy = `${page}\n${purchase}\n${terms}\n${listing}\n${launch}`;
+  const normalizedPage = page.replace(/\s+/g, " ");
   const normalizedTerms = terms.replace(/\s+/g, " ");
   const normalizedListing = listing.replace(/\s+/g, " ");
   const normalizedLaunch = launch.replace(/\s+/g, " ");
@@ -113,6 +114,8 @@ test("public and merchant Starter File copy fixes the price, billing model, refu
   assert.match(normalizedListing, /license also ends after a material breach that is not cured after notice/i);
   assert.match(normalizedTerms, /license also ends when a full refund is confirmed or after a material breach/i);
   assert.match(normalizedLaunch, /downloaded files cannot be remotely erased/i);
+  assert.match(normalizedPage, /license also ends after a material breach that is not cured after notice/i);
+  assert.match(normalizedLaunch, /license also ends after a material breach that is not cured after notice/i);
 });
 
 test("checkout accepts only HTTPS Gumroad or Paddle hosts", async () => {

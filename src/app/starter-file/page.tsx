@@ -228,7 +228,9 @@ export default function StarterFilePage() {
               After a confirmed full refund, stop using or distributing the blank
               files and delete or destroy your copies; previously published lawful
               outputs do not have to be withdrawn, but no new blank-file use is
-              permitted.
+              permitted. The license also ends after a material breach that is not
+              cured after notice; lawful completed outputs created and published
+              before termination remain, but no new blank-file use is permitted.
             </p>
           </div>
           <div>

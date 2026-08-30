@@ -10,7 +10,7 @@ Verified blockers on 2026-08-30:
 
 1. The substantive human legal-source review is dated 2026-08-02 and was due again on 2026-08-09, so `getLegalReviewStatus().overdue` is true.
 2. Gumroad and Paddle are candidates only. Neither provider has been selected, configured, signed into, or verified for identity, security, payout, tax, checkout, delivery, refund, retention, or privacy behavior.
-3. A deterministic blocked inspection ZIP is reconciled with catalog `.2` and the public offer, but it must be rebuilt after human source sign-off and still needs a clean extracted-file browser/network inspection before upload.
+3. A deterministic blocked inspection ZIP is reconciled with catalog `.3` and the public offer, but it must be rebuilt after human source sign-off and still needs a clean extracted-file browser/network inspection before upload.
 4. No merchant-backed order-support, test-purchase, receipt, download, redelivery, or refund flow has passed.
 
 ## Offer contract
@@ -23,7 +23,7 @@ Verified blockers on 2026-08-30:
 - Operation: the worksheet runs browser-locally without an account, remote script, analytics, or AI service. It must work offline. Entries are working-memory only unless the customer prints or saves a copy. User-initiated official-source links may open external sites.
 - Included service: the purchased snapshot only. It does not include legal review, a cloud dashboard, hosted workspace, monitoring, or automatic updates.
 - Refund: full refund for a request sent within 14 calendar days after purchase. The buyer supplies the order ID and purchase email, not card or bank details. AI Policy File validates the order and initiates the refund through the merchant of record to the original payment method. Provider and bank posting times apply; mandatory rights remain intact. When the merchant confirms a full refund, hosted download access and the blank-file license end.
-- License: one purchasing business may customize the files for its own operations and use its completed outputs on its own channels. Employees and contractors may act for that business. No resale, redistribution, publication, sublicensing, hosted-service use, or client reuse of the blank files. Agencies and consultants need one license per client business. After a confirmed full refund, the buyer must stop using or distributing blank files and delete or destroy controlled copies. Downloaded files cannot be remotely erased; lawful outputs created and published before the refund remain, but no new blank-file use is permitted.
+- License: one purchasing business may customize the files for its own operations and use its completed outputs on its own channels. Employees and contractors may act for that business. No resale, redistribution, publication, sublicensing, hosted-service use, or client reuse of the blank files. Agencies and consultants need one license per client business. After a confirmed full refund, the buyer must stop using or distributing blank files and delete or destroy controlled copies. Downloaded files cannot be remotely erased; lawful outputs created and published before the refund remain, but no new blank-file use is permitted. The license also ends after a material breach that is not cured after notice; lawful completed outputs created and published before termination remain, but no new blank-file use is permitted.
 - Boundary: educational information only. The file does not determine jurisdiction, coverage, compliance, legal duties, defenses, or acceptable wording for a buyer's facts, and it creates no attorney-client relationship.
 
 ## Application sales gates
@@ -45,12 +45,12 @@ The route is forced dynamic so the review date and kill switch are evaluated on 
 The blocked inspection build generated on 2026-08-30 UTC is not uploadable for sale, but it proves the packaging path:
 
 - Archive: `product/starter-file/generated/ai-disclosure-starter-file-v1.0.0.zip`
-- Size: 202,783 bytes
-- SHA-256: `bce23049da581c96bc7e83314e2daf7e4f682b94b3ba6e2b2cf63f56c87dc66b`
-- Catalog: `legal-catalog-2026-08-29.2`
+- Size: 221,904 bytes
+- SHA-256: `cd9b97de2f281fcd87a783339215a9b83d5e3de8102cf628a8d89d2f96f7c5ec`
+- Catalog: `legal-catalog-2026-08-29.3`
 - Contents: one versioned directory with exactly the eight entries declared by `manifest.json`
 - Gate: `releaseReady=false`, `releaseStatus=blocked_source_review_overdue`; the CLI exits 2
-- Verification: 50/50 repository tests, ESLint, TypeScript, the Next.js production build, dependency audit, and official-source monitor passed on 2026-08-30; the ZIP opened with all expected entries and repeated builds were byte-for-byte identical. The legal-freshness and product-release commands correctly remain nonzero while review is overdue. Repeat the full suite on the final post-review archive.
+- Verification: 62/62 repository tests, ESLint, TypeScript, the Next.js production build, dependency audit, and the 27-link official-source monitor passed on 2026-08-30; the monitor retained three explicit New York access warnings, the ZIP opened with all expected entries, and the committed bundle matched a fresh deterministic build byte-for-byte. The legal-freshness and product-release commands correctly remain nonzero while review is overdue. Repeat the full suite on the final post-review archive.
 
 ## Merchant recommendation
 
@@ -67,13 +67,13 @@ Gumroad eligibility must be confirmed in writing before publication. Its prohibi
 
 Why evaluate Paddle after 10 qualifying sales:
 
-- On 2026-08-29, Paddle's public standard rate was 5% + $0.50 per checkout transaction, while Gumroad's public direct/profile-link rate was 10% + $0.50. Gumroad lists a 30% rate for Discover sales.
+- On 2026-08-30, Paddle's public standard rate was 5% + $0.50 per checkout transaction, while Gumroad's public direct/profile-link rate was 10% + $0.50. Gumroad lists a 30% rate for Discover sales.
 - Paddle also publicly describes itself as merchant of record and says there is no lock-in and data is portable.
 - At sustained demand, the lower published transaction rate and a more configurable long-term checkout justify migration work.
 
 These are public-plan observations, not verified account economics. Before activation and again before migration, inspect the actual provider account and transaction disclosures and record eligibility, prohibited-product rules, payment methods, currency conversion, any additional or retained charges, taxes, reserves, chargebacks, payout timing, refund-fee treatment, support, data exports, and any negotiated or changed terms.
 
-Official public references checked on 2026-08-29:
+Official public references checked on 2026-08-30:
 
 - Gumroad pricing and merchant-of-record statement: <https://gumroad.com/pricing>
 - Gumroad prohibited-products policy and eligibility contact instruction: <https://gumroad.com/prohibited>
@@ -94,7 +94,11 @@ Every item must be evidenced before setting `STARTER_FILE_SALES_ENABLED=true`.
 
 ### Sources and product
 
-- [ ] Complete and record a new substantive human review of every included legal source; `getLegalReviewStatus().overdue` returns false in the production build.
+- [ ] Reviewer only: personally open and verify every source in `docs/legal-review/reviews/source-review-record-2026-08-29.md`, complete every source detail and disposition, resolve or escalate each P0 item, recheck SB 1000 immediately before reviewer sign-off, and type the reviewer signature. Automation must not complete these acts.
+- [ ] Owner, unsigned stage: after reviewer sign-off, recheck SB 1000 again, complete the owner decision, cadence, conditions, and exact metadata authorization, but leave the final owner signature and timestamp blank.
+- [ ] System between the two human acts: generate the registry-binding summary and annex only from the completed fields; do not choose a decision or type a signature.
+- [ ] Owner final act: verify the generated summary and annex, check the final owner attestation, and type the owner signature and authorization timestamp.
+- [ ] System only after both valid human acts: hash the evidence, add the matching signed registry entry, update only the exact owner-authorized metadata, and confirm `npm run check:legal-governance` passes and `getLegalReviewStatus().overdue` returns false in the production build.
 - [x] Reconcile the HTML, README, business license, source ledger, sample output, and any other file into one complete manifest in the blocked inspection build.
 - [ ] Put the product version, source-data version, substantive review date, next review date, complete manifest, refund process, and limitations in the README and checkout listing.
 - [ ] Produce the ZIP from the reconciled files, record its SHA-256 hash and each member hash, and verify a clean extraction on Windows and macOS.
@@ -140,6 +144,7 @@ Official references checked on 2026-08-29:
 - [ ] Configure a one-time USD $19 digital product with no membership, recurring billing, quantity surprise, tip, add-on, or marketing opt-in enabled by default.
 - [ ] Use a direct web-checkout link for the validation batch. Leave category blank, keep Discover off, and do not opt into Gumroad Affiliates; verify these settings again after every product edit.
 - [ ] Upload the exact hashed ZIP; make its product version and archive hash traceable in the provider record.
+- [ ] Owner/reviewer: reopen the official SB 1000 status and current text immediately before uploading or publishing the final artifact. If its status or text changed, stop and rerun the legal review before sales activation.
 - [ ] Publish accurate deliverables, license, source date, no-update boundary, 14-day refund policy, and educational disclaimer at checkout.
 - [ ] Verify receipt, tax invoice where applicable, download, repeat download/redelivery, order lookup, data export, full refund, customer notification, and product pause controls.
 - [ ] Confirm the live purchase surfaces and refund authority. Keep the initial offer on web checkout; if an app-store purchase surface cannot be disabled, update the listing, Terms, and support process before sale to reflect the applicable platform-controlled refund path.
@@ -153,6 +158,7 @@ Official references checked on 2026-08-29:
 - [ ] Ask Gumroad for the approved way to exercise a real full-refund and post-refund-access test. Do not buy the owner's own product or charge an owner-controlled card to manufacture a sale.
 - [ ] Verify the production Terms, Privacy Policy, data inventory, support route, and checkout copy match the configured provider and product.
 - [ ] Set the production checkout URL, deploy with sales still false, and recheck source status and the disabled route.
+- [ ] Reopen the official SB 1000 status and current text immediately before the final sales-enable decision; stop if the volatile-source result no longer matches the signed record and catalog.
 - [ ] Set `STARTER_FILE_SALES_ENABLED=true` only after recorded owner launch authorization, redeploy, and verify the production link, price, one-time billing, destination hostname, and final checkout before announcing it.
 
 ### Post-launch obligations
@@ -163,7 +169,7 @@ Official references checked on 2026-08-29:
 
 At 10 completed non-owner, non-test sales, compare observed Gumroad economics and operations with the currently available Paddle offer. Migration is a new launch and requires its own account, data, privacy, delivery, and refund verification.
 
-1. Preserve the canonical ZIP, hashes, complete manifest, license/terms version, source-review record, and support runbook outside Gumroad.
+1. Preserve the canonical ZIP, hashes, complete manifest, license/terms version, signed source-review record and registry entry, and support runbook outside Gumroad.
 2. Export only the minimal Gumroad order and refund records needed for accounting, support, mandatory retention, and honoring existing purchases. Protect the export and set a deletion date.
 3. Do not transfer card credentials. Let Paddle create new transactions under its own merchant-of-record checkout.
 4. Keep Gumroad access and the 14-day refund path available for prior buyers for as long as the purchase terms and law require. Do not strand existing receipt/download links merely to force migration.

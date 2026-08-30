@@ -4,8 +4,10 @@
 
 This packet prepares the five implemented legal-framework records for a substantive human source review. It is an AI-assisted comparison, not legal advice, not attorney review, and not evidence that a human reviewer approved any claim.
 
+The governing process is `docs/legal-source-review-governance.md`. The separate human-owned completion record is `docs/legal-review/reviews/source-review-record-2026-08-29.md`. This packet is preparatory evidence only; checking or signing this packet does not replace the dated completion record and separate site-owner metadata authorization.
+
 - **Official-source retrieval date:** August 29, 2026 (America/Los_Angeles).
-- **Implemented baseline:** `src/lib/laws.ts`, source catalog `legal-catalog-2026-08-29.2`, checker `checker-2026-08-29.1`.
+- **Implemented baseline:** `src/lib/laws.ts`, source catalog `legal-catalog-2026-08-29.3`, checker `checker-2026-08-29.1`.
 - **Correction baseline:** `src/lib/corrections.ts`, including the three corrections dated August 29, 2026.
 - **Existing substantive human-review date:** August 2, 2026.
 - **Existing next-review due date:** August 9, 2026.
@@ -23,11 +25,11 @@ This packet deliberately does **not** change the August 2 review date, the Augus
 
 | Framework | Implemented substantive review state | Automated-source state | Packet conclusion |
 | --- | --- | --- | --- |
-| FTC Endorsement Guides and Section 5 | Last human review August 2; due August 9; overdue | Passed in catalog metadata | Core claims are supported and catalog `.2` expressly separates nonbinding Part 255 from binding adjacent Part 465; human confirmation is still required. |
-| EU AI Act Article 50 | Last human review August 2; due August 9; overdue | Passed in catalog metadata | Core claims and the August 29 Article 50(7) correction are supported; catalog `.2` enumerates the paragraph-specific qualifications identified by this packet, subject to human confirmation. |
-| New York GBL § 396-b | Last human review August 2; due August 9; overdue | `access_limited` | The enacted-role and advertising-medium correction is supported. Catalog `.2` records the two observed legislative 403s and unobserved Governor-page allowlist warning exactly; unattended coverage remains incomplete. |
-| California B.O.T. Act | Last human review August 2; due August 9; overdue | Passed in catalog metadata | The core applicability and August 29 enforcement correction are supported; catalog `.2` states the bot/online definitions and § 17942(c) qualification, subject to human confirmation. |
-| California AI Transparency Act | Last human review August 2; due August 9; overdue | Passed in catalog metadata | Current codified duties are supported; catalog `.2` includes the broadband and telecommunications exclusions. SB 1000 remains a material, passed-but-not-chaptered urgency amendment and must be checked again immediately before sign-off. |
+| FTC Endorsement Guides and Section 5 | Last human review August 2; due August 9; overdue | Passed in catalog metadata | Core claims are supported and catalog `.3` expressly separates nonbinding Part 255 from binding adjacent Part 465; human confirmation is still required. |
+| EU AI Act Article 50 | Last human review August 2; due August 9; overdue | Passed in catalog metadata | Core claims and the August 29 Article 50(7) correction are supported; catalog `.3` enumerates the paragraph-specific qualifications identified by this packet, subject to human confirmation. |
+| New York GBL § 396-b | Last human review August 2; due August 9; overdue | `access_limited` | The enacted-role and advertising-medium correction is supported. Catalog `.3` records the two observed legislative 403s and unobserved Governor-page allowlist warning exactly; unattended coverage remains incomplete. |
+| California B.O.T. Act | Last human review August 2; due August 9; overdue | Passed in catalog metadata | The core applicability and August 29 enforcement correction are supported; catalog `.3` states the bot/online definitions and § 17942(c) qualification, subject to human confirmation. |
+| California AI Transparency Act | Last human review August 2; due August 9; overdue | Passed in catalog metadata | Current codified duties are supported; catalog `.3` includes the broadband and telecommunications exclusions. SB 1000 remains a material, passed-but-not-chaptered urgency amendment and must be checked again immediately before sign-off. |
 
 **Human-review gate:** unresolved. Do not represent this packet, the automated checks, or the August 29 corrections as a completed substantive human review.
 
@@ -76,7 +78,7 @@ All links below were retrieved or independently confirmed from the issuing feder
 | Scope | EU, including certain third-country providers/deployers where system output is used in the Union; public EU accessibility alone is not a complete test. | Article 2(1)(a)-(c) supports Union and specified third-country scope. Article 2 also includes additional exclusions and qualifications, so the warning against treating accessibility as the whole test is sound. | Supported. |
 | Roles | Providers and deployers. | Article 3 separately defines provider and deployer. Article 50(1)-(2) imposes provider duties; Article 50(3)-(4) imposes deployer duties. | Supported. |
 | Definitions/categories | Distinct provider/deployer roles; separate categories for direct interaction, machine-readable marking, emotion/biometric systems, deepfakes, and public-interest text. | Articles 3 and 50 support this structure. The implemented text avoids collapsing provider marking into deployer labelling. | Supported. |
-| Major exceptions and qualifications | Catalog `.2` separately states Article 50(1)'s obviousness and qualified law-enforcement language; Article 50(2)'s standard-editing/no-substantial-alteration and law-enforcement qualifications; Article 50(3)'s qualified law-enforcement language; Article 50(4)'s law-enforcement, limited artistic-work disclosure mode, and public-interest-text editorial-control qualification; and Article 111(4)'s narrow transition. | The official text supports these category-specific summaries and the express warning that artistic, creative, satirical, or fictional content is not subject to a blanket exemption. | Supported as a concise inventory, subject to human confirmation that the compression remains clear and complete enough for the educational product. |
+| Major exceptions and qualifications | Catalog `.3` separately states Article 50(1)'s obviousness and qualified law-enforcement language; Article 50(2)'s standard-editing/no-substantial-alteration and law-enforcement qualifications; Article 50(3)'s qualified law-enforcement language; Article 50(4)'s law-enforcement, limited artistic-work disclosure mode, and public-interest-text editorial-control qualification; and Article 111(4)'s narrow transition. | The official text supports these category-specific summaries and the express warning that artistic, creative, satirical, or fictional content is not subject to a blanket exemption. | Supported as a concise inventory, subject to human confirmation that the compression remains clear and complete enough for the educational product. |
 | Duties | Provider first-interaction notice; provider machine-readable marking; deployer emotion/biometric notice; deployer deepfake/public-interest text disclosure; only paragraph (2) has the December transition. | Article 50(1)-(5) and Article 111(4) support the division and transition statement. | Supported. |
 | Penalty | Article 99 sets maximum administrative-fine tiers; exact tier/amount, SME treatment, and enforcement depend on obligation and facts. | Article 99(4)(g) specifically includes Article 50 and provides a maximum of EUR 15 million or, for an undertaking, 3% of prior-year worldwide turnover, whichever is higher; SME rules use the lower ceiling, and the 2026 amendment adds small-mid-cap treatment. Member States establish enforcement rules within the Regulation's terms. | Supported and conservative. The UI must not display the maximum as an automatic or expected fine. |
 
@@ -101,7 +103,7 @@ The correction in `src/lib/corrections.ts` is supported: Regulation 2026/1744 di
 
 ### Human decisions still required
 
-1. Confirm catalog `.2`'s enumeration of the obviousness, standard-editing/no-substantial-alteration, and law-enforcement qualifications against the controlling text.
+1. Confirm catalog `.3`'s enumeration of the obviousness, standard-editing/no-substantial-alteration, and law-enforcement qualifications against the controlling text.
 2. Confirm that artistic/creative/satirical/fictional content is described as a limited manner of disclosure, not a blanket exemption.
 3. Confirm that the Article 111(4) transition is never presented as postponing Article 50(1), (3), (4), or (5).
 4. Confirm that voluntary Code adherence is presented as an accepted compliance route whose adequacy is formally recognized, not a safe harbor or conclusive compliance determination.
@@ -137,7 +139,7 @@ The active S.8420-A text and current codified law omit the original S.8420 claus
 
 ### Exact automation limitation
 
-The catalog `.2` `automatedSourceCheckNote` now matches the August 29 checker evidence:
+The catalog `.3` `automatedSourceCheckNote` now matches the August 29 checker evidence:
 
 - § 396-b: HTTP 403, access-limited.
 - S.8420-A: HTTP 403, access-limited.
@@ -150,7 +152,7 @@ Accordingly, the framework remains correctly classified `access_limited`. Manual
 1. Confirm the corrected role and broad subdivision 8 medium exclusion against the **active S.8420-A** section, not the original bill text shown earlier on the same long page.
 2. Determine whether the medium exclusion needs a clearer product explanation so users do not confuse a pure publisher/disseminator with a person that also produces or creates the ad.
 3. Approve a durable evidence procedure for the two 403 sources, such as a dated manual official-page/PDF check with recorded document identity and hash, without claiming full automation.
-4. Confirm that the corrected catalog `.2` note remains exact and decide whether the Governor-page allowlist should be removed or revised.
+4. Confirm that the corrected catalog `.3` note remains exact and decide whether the Governor-page allowlist should be removed or revised.
 
 ## 4. California B.O.T. Act, BPC §§ 17940-17943
 
@@ -162,7 +164,7 @@ Accordingly, the framework remains correctly classified `access_limited`. Manual
 | Dates | Effective January 1, 2019; operative July 1, 2019. | §§ 17941 and 17943 and the chaptered bill support both dates. | Supported. |
 | Scope | Online communication with a person in California, intent to mislead about artificial identity, knowing deception about content, and commercial purchase/sale or election purpose. | § 17941(a) contains all of these elements. They must be evaluated together. | Supported. |
 | Roles | Person using a bot for a covered online communication. | § 17941 applies to “any person”; § 17940(d) defines person broadly. | Supported. |
-| Definitions | Catalog `.2` states that a bot is an automated online account where all or substantially all actions/posts are not the result of a person; it also states the public-facing internet/web/digital-application limit for “online” and warns against inferring coverage from a chatbot label alone. | §§ 17940(a)-(b) support the summary. | Supported, subject to human confirmation of the compressed wording. |
+| Definitions | Catalog `.3` states that a bot is an automated online account where all or substantially all actions/posts are not the result of a person; it also states the public-facing internet/web/digital-application limit for “online” and warns against inferring coverage from a chatbot label alone. | §§ 17940(a)-(b) support the summary. | Supported, subject to human confirmation of the compressed wording. |
 | Major exceptions and qualifications | No liability under this section when the person makes the prescribed clear/conspicuous bot disclosure; § 17942(c) says the chapter imposes no duty on online-platform service providers, including web-hosting and internet-service providers; other laws remain unresolved. | §§ 17941(a)-(b), 17942(a), and 17942(c) support these statements. | Supported, subject to human confirmation. |
 | Duty | Review whether all elements are present; if covered, use a clear, conspicuous disclosure reasonably designed to inform the person that it is a bot. | § 17941 supports this formulation. | Supported. |
 | Penalty | No fixed per-message fine or remedial schedule appears in § 17941; consequences depend on other law, enforcement path, and facts. | Current § 17941 and chaptered SB 1001 state no fixed civil penalty or chapter-specific remedial schedule. | Supported and appropriately cautious. |
@@ -185,8 +187,8 @@ The correction removing an asserted tie between § 17941 and California unfair-c
 
 ### Human decisions still required
 
-1. Confirm catalog `.2`'s actual § 17940 bot and online definitions, including that the statutory term is an automated **online account**, not necessarily every chatbot or automated customer-service exchange.
-2. Confirm catalog `.2`'s statement of § 17942(c)'s no-duty rule for online-platform service providers.
+1. Confirm catalog `.3`'s actual § 17940 bot and online definitions, including that the statutory term is an automated **online account**, not necessarily every chatbot or automated customer-service exchange.
+2. Confirm catalog `.3`'s statement of § 17942(c)'s no-duty rule for online-platform service providers.
 3. Confirm that “no fixed fine in the cited chapter” is not presented as “no enforcement risk.”
 
 ## 5. California AI Transparency Act, BPC §§ 22757-22757.6
@@ -200,7 +202,7 @@ The correction removing an asserted tie between § 17941 and California unfair-c
 | Scope | Covered providers and affected licensees; defined large online platforms and GenAI hosting platforms beginning in 2027; capture-device manufacturers for specified devices beginning in 2028. | Current definitions and operative provisions support each role. | Supported. |
 | Roles | Covered providers, affected third-party licensees, large online platforms, GenAI system hosting platforms, capture-device manufacturers. | §§ 22757.1-22757.3.3 support those role categories. | Supported. |
 | Definitions | Each role has its own definition/threshold/date; ordinary use of a third-party AI tool alone does not establish a regulated role. | Current § 22757.1 defines the roles. A covered provider currently requires a publicly accessible California GenAI system with over 1,000,000 monthly visitors/users. A large online platform currently requires more than 2,000,000 unique monthly users during the preceding 12 months. | Supported under current law. |
-| Major exceptions and qualifications | Exclusive specified non-user-generated entertainment experiences are excluded; assembly-only businesses are excluded from capture-device manufacturer; catalog `.2` also states the broadband-internet-access and telecommunications-service exclusions from the large-online-platform definition. | Current § 22757.5 and § 22757.1 support each item. | Supported, subject to human confirmation. |
+| Major exceptions and qualifications | Exclusive specified non-user-generated entertainment experiences are excluded; assembly-only businesses are excluded from capture-device manufacturer; catalog `.3` also states the broadband-internet-access and telecommunications-service exclusions from the large-online-platform definition. | Current § 22757.5 and § 22757.1 support each item. | Supported, subject to human confirmation. |
 | Duties | Current provider detection-tool, manifest-option, latent-disclosure, privacy, and licensing duties; 2027 platform/hosting duties; 2028 device duties; licensee cease-use after revocation. | Current §§ 22757.2-22757.3.3 support the staged summary. The detection tool cannot output personal provenance data and is subject to data minimization/retention restrictions. | Supported under current law. |
 | Penalty | $5,000 civil penalty per violation; each day is a discrete violation for covered providers, large online platforms, and capture-device manufacturers; separate licensee remedy. | Current § 22757.4 states each point, including injunctive relief and fees/costs for the specified licensee violation. | Supported. |
 
@@ -235,9 +237,9 @@ Until chaptered, none of those proposed changes should replace the current codif
 
 ### Human decisions still required
 
-1. Reopen the official SB 1000 status and history **immediately before sign-off**. Do not rely on the August 27 action or this August 29 packet after any later official action.
+1. Reopen the official SB 1000 status and history immediately before reviewer sign-off, again immediately before owner metadata authorization, and once more before final artifact publication or sales activation. Do not rely on the August 27 action or this August 29 packet after any later official action.
 2. If SB 1000 is chaptered, stop relying on the existing California record until the enrolled/chaptered text is compared with the passed text and every affected field is revised.
-3. Confirm catalog `.2`'s inclusion of the broadband-access and telecommunications exclusions in the large-online-platform definition.
+3. Confirm catalog `.3`'s inclusion of the broadband-access and telecommunications exclusions in the large-online-platform definition.
 4. Confirm that the present covered-provider threshold and manifest-option duty are clearly identified as current law that may change quickly, not durable product promises.
 
 ## August 29 correction audit
@@ -256,41 +258,14 @@ No correction record claims attorney review, saved customer documents, or an ide
 | --- | --- | --- | --- |
 | U-01 | P0 | All five frameworks remain past the August 9 substantive-review due date; an August 29 automated check is not human review. | Complete or reject a substantive official-source review. Do not update review dates merely because this packet exists. |
 | U-02 | P0 | SB 1000 is passed, not chaptered on the retrieved page, and would take effect immediately if enacted while rewriting multiple current claims. | Recheck official status at sign-off. If chaptered, suspend the current California summary until the chaptered text is integrated and reviewed. |
-| U-03 | P0 | New York automation remains incomplete: two official legislative pages return 403, while the Governor page no longer produces the allowlisted block. Catalog `.2` corrects the stored note, but unattended coverage remains partial. | Approve a dated manual-source evidence procedure and decide whether to revise the Governor-page allowlist. Do not claim full automated coverage. |
-| U-04 | P1 | Catalog `.2` now enumerates the material EU Article 50(1)-(4) qualifications and clarifies limited artistic-work disclosure versus exemption. | Human reviewer must compare and accept, change, or reject the new summaries. |
-| U-05 | P1 | Catalog `.2` now states the California B.O.T. Act's automated-online-account definition and § 17942(c) platform-service-provider no-duty provision. | Human reviewer must compare and accept, change, or reject the new summaries. |
-| U-06 | P1 | Catalog `.2` now includes the broadband/telecommunications exclusions within “large online platform.” | Human reviewer must compare and accept, change, or reject the new summary. |
-| U-07 | P2 | Catalog `.2` now expressly separates nonbinding Part 255 and the distinct binding Part 465 rule. | Human reviewer must confirm that the presentation cannot imply Part 255 itself is binding or that Part 465 penalties attach to every Guide inconsistency. |
+| U-03 | P0 | New York automation remains incomplete: two official legislative pages return 403, while the Governor page no longer produces the allowlisted block. Catalog `.3` corrects the stored note, but unattended coverage remains partial. | Approve a dated manual-source evidence procedure and decide whether to revise the Governor-page allowlist. Do not claim full automated coverage. |
+| U-04 | P1 | Catalog `.3` now enumerates the material EU Article 50(1)-(4) qualifications and clarifies limited artistic-work disclosure versus exemption. | Human reviewer must compare and accept, change, or reject the new summaries. |
+| U-05 | P1 | Catalog `.3` now states the California B.O.T. Act's automated-online-account definition and § 17942(c) platform-service-provider no-duty provision. | Human reviewer must compare and accept, change, or reject the new summaries. |
+| U-06 | P1 | Catalog `.3` now includes the broadband/telecommunications exclusions within “large online platform.” | Human reviewer must compare and accept, change, or reject the new summary. |
+| U-07 | P2 | Catalog `.3` now expressly separates nonbinding Part 255 and the distinct binding Part 465 rule. | Human reviewer must confirm that the presentation cannot imply Part 255 itself is binding or that Part 465 penalties attach to every Guide inconsistency. |
 
-## Owner substantive sign-off checklist
+## Canonical review and authorization record
 
-Leave every item blank until the named human reviewer has personally completed it.
+This packet is comparison evidence only. It is not a signable review path and cannot clear the overdue gate. Complete all human source-verification details, framework and correction dispositions, the reviewer attestation, the separate owner authorization, and the two pre-authorization SB 1000 checks only in `docs/legal-review/reviews/source-review-record-2026-08-29.md` under `docs/legal-source-review-governance.md`.
 
-- [ ] I opened the controlling official source for each of the five frameworks and did not rely only on this packet, search snippets, cached text, or automated status.
-- [ ] For each framework, I reviewed status, dates, jurisdiction/scope, regulated roles, applicability signals, definitions, major exceptions/qualifications, required actions, penalty description, and every implemented source URL.
-- [ ] I separately reviewed and accepted, modified, or rejected each of the three August 29 correction records.
-- [ ] I resolved U-02 by checking the live official SB 1000 status immediately before signing.
-- [ ] I resolved U-03 by recording how the two access-limited New York sources were manually verified and how future changes will be detected.
-- [ ] I made an explicit completeness decision for EU Article 50 exceptions, the California B.O.T. Act definition/platform exclusion, and California AI Transparency platform exclusions.
-- [ ] I checked any affected sample language and templates against the accepted framework interpretation.
-- [ ] I understand that accepting this packet is not attorney advice and does not itself update `lastSubstantiveHumanReviewDate`, `nextReviewDue`, or the public overdue state.
-
-**Framework dispositions (complete by hand or in an approved review record):**
-
-| Framework | Accept as written | Accept with listed changes | Reject / escalate | Reviewer notes or follow-up reference |
-| --- | --- | --- | --- | --- |
-| FTC | [ ] | [ ] | [ ] | |
-| EU Article 50 | [ ] | [ ] | [ ] | |
-| New York GBL § 396-b | [ ] | [ ] | [ ] | |
-| California B.O.T. Act | [ ] | [ ] | [ ] | |
-| California AI Transparency Act | [ ] | [ ] | [ ] | |
-
-**Human reviewer:** ____________________
-
-**Role/qualification:** ____________________
-
-**Date completed:** ____________________
-
-**Overall decision:** ____________________
-
-An unsigned packet records no approval and must not be used to clear the overdue source-review gate.
+If a critical source cannot be verified or the implemented interpretation remains materially uncertain after direct source comparison, leave the gate closed and escalate to qualified counsel before approval.

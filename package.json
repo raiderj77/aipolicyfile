@@ -5,14 +5,17 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
+    "prebuild": "npm run check:legal-governance",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
     "test": "node --test tests/*.test.mjs",
+    "check:legal-governance": "node scripts/check-legal-review-governance.mjs",
     "check:legal-freshness": "node scripts/check-legal-review-deadline.mjs",
     "check:official-sources": "node scripts/check-official-sources.mjs",
+    "prebuild:starter-file": "npm run check:legal-governance",
     "build:starter-file": "node scripts/build-starter-file.mjs",
-    "check": "npm test && npm run lint && npm run build"
+    "check": "npm run check:legal-governance && npm test && npm run lint && npm run build"
   },
   "dependencies": {
     "next": "16.2.12",
@@ -40,7 +43,7 @@
     "sharp": "0.35.0"
   },
   "engines": {
-    "node": ">=20.9.0"
+    "node": ">=22.18.0"
   },
   "packageManager": "npm@10.9.8"
 }

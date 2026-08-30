@@ -9,6 +9,7 @@ import {
   LEGAL_SOURCE_DATA_VERSION,
   evaluate,
 } from "../src/lib/laws.ts";
+import { getReviewAuthorization } from "../src/lib/legalReviewRecords.ts";
 
 export const ARTIFACT_VERSION = "1.0.0";
 export const ARTIFACT_DIRECTORY = `ai-disclosure-starter-file-v${ARTIFACT_VERSION}`;
@@ -71,9 +72,32 @@ export function assertReleaseReady(manifest) {
 }
 
 function assertIsoDate(label, value) {
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(value) || Number.isNaN(Date.parse(`${value}T00:00:00Z`))) {
+  const match = typeof value === "string" && value.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  const parsed = match ? new Date(`${value}T00:00:00Z`) : null;
+  if (
+    !match ||
+    Number.isNaN(parsed.getTime()) ||
+    parsed.getUTCFullYear() !== Number(match[1]) ||
+    parsed.getUTCMonth() + 1 !== Number(match[2]) ||
+    parsed.getUTCDate() !== Number(match[3])
+  ) {
     throw new Error(`Invalid ${label}: ${value}`);
   }
+}
+
+function assertIsoTimestamp(label, value) {
+  if (
+    typeof value !== "string" ||
+    !/^\d{4}-\d{2}-\d{2}T(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d{3})?(?:Z|[+-](?:[01]\d|2[0-3]):[0-5]\d)$/.test(value) ||
+    Number.isNaN(Date.parse(value))
+  ) {
+    throw new Error(`Invalid ${label}: ${value}`);
+  }
+}
+
+function resolveAsOfTimestamp(options, asOfDate) {
+  if (options.asOfTimestamp !== undefined) return options.asOfTimestamp;
+  return options.asOfDate === undefined ? new Date().toISOString() : `${asOfDate}T12:00:00Z`;
 }
 
 function todayUtc() {
@@ -243,10 +267,22 @@ function canonicalQuestionDefinitions() {
   }));
 }
 
-export function calculateReviewStatus(frameworks, asOfDate) {
+export function calculateReviewStatus(frameworks, asOfDate, asOfTimestamp = `${asOfDate}T12:00:00Z`) {
   assertIsoDate("as-of date", asOfDate);
+  assertIsoTimestamp("as-of timestamp", asOfTimestamp);
+  const asOfTime = Date.parse(asOfTimestamp);
+  if (new Date(asOfTime).toISOString().slice(0, 10) !== asOfDate) {
+    throw new Error("As-of timestamp must fall on the as-of UTC date");
+  }
   const overdueFrameworkIds = frameworks
-    .filter((framework) => asOfDate > framework.review.nextReviewDue)
+    .filter(
+      (framework) =>
+        framework.review.dateWindowAuthorized !== true ||
+        !framework.review.authorizationStartsAt ||
+        Number.isNaN(Date.parse(framework.review.authorizationStartsAt)) ||
+        asOfTime < Date.parse(framework.review.authorizationStartsAt) ||
+        asOfDate > framework.review.nextReviewDue,
+    )
     .map((framework) => framework.id);
   const earliestDue = [...frameworks]
     .map((framework) => framework.review.nextReviewDue)
@@ -264,34 +300,61 @@ export function calculateReviewStatus(frameworks, asOfDate) {
     lastSubstantiveHumanReviewDate: oldestReview,
     nextReviewDue: earliestDue,
     lastAutomatedSourceCheckDate: oldestAutomatedCheck,
+    reviewRecordIds: [...new Set(frameworks.map((framework) => framework.review.reviewRecordId))],
+    reviewAuthorizationStates: [
+      ...new Set(frameworks.map((framework) => framework.review.reviewAuthorizationState)),
+    ],
+    reviewMetadataLinked: frameworks.every((framework) => framework.review.reviewMetadataLinked),
     overdueFrameworkIds,
   };
 }
 
-export function buildSourceLedger({ asOfDate = todayUtc(), laws = LAWS } = {}) {
+export function buildSourceLedger(options = {}) {
+  const asOfDate = options.asOfDate ?? todayUtc();
+  const asOfTimestamp = resolveAsOfTimestamp(options, asOfDate);
+  const laws = options.laws ?? LAWS;
   assertIsoDate("as-of date", asOfDate);
-  const frameworks = Object.values(laws).map((law) => ({
-    id: law.id,
-    name: law.name,
-    shortName: law.shortName,
-    jurisdiction: law.jurisdiction,
-    legalStatus: law.status,
-    timingSummary: law.timingSummary,
-    whoItHits: law.whoItHits,
-    rolesAffected: [...law.rolesAffected],
-    review: {
-      sourceDataVersion: law.review.sourceDataVersion,
-      checkerVersion: law.review.checkerVersion,
-      templateVersion: law.review.templateVersion,
-      lastSubstantiveHumanReviewDate: law.review.lastSubstantiveHumanReviewDate,
+  assertIsoTimestamp("as-of timestamp", asOfTimestamp);
+  const frameworks = Object.values(laws).map((law) => {
+    const authorization = getReviewAuthorization({
+      recordId: law.review.reviewRecordId,
+      frameworkId: law.id,
+      reviewDate: law.review.lastSubstantiveHumanReviewDate,
       nextReviewDue: law.review.nextReviewDue,
       reviewer: law.review.reviewer,
-      lastAutomatedSourceCheckDate: law.review.lastAutomatedSourceCheckDate,
-      automatedSourceCheckStatus: law.review.automatedSourceCheckStatus,
-      automatedSourceCheckNote: law.review.automatedSourceCheckNote,
-    },
-    officialSources: law.officialSources.map((source) => ({ ...source })),
-  }));
+      sourceDataVersion: LEGAL_SOURCE_DATA_VERSION,
+      checkerVersion: CHECKER_VERSION,
+    });
+    return {
+      id: law.id,
+      name: law.name,
+      shortName: law.shortName,
+      jurisdiction: law.jurisdiction,
+      legalStatus: law.status,
+      timingSummary: law.timingSummary,
+      whoItHits: law.whoItHits,
+      rolesAffected: [...law.rolesAffected],
+      review: {
+        reviewRecordId: law.review.reviewRecordId,
+        reviewAuthorizationState: authorization.state,
+        reviewMetadataLinked: authorization.metadataLinked,
+        dateWindowAuthorized: authorization.dateWindowAuthorized,
+        authorizationStartsAt: authorization.authorizationStartsAt,
+        sourceDataVersion: law.review.sourceDataVersion,
+        checkerVersion: law.review.checkerVersion,
+        templateVersion: law.review.templateVersion,
+        lastSubstantiveHumanReviewDate: law.review.lastSubstantiveHumanReviewDate,
+        nextReviewDue: law.review.nextReviewDue,
+        reviewer: law.review.reviewer,
+        lastAutomatedSourceCheckDate: law.review.lastAutomatedSourceCheckDate,
+        automatedSourceCheckStatus: law.review.automatedSourceCheckStatus,
+        automatedAccessLimitedSourceIds: [...law.review.automatedAccessLimitedSourceIds],
+        automatedAllowlistSourceIds: [...law.review.automatedAllowlistSourceIds],
+        automatedSourceCheckNote: law.review.automatedSourceCheckNote,
+      },
+      officialSources: law.officialSources.map((source) => ({ ...source })),
+    };
+  });
 
   for (const framework of frameworks) {
     assertIsoDate(
@@ -319,7 +382,7 @@ export function buildSourceLedger({ asOfDate = todayUtc(), laws = LAWS } = {}) {
     checkerVersion: CHECKER_VERSION,
     assembledAsOf: asOfDate,
     educationalLimitation: EDUCATIONAL_LIMITATION,
-    reviewStatus: calculateReviewStatus(frameworks, asOfDate),
+    reviewStatus: calculateReviewStatus(frameworks, asOfDate, asOfTimestamp),
     frameworks,
   };
 }
@@ -404,14 +467,16 @@ function buildDraftLines(profile) {
   return lines;
 }
 
-export function createProductOutput({
-  answers,
-  profile = {},
-  asOfDate = todayUtc(),
-  laws = LAWS,
-} = {}) {
+export function createProductOutput(options = {}) {
+  const {
+    answers,
+    profile = {},
+    laws = LAWS,
+  } = options;
+  const asOfDate = options.asOfDate ?? todayUtc();
+  const asOfTimestamp = resolveAsOfTimestamp(options, asOfDate);
   const answerStates = normalizeAnswers(answers);
-  const ledger = buildSourceLedger({ asOfDate, laws });
+  const ledger = buildSourceLedger({ asOfDate, asOfTimestamp, laws });
   const canonicalResults = evaluate(
     canonicalBooleanAnswers(answerStates),
     new Date(`${asOfDate}T12:00:00Z`),
@@ -447,6 +512,9 @@ export function createProductOutput({
     sourceMetadata: {
       legalSourceDataVersion: ledger.legalSourceDataVersion,
       checkerVersion: ledger.checkerVersion,
+      reviewRecordIds: ledger.reviewStatus.reviewRecordIds,
+      reviewAuthorizationStates: ledger.reviewStatus.reviewAuthorizationStates,
+      reviewMetadataLinked: ledger.reviewStatus.reviewMetadataLinked,
       lastSubstantiveHumanReviewDate: ledger.reviewStatus.lastSubstantiveHumanReviewDate,
       nextReviewDue: ledger.reviewStatus.nextReviewDue,
       lastAutomatedSourceCheckDate: ledger.reviewStatus.lastAutomatedSourceCheckDate,
@@ -685,8 +753,13 @@ function browserApplicationSource() {
   function todayUtc() { return new Date().toISOString().slice(0, 10); }
   function isOverdue() {
     var today = todayUtc();
+    var now = Date.now();
     return data.ledger.frameworks.some(function (framework) {
-      return today > framework.review.nextReviewDue;
+      var authorizationStart = Date.parse(framework.review.authorizationStartsAt || "");
+      return framework.review.dateWindowAuthorized !== true ||
+        !Number.isFinite(authorizationStart) ||
+        now < authorizationStart ||
+        today > framework.review.nextReviewDue;
     });
   }
   function text(id) { return document.getElementById(id).value.trim(); }
@@ -951,7 +1024,7 @@ function renderToolHtml({ ledger, decisionTable }) {
 </form>
 <article id="preview" class="preview" aria-live="polite"></article>
 </section>
-<aside class="panel sidebar" aria-labelledby="about-heading"><h2 id="about-heading">What this file does</h2><ul><li>Restates facts you type; it does not invent project facts.</li><li>Shows educational states, matched answers, unresolved facts, official sources, and provenance.</li><li>Creates editable Markdown and self-contained printable HTML while the source review is current.</li></ul><p class="limitation">${escapeHtml(EDUCATIONAL_LIMITATION)}</p><h3>Embedded release metadata</h3><dl class="metadata"><dt>Artifact</dt><dd>${ARTIFACT_VERSION}</dd><dt>Template</dt><dd>${STARTER_TEMPLATE_VERSION}</dd><dt>Source catalog</dt><dd>${escapeHtml(ledger.legalSourceDataVersion)}</dd><dt>Checker</dt><dd>${escapeHtml(ledger.checkerVersion)}</dd><dt>Substantive review</dt><dd>${escapeHtml(ledger.reviewStatus.lastSubstantiveHumanReviewDate)}</dd><dt>Next review due</dt><dd>${escapeHtml(ledger.reviewStatus.nextReviewDue)}</dd><dt>Automated source check</dt><dd>${escapeHtml(ledger.reviewStatus.lastAutomatedSourceCheckDate)}</dd><dt>Build status</dt><dd>${escapeHtml(ledger.reviewStatus.state)}</dd></dl><h3>Official-source ledger</h3>${sourceLedgerHtml(ledger)}</aside>
+<aside class="panel sidebar" aria-labelledby="about-heading"><h2 id="about-heading">What this file does</h2><ul><li>Restates facts you type; it does not invent project facts.</li><li>Shows educational states, matched answers, unresolved facts, official sources, and provenance.</li><li>Creates editable Markdown and self-contained printable HTML while the source review is current.</li></ul><p class="limitation">${escapeHtml(EDUCATIONAL_LIMITATION)}</p><h3>Embedded release metadata</h3><dl class="metadata"><dt>Artifact</dt><dd>${ARTIFACT_VERSION}</dd><dt>Template</dt><dd>${STARTER_TEMPLATE_VERSION}</dd><dt>Source catalog</dt><dd>${escapeHtml(ledger.legalSourceDataVersion)}</dd><dt>Checker</dt><dd>${escapeHtml(ledger.checkerVersion)}</dd><dt>Review record</dt><dd>${escapeHtml(ledger.reviewStatus.reviewRecordIds.join(", "))}</dd><dt>Review authorization</dt><dd>${escapeHtml(ledger.reviewStatus.reviewAuthorizationStates.join(", "))}</dd><dt>Substantive review</dt><dd>${escapeHtml(ledger.reviewStatus.lastSubstantiveHumanReviewDate)}</dd><dt>Next review due</dt><dd>${escapeHtml(ledger.reviewStatus.nextReviewDue)}</dd><dt>Automated source check</dt><dd>${escapeHtml(ledger.reviewStatus.lastAutomatedSourceCheckDate)}</dd><dt>Build status</dt><dd>${escapeHtml(ledger.reviewStatus.state)}</dd></dl><h3>Official-source ledger</h3>${sourceLedgerHtml(ledger)}</aside>
 </div>
 </main>
 </div>
@@ -974,6 +1047,9 @@ function renderSourceLedgerMarkdown(ledger) {
     `- Artifact template: ${ledger.artifactTemplateVersion}`,
     `- Legal source data: ${ledger.legalSourceDataVersion}`,
     `- Checker: ${ledger.checkerVersion}`,
+    `- Review record: ${ledger.reviewStatus.reviewRecordIds.join(", ")}`,
+    `- Review authorization: ${ledger.reviewStatus.reviewAuthorizationStates.join(", ")}`,
+    `- Review metadata linked: ${ledger.reviewStatus.reviewMetadataLinked}`,
     `- Assembled as of: ${ledger.assembledAsOf}`,
     `- Substantive review: ${ledger.reviewStatus.lastSubstantiveHumanReviewDate}`,
     `- Next review due: ${ledger.reviewStatus.nextReviewDue}`,
@@ -993,6 +1069,8 @@ function renderSourceLedgerMarkdown(ledger) {
       `- Source version: ${framework.review.sourceDataVersion}`,
       `- Checker version: ${framework.review.checkerVersion}`,
       `- Template version: ${framework.review.templateVersion ?? "Not used"}`,
+      `- Review record: ${framework.review.reviewRecordId}`,
+      `- Review authorization: ${framework.review.reviewAuthorizationState}`,
       `- Substantive review: ${framework.review.lastSubstantiveHumanReviewDate}`,
       `- Next review due: ${framework.review.nextReviewDue}`,
       `- Reviewer: ${framework.review.reviewer}`,
@@ -1038,6 +1116,8 @@ Open \`ai-disclosure-starter-file.html\` in a current browser. No installation, 
 
 - Legal source data: \`${ledger.legalSourceDataVersion}\`
 - Checker: \`${ledger.checkerVersion}\`
+- Review record: \`${ledger.reviewStatus.reviewRecordIds.join(", ")}\`
+- Review authorization: \`${ledger.reviewStatus.reviewAuthorizationStates.join(", ")}\`
 - Last substantive human review: \`${ledger.reviewStatus.lastSubstantiveHumanReviewDate}\`
 - Next scheduled review due: \`${ledger.reviewStatus.nextReviewDue}\`
 - Last automated source check: \`${ledger.reviewStatus.lastAutomatedSourceCheckDate}\`
@@ -1142,7 +1222,10 @@ function ensureOutputPathAllowed(outputRoot) {
   return resolvedRoot;
 }
 
-export async function buildStarterFile({ outputRoot = defaultOutputRoot, asOfDate = todayUtc() } = {}) {
+export async function buildStarterFile(options = {}) {
+  const outputRoot = options.outputRoot ?? defaultOutputRoot;
+  const asOfDate = options.asOfDate ?? todayUtc();
+  const asOfTimestamp = resolveAsOfTimestamp(options, asOfDate);
   const safeOutputRoot = ensureOutputPathAllowed(outputRoot);
   const outputDirectory = path.join(safeOutputRoot, ARTIFACT_DIRECTORY);
   const archivePath = path.join(safeOutputRoot, `${ARTIFACT_DIRECTORY}.zip`);
@@ -1151,12 +1234,13 @@ export async function buildStarterFile({ outputRoot = defaultOutputRoot, asOfDat
     throw new Error("Resolved artifact directory escaped product/starter-file");
   }
 
-  const ledger = buildSourceLedger({ asOfDate });
+  const ledger = buildSourceLedger({ asOfDate, asOfTimestamp });
   const decisionTable = buildDecisionTable(asOfDate, ledger);
   const sample = createProductOutput({
     answers: sampleAnswers(),
     profile: sampleProfile(),
     asOfDate,
+    asOfTimestamp,
   });
   const files = {
     "ai-disclosure-starter-file.html": renderToolHtml({ ledger, decisionTable }),
