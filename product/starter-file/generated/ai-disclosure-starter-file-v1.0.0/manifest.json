@@ -1,0 +1,95 @@
+{
+  "archive": {
+    "deterministicTimestamp": "2026-08-30T00:00:00",
+    "entries": [
+      "ai-disclosure-starter-file-v1.0.0/ai-disclosure-starter-file.html",
+      "ai-disclosure-starter-file-v1.0.0/BUSINESS-LICENSE.txt",
+      "ai-disclosure-starter-file-v1.0.0/manifest.json",
+      "ai-disclosure-starter-file-v1.0.0/README.txt",
+      "ai-disclosure-starter-file-v1.0.0/SAMPLE_OUTPUT.html",
+      "ai-disclosure-starter-file-v1.0.0/SAMPLE_OUTPUT.md",
+      "ai-disclosure-starter-file-v1.0.0/SOURCE_LEDGER.md",
+      "ai-disclosure-starter-file-v1.0.0/source-ledger.json"
+    ],
+    "format": "zip_store",
+    "rootDirectory": "ai-disclosure-starter-file-v1.0.0"
+  },
+  "artifactDirectory": "ai-disclosure-starter-file-v1.0.0",
+  "artifactVersion": "1.0.0",
+  "builtAsOf": "2026-08-30",
+  "files": [
+    {
+      "bytes": 135655,
+      "path": "ai-disclosure-starter-file.html",
+      "sha256": "73fcd30e9e594f39745383db1fca193d397f4ee41ee93582085333152c64fd81"
+    },
+    {
+      "bytes": 2558,
+      "path": "BUSINESS-LICENSE.txt",
+      "sha256": "46d7e0dc1290bab13aacf37c9d86a73478763ac5f42853da0ab610c031b7d180"
+    },
+    {
+      "bytes": 4969,
+      "path": "README.txt",
+      "sha256": "d63b435192f1de7e658d7a82bd2ab710b19d6cc9f8945dc614372c293fe61cfa"
+    },
+    {
+      "bytes": 17389,
+      "path": "SAMPLE_OUTPUT.html",
+      "sha256": "605504b2ba3324bed8e54438566219059e011b54fbe3595a79da5bbf31caab9d"
+    },
+    {
+      "bytes": 13407,
+      "path": "SAMPLE_OUTPUT.md",
+      "sha256": "fffcfdeeef73c61d27acdbd100e55f529e2b84dd7dd2c49393408815b9742e71"
+    },
+    {
+      "bytes": 15234,
+      "path": "SOURCE_LEDGER.md",
+      "sha256": "cd51f0c7b8761ba29708545d74b78e50e431c6b553f4601dd49205cac4e15282"
+    },
+    {
+      "bytes": 28118,
+      "path": "source-ledger.json",
+      "sha256": "a7b8b98080dd80a1f689e4f6d9b327d6bb3ec208d38fdf07927d1a42c303534c"
+    }
+  ],
+  "price": {
+    "amount": 19,
+    "cadence": "one_time",
+    "currency": "USD"
+  },
+  "privacyBoundary": "Browser memory only; no storage, analytics, AI, server, or automatic network requests. User-clicked official-source links are the only outbound path.",
+  "product": "AI Disclosure Starter File",
+  "releaseReady": false,
+  "releaseStatus": "blocked_source_review_overdue",
+  "schemaVersion": "ai-disclosure-starter-file-manifest-v1",
+  "sourceReviewStatus": {
+    "asOfDate": "2026-08-30",
+    "lastAutomatedSourceCheckDate": "2026-08-29",
+    "lastSubstantiveHumanReviewDate": "2026-08-02",
+    "nextReviewDue": "2026-08-09",
+    "overdue": true,
+    "overdueFrameworkIds": [
+      "ftc",
+      "euArt50",
+      "nySynthetic",
+      "caBot",
+      "caSb942"
+    ],
+    "reviewAuthorizationStates": [
+      "historical_metadata_only"
+    ],
+    "reviewMetadataLinked": true,
+    "reviewRecordIds": [
+      "legacy-metadata-2026-08-02"
+    ],
+    "state": "SOURCE REVIEW OVERDUE"
+  },
+  "versions": {
+    "artifactTemplate": "ai-disclosure-starter-file-en-v1",
+    "checker": "checker-2026-08-29.1",
+    "legalSourceData": "legal-catalog-2026-08-29.3",
+    "sourceLedgerSchema": "ai-policy-file-source-ledger-v1"
+  }
+}

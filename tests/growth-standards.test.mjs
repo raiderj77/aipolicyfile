@@ -33,12 +33,28 @@ test("indexable support pages publish route-specific social metadata", async () 
     read("../src/app/ai-transparency/page.tsx"),
     read("../src/app/security/page.tsx"),
     read("../src/app/corrections/page.tsx"),
+    read("../src/app/starter-file/page.tsx"),
   ]);
   assert.match(helper, /openGraph/);
   assert.match(helper, /twitter/);
   assert.match(helper, /summary_large_image/);
   assert.match(helper, /opengraph-image/);
   for (const page of pages) assert.match(page, /pageSocialMetadata\(/);
+});
+
+test("the one-time Starter File has an indexable, internally linked product route", async () => {
+  const [home, layout, sitemap, product] = await Promise.all([
+    read("../src/app/page.tsx"),
+    read("../src/app/layout.tsx"),
+    read("../src/app/sitemap.ts"),
+    read("../src/app/starter-file/page.tsx"),
+  ]);
+  assert.match(home, /href="\/starter-file"/);
+  assert.match(layout, /href="\/starter-file"/);
+  assert.match(sitemap, /`\$\{BASE\}\/starter-file`/);
+  assert.match(product, /alternates: \{ canonical: "\/starter-file" \}/);
+  assert.match(product, /\$19 one-time/);
+  assert.match(product, /No subscription/);
 });
 
 test("legal guides publish sanitized source-backed Article data", async () => {
@@ -139,12 +155,19 @@ test("dependency, CI, and canonical-host controls cover the full release", async
   assert.match(pkg, /"brace-expansion": "5\.0\.9"/);
   assert.match(pkg, /"js-yaml": "4\.3\.2"/);
   assert.match(pkg, /"nanoid": "3\.3\.18"/);
+  assert.match(pkg, /"prebuild": "npm run check:legal-governance"/);
+  assert.match(pkg, /"prebuild:starter-file": "npm run check:legal-governance"/);
+  assert.match(pkg, /"node": ">=22\.18\.0"/);
   assert.match(ci, /npm audit --audit-level=high/);
+  assert.match(ci, /node-version: 22\.18\.0/);
+  assert.match(ci, /fetch-depth: 0/);
   assert.doesNotMatch(ci, /audit --omit=dev/);
   assert.match(freshness, /name: Legal review deadline/);
   assert.match(freshness, /cron: "19 15 \* \* \*"/);
   assert.match(freshness, /npm run check:official-sources/);
   assert.match(freshness, /if: always\(\)/);
+  assert.match(freshness, /node-version: 22\.18\.0/);
+  assert.match(freshness, /fetch-depth: 0/);
   assert.match(config, /aipolicyfile\.vercel\.app/);
   assert.match(config, /www\.aipolicyfile\.com/);
   assert.match(config, /destination: "https:\/\/aipolicyfile\.com\/:path\*"/);

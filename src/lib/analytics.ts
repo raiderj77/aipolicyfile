@@ -65,3 +65,18 @@ export function buildAnalyticsPageView(pageUrl: string, pageTitle: string, pageR
     page_title: pageTitle,
   };
 }
+
+export function buildStarterFileBeginCheckout() {
+  return {
+    currency: "USD",
+    value: 19,
+    items: [
+      {
+        item_id: "ai-disclosure-starter-file-v1",
+        item_name: "AI Disclosure Starter File",
+        price: 19,
+        quantity: 1,
+      },
+    ],
+  } as const;
+}

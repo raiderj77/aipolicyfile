@@ -35,6 +35,7 @@ Every result must expose matched answers, the relevant framework, unresolved fac
 - Never invent or conflate publication, enactment, effective, operative, retrieval, automated-check, substantive-review, or page-modification dates.
 - Each framework must have structured, versioned source and review metadata plus a defined review schedule.
 - Automated retrieval does not replace substantive human review.
+- Follow `docs/legal-source-review-governance.md`. A completed, dated review record tied to the reviewed catalog and content is required before substantive-review dates, next-review dates, correction approval states, or the public overdue state may change.
 - When review is overdue, all dependent pages, results, downloads, templates, documents, and APIs must visibly inherit `SOURCE REVIEW OVERDUE`.
 - A page `dateModified` changes only for a substantive public-content update, never to simulate freshness.
 - Material errors require a correction record with prior and corrected information, reason, official source, affected checker/template/document versions, reviewer, and resolution. Treat wrong status, dates, scope, exceptions, logic, or citations as a production incident.

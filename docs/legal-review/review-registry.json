@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "sopVersion": "1.0",
+  "records": [
+    {
+      "id": "legacy-metadata-2026-08-02",
+      "status": "historical_metadata_only",
+      "reviewDate": "2026-08-02",
+      "nextReviewDue": "2026-08-09",
+      "reviewer": "Jason Ramirez (site owner; not an attorney)",
+      "frameworkIds": ["ftc", "euArt50", "nySynthetic", "caBot", "caSb942"],
+      "note": "Frozen metadata that predates SOP 1.0. This entry is not a signed review record, does not approve the August 29 catalog or corrections, and cannot authorize any new review date, due date, correction state, or public currentness state."
+    }
+  ]
+}

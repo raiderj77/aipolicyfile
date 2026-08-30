@@ -171,6 +171,9 @@ export function AnalyticsConsent() {
         If you allow it, Google Analytics processes a manually sent page title, URL path, and
         referrer with query strings and fragments removed, plus standard session, browser and
         operating-system name, broad device category, language, and country or region data.
+        A live Starter File purchase-link click also sends the fixed product name and ID, USD $19
+        value and price, and quantity one—never the checkout URL, order, customer, payment, or
+        worksheet data.
         Enhanced Measurement and granular location/device collection are off. Site code does not
         send checker answers, results, or form-field values; Google Signals, user-provided data, and
         advertising personalization are disabled.

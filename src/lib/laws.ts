@@ -1,16 +1,29 @@
+import {
+  findLegalReviewRecord,
+  getReviewAuthorization,
+  type ReviewAuthorizationState,
+} from "./legalReviewRecords.ts";
+
 // Educational screening data reviewed against the linked primary sources on
 // 2026-08-02. The checker identifies issues worth reviewing; it does not decide
 // jurisdiction, legal status, or compliance.
 
-export const LEGAL_REVIEW_DATE = "2026-08-02";
-export const LEGAL_REVIEW_LABEL = "August 2, 2026";
+export const LEGAL_REVIEW_RECORD_ID = "legacy-metadata-2026-08-02";
+const REGISTERED_LEGAL_REVIEW = findLegalReviewRecord(LEGAL_REVIEW_RECORD_ID);
+if (!REGISTERED_LEGAL_REVIEW) throw new Error(`Missing legal review record ${LEGAL_REVIEW_RECORD_ID}`);
+
+export const LEGAL_REVIEW_DATE = REGISTERED_LEGAL_REVIEW.reviewDate;
+export const LEGAL_REVIEW_LABEL = new Intl.DateTimeFormat("en-US", {
+  dateStyle: "long",
+  timeZone: "UTC",
+}).format(new Date(`${LEGAL_REVIEW_DATE}T00:00:00Z`));
 export const LEGAL_CONTENT_MODIFIED_DATE = "2026-08-29";
-export const NEXT_LEGAL_REVIEW_DUE = "2026-08-09";
+export const NEXT_LEGAL_REVIEW_DUE = REGISTERED_LEGAL_REVIEW.nextReviewDue;
 export const LAST_AUTOMATED_SOURCE_CHECK_DATE = "2026-08-29";
 export const LAST_AUTOMATED_SOURCE_CHECK_LABEL = "August 29, 2026";
-export const LEGAL_SOURCE_DATA_VERSION = "legal-catalog-2026-08-29.1";
+export const LEGAL_SOURCE_DATA_VERSION = "legal-catalog-2026-08-29.3";
 export const CHECKER_VERSION = "checker-2026-08-29.1";
-export const LEGAL_REVIEWER = "Jason Ramirez (site owner; not an attorney)";
+export const LEGAL_REVIEWER = REGISTERED_LEGAL_REVIEW.reviewer;
 
 export type LawId = "ftc" | "euArt50" | "nySynthetic" | "caBot" | "caSb942";
 
@@ -41,11 +54,14 @@ export interface OfficialSource {
 export type AutomatedSourceCheckStatus = "passed" | "access_limited";
 
 export interface LawReviewRecord {
+  reviewRecordId: string;
   sourceDataVersion: string;
   checkerVersion: string;
   templateVersion: string | null;
   lastAutomatedSourceCheckDate: string;
   automatedSourceCheckStatus: AutomatedSourceCheckStatus;
+  automatedAccessLimitedSourceIds: string[];
+  automatedAllowlistSourceIds: string[];
   automatedSourceCheckNote: string;
   lastSubstantiveHumanReviewDate: string;
   nextReviewDue: string;
@@ -75,6 +91,9 @@ export interface LegalReviewStatus {
   sourceDataVersion: string;
   checkerVersion: string;
   reviewer: string;
+  reviewRecordId: string;
+  reviewAuthorizationState: ReviewAuthorizationState;
+  reviewMetadataLinked: boolean;
   overdueLawIds: LawId[];
 }
 
@@ -90,7 +109,22 @@ export function formatLegalDate(value: string): string {
 }
 
 export function getLawReviewStatus(law: Law, asOf: Date = new Date()): LegalReviewStatus {
-  const overdue = asOf.getTime() > utcEndOfDay(law.review.nextReviewDue);
+  const authorization = getReviewAuthorization({
+    recordId: law.review.reviewRecordId,
+    frameworkId: law.id,
+    reviewDate: law.review.lastSubstantiveHumanReviewDate,
+    nextReviewDue: law.review.nextReviewDue,
+    reviewer: law.review.reviewer,
+    sourceDataVersion: LEGAL_SOURCE_DATA_VERSION,
+    checkerVersion: CHECKER_VERSION,
+  });
+  const authorizationHasStarted =
+    authorization.authorizationStartsAt !== null &&
+    asOf.getTime() >= Date.parse(authorization.authorizationStartsAt);
+  const overdue =
+    !authorization.dateWindowAuthorized ||
+    !authorizationHasStarted ||
+    asOf.getTime() > utcEndOfDay(law.review.nextReviewDue);
 
   return {
     state: overdue ? "source-review-overdue" : "current",
@@ -108,6 +142,9 @@ export function getLawReviewStatus(law: Law, asOf: Date = new Date()): LegalRevi
     sourceDataVersion: law.review.sourceDataVersion,
     checkerVersion: law.review.checkerVersion,
     reviewer: law.review.reviewer,
+    reviewRecordId: law.review.reviewRecordId,
+    reviewAuthorizationState: authorization.state,
+    reviewMetadataLinked: authorization.metadataLinked,
     overdueLawIds: overdue ? [law.id] : [],
   };
 }
@@ -132,9 +169,12 @@ export interface Law {
 }
 
 const COMMON_REVIEW = {
+  reviewRecordId: LEGAL_REVIEW_RECORD_ID,
   checkerVersion: CHECKER_VERSION,
   lastAutomatedSourceCheckDate: LAST_AUTOMATED_SOURCE_CHECK_DATE,
   automatedSourceCheckStatus: "passed" as const,
+  automatedAccessLimitedSourceIds: [] as string[],
+  automatedAllowlistSourceIds: [] as string[],
   automatedSourceCheckNote:
     "All configured automated checks for this framework completed without a detected failure.",
   lastSubstantiveHumanReviewDate: LEGAL_REVIEW_DATE,
@@ -165,6 +205,7 @@ export const LAWS: Record<LawId, Law> = {
     exceptions: [
       "The reviewed Part 255 sources do not create a general disclosure duty triggered solely by AI assistance.",
       "Disclosure need and presentation remain context- and audience-specific; examples are not universal safe harbors.",
+      "Part 465 is a separate binding Consumer Reviews and Testimonials Rule. It does not amend Part 255, make the Guides binding, or turn every inconsistency with the Guides into a Part 465 violation.",
     ],
     requires: [
       "Review whether a payment, gift, affiliate commission, employment, or other material connection needs a clear and conspicuous disclosure.",
@@ -243,13 +284,32 @@ export const LAWS: Record<LawId, Law> = {
         retrievedAt: "2026-08-29",
         notes: "Adjacent binding rule; it does not amend Part 255.",
       },
+      {
+        sourceId: "us-ftc-endorsement-guides-finalization-announcement",
+        authority: "Federal Trade Commission",
+        title: "Federal Trade Commission announces updated Endorsement Guides",
+        jurisdiction: "United States",
+        sourceType: "government_announcement",
+        legalStatus: "published",
+        bindingEffect: "supplemental_official_explanation",
+        canonicalUrl:
+          "https://www.ftc.gov/news-events/news/press-releases/2023/06/federal-trade-commission-announces-updated-advertising-guides-combat-deceptive-reviews-endorsements",
+        publishedDate: "2023-06-29",
+        retrievedAt: "2026-08-29",
+        notes: "Supplemental support for the implemented June 29, 2023 finalization date.",
+      },
     ],
     review: {
       ...COMMON_REVIEW,
-      sourceDataVersion: "us-ftc-sources-2026-08-29.1",
+      sourceDataVersion: "us-ftc-sources-2026-08-29.3",
       templateVersion: null,
     },
     changeHistory: [
+      {
+        date: "2026-08-29",
+        summary: "Clarified that nonbinding Part 255 and the separate binding Part 465 rule have distinct legal effects.",
+        sourceIds: ["us-ftc-endorsement-guides", "us-ftc-consumer-review-rule"],
+      },
       {
         date: "2026-08-29",
         summary: "Automated comparison found Part 255 unchanged from August 2; added complete codified, statutory, final-publication, and adjacent Part 465 sources.",
@@ -280,7 +340,11 @@ export const LAWS: Record<LawId, Law> = {
       "Article 50 uses separate categories for direct interaction, machine-readable marking, emotion/biometric systems, deepfakes, and specified public-interest text.",
     ],
     exceptions: [
-      "Article 50 contains category-specific qualifications, including artistic or fictional works and specified public-interest text with human review or editorial control and identified editorial responsibility.",
+      "Article 50(1)'s direct-interaction notice does not apply when the AI interaction is obvious to a reasonably well-informed, observant, and circumspect person in the circumstances and context; it also contains a qualified law-enforcement exception with safeguards and a public crime-reporting caveat.",
+      "Article 50(2)'s machine-readable marking duty does not apply to the extent a system performs an assistive function for standard editing or does not substantially alter the deployer's input data or its semantics; it also contains a law-enforcement qualification.",
+      "Article 50(3)'s notice duty contains a qualified law-enforcement exception for permitted biometric-categorisation or emotion-recognition uses, subject to appropriate safeguards.",
+      "Article 50(4) contains a law-enforcement qualification. For evidently artistic, creative, satirical, fictional, or analogous works or programmes, disclosure is still required but may be made in an appropriate manner that does not hamper display or enjoyment; this is not a blanket exemption.",
+      "For Article 50(4) public-interest text, disclosure does not apply when the AI-generated content underwent human review or editorial control and a natural or legal person holds editorial responsibility for publication.",
       "Article 111(4) delays only Article 50(2) for covered systems placed on the market before August 2, 2026 until December 2, 2026.",
     ],
     requires: [
@@ -396,13 +460,32 @@ export const LAWS: Record<LawId, Law> = {
         contentSha256: "a01d832e0d4b10ebb66d27d0e8cf621aabb18aa56e5c24d39d6b4000a9adfcd2",
         fingerprintUrl: "https://ec.europa.eu/newsroom/dae/redirection/document/130916",
       },
+      {
+        sourceId: "eu-art50-adequacy-opinion-landing",
+        authority: "European Commission",
+        title: "Commission opinion on assessment of the Code of Practice on transparency of AI-generated content",
+        jurisdiction: "European Union",
+        sourceType: "government_announcement",
+        legalStatus: "published",
+        bindingEffect: "supplemental_official_explanation",
+        canonicalUrl:
+          "https://digital-strategy.ec.europa.eu/en/library/commission-opinion-assessment-code-practice-transparency-ai-generated-content",
+        retrievedAt: "2026-08-29",
+        notes:
+          "Supplemental official explanation of the Commission and AI Board adequacy assessments; adherence is not conclusive evidence of compliance.",
+      },
     ],
     review: {
       ...COMMON_REVIEW,
-      sourceDataVersion: "eu-art50-sources-2026-08-29.1",
+      sourceDataVersion: "eu-art50-sources-2026-08-29.3",
       templateVersion: "eu-art50-deepfake-en-v1",
     },
     changeHistory: [
+      {
+        date: "2026-08-29",
+        summary: "Enumerated the material paragraph-specific Article 50 qualifications and clarified that the artistic-work provision limits the manner of disclosure rather than creating a blanket exemption.",
+        sourceIds: ["eu-ai-act-base", "eu-ai-act-consolidated"],
+      },
       {
         date: "2026-08-29",
         summary: "Recorded Regulation 2026/1744's replacement of Article 50(7) and the Commission and AI Board formal adequacy assessments of the voluntary Code of Practice.",
@@ -486,13 +569,24 @@ export const LAWS: Record<LawId, Law> = {
     ],
     review: {
       ...COMMON_REVIEW,
-      sourceDataVersion: "ny-gbl-396-b-2026-06-12.1",
+      sourceDataVersion: "ny-gbl-396-b-2026-06-12.2",
       templateVersion: "ny-gbl-396-b-disclosure-en-v1",
       automatedSourceCheckStatus: "access_limited",
+      automatedAccessLimitedSourceIds: ["ny-gbl-396-b", "ny-s8420-a"],
+      automatedAllowlistSourceIds: [
+        "ny-gbl-396-b",
+        "ny-s8420-a",
+        "ny-s8420-effective-date-announcement",
+      ],
       automatedSourceCheckNote:
-        "Direct automation was blocked on three New York official pages. They were separately opened on August 29, 2026, but automated coverage remains limited.",
+        "On August 29, 2026, direct automation returned HTTP 403 for the two New York legislative pages (§ 396-b and S.8420-A). The allowlisted Governor-page block was not observed, so that allowlist and metadata require review; automated coverage remains limited despite manual opening.",
     },
     changeHistory: [
+      {
+        date: "2026-08-29",
+        summary: "Corrected the automated-access note to distinguish the two observed legislative HTTP 403 responses from the unobserved allowlisted Governor-page block.",
+        sourceIds: ["ny-gbl-396-b", "ny-s8420-a", "ny-s8420-effective-date-announcement"],
+      },
       {
         date: "2026-08-29",
         summary: "Corrected the regulated role and broad advertising-media exclusion; removed written-notice, cure, and anti-removal clauses that appeared in an earlier bill but not the enacted or codified law.",
@@ -516,11 +610,13 @@ export const LAWS: Record<LawId, Law> = {
       "Commercial purchase/sale or election-influence purpose",
     ],
     definitions: [
-      "The section's defined term for bot and its communication, intent, deception, and purpose elements must be read from the current code.",
+      "A “bot” is an automated online account where all or substantially all of the actions or posts of that account are not the result of a person.",
+      "“Online” means appearing on a public-facing internet website, web application, or digital application, including a social network or publication.",
       "The statutory elements must be evaluated together rather than inferred from a chatbot label alone.",
     ],
     exceptions: [
       "Section-specific liability does not attach when the person provides the clear, conspicuous bot disclosure described by the section.",
+      "Section 17942(c) says the chapter does not impose a duty on service providers of online platforms, including web-hosting and internet-service providers.",
       "The section does not resolve other consumer-protection, privacy, election, accessibility, or sector-specific law.",
     ],
     requires: [
@@ -530,6 +626,19 @@ export const LAWS: Record<LawId, Law> = {
     penalty:
       "The section does not state a fixed per-message fine or its own remedial schedule. Consequences depend on other applicable law, the enforcement path, and the facts.",
     officialSources: [
+      {
+        sourceId: "ca-bpc-17940",
+        authority: "California Legislature",
+        title: "California Business and Professions Code § 17940",
+        jurisdiction: "California",
+        sourceType: "codified_statute",
+        legalStatus: "in_force",
+        bindingEffect: "binding_statute_definitions",
+        canonicalUrl:
+          "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=17940",
+        documentId: "CA-BPC-17940",
+        retrievedAt: "2026-08-29",
+      },
       {
         sourceId: "ca-bpc-17941",
         authority: "California Legislature",
@@ -541,6 +650,33 @@ export const LAWS: Record<LawId, Law> = {
         canonicalUrl: "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=17941",
         documentId: "CA-BPC-17941",
         effectiveDate: "2019-01-01",
+        applicableDate: "2019-07-01",
+        retrievedAt: "2026-08-29",
+      },
+      {
+        sourceId: "ca-bpc-17942",
+        authority: "California Legislature",
+        title: "California Business and Professions Code § 17942",
+        jurisdiction: "California",
+        sourceType: "codified_statute",
+        legalStatus: "in_force",
+        bindingEffect: "binding_statute_qualifications",
+        canonicalUrl:
+          "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=17942",
+        documentId: "CA-BPC-17942",
+        retrievedAt: "2026-08-29",
+      },
+      {
+        sourceId: "ca-bpc-17943",
+        authority: "California Legislature",
+        title: "California Business and Professions Code § 17943",
+        jurisdiction: "California",
+        sourceType: "codified_statute",
+        legalStatus: "in_force",
+        bindingEffect: "binding_statute_operative_date",
+        canonicalUrl:
+          "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&sectionNum=17943",
+        documentId: "CA-BPC-17943",
         applicableDate: "2019-07-01",
         retrievedAt: "2026-08-29",
       },
@@ -562,10 +698,15 @@ export const LAWS: Record<LawId, Law> = {
     ],
     review: {
       ...COMMON_REVIEW,
-      sourceDataVersion: "ca-bpc-17941-2026-08-29.1",
+      sourceDataVersion: "ca-bpc-17941-2026-08-29.3",
       templateVersion: "ca-bot-disclosure-en-v1",
     },
     changeHistory: [
+      {
+        date: "2026-08-29",
+        summary: "Added the statutory bot and online definitions and the Section 17942(c) online-platform service-provider no-duty qualification.",
+        sourceIds: ["ca-bpc-17940", "ca-bpc-17942", "ca-sb1001-ch892-2018"],
+      },
       {
         date: "2026-08-29",
         summary: "Removed an unsupported statement tying the section's penalty to California unfair-competition law; the cited section states no fixed per-message fine.",
@@ -602,6 +743,7 @@ export const LAWS: Record<LawId, Law> = {
     exceptions: [
       "Section 22757.5 excludes a product, service, website, or application providing exclusively specified non-user-generated entertainment experiences.",
       "A person exclusively engaged in device assembly is excluded from the capture-device-manufacturer definition.",
+      "The large-online-platform definition excludes broadband internet access services and telecommunications services, each as defined in the cited law.",
     ],
     requires: [
       "If you create, code, or otherwise produce a public GenAI system with more than 1,000,000 monthly visitors or users and California accessibility, review the no-cost detection-tool, manifest-option, latent-disclosure, privacy, and licensing duties operative August 2, 2026.",
@@ -641,6 +783,21 @@ export const LAWS: Record<LawId, Law> = {
         notes: "Passed the Legislature and was ordered to enrolling; verify chaptering before treating it as law.",
       },
       {
+        sourceId: "ca-sb1000-2025-2026-text",
+        authority: "California Legislature",
+        title: "Pending SB 1000 current bill text",
+        jurisdiction: "California",
+        sourceType: "pending_bill_text",
+        legalStatus: "passed_legislature_not_chaptered",
+        bindingEffect: "not_current_law",
+        canonicalUrl:
+          "https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260SB1000",
+        documentId: "20250SB1000-current-text",
+        officialPageLastUpdated: "2026-08-21",
+        retrievedAt: "2026-08-29",
+        notes: "Passed text used only to identify proposed changes; live status controls whether it remains pending.",
+      },
+      {
         sourceId: "ca-ab853-2025",
         authority: "California Legislature",
         title: "AB 853 chaptered amendment",
@@ -667,21 +824,34 @@ export const LAWS: Record<LawId, Law> = {
     ],
     review: {
       ...COMMON_REVIEW,
-      sourceDataVersion: "ca-ai-transparency-2026-08-29.1",
+      sourceDataVersion: "ca-ai-transparency-2026-08-29.3",
       templateVersion: null,
     },
     changeHistory: [
       {
         date: "2026-08-29",
+        summary: "Added the broadband-internet-access and telecommunications-service exclusions from the large-online-platform definition.",
+        sourceIds: ["ca-bpc-chapter-25"],
+      },
+      {
+        date: "2026-08-29",
         summary: "Automated status check found SB 1000 passed the Legislature and ordered to enrolling but not chaptered; retained current codified thresholds and marked substantive review overdue.",
-        sourceIds: ["ca-bpc-chapter-25", "ca-sb1000-2025-2026"],
+        sourceIds: ["ca-bpc-chapter-25", "ca-sb1000-2025-2026", "ca-sb1000-2025-2026-text"],
       },
     ],
   },
 };
 
 function assertIsoDate(label: string, value: string): void {
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(value) || Number.isNaN(Date.parse(`${value}T00:00:00Z`))) {
+  const match = value.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (!match) throw new Error(`Invalid ${label}: ${value}`);
+  const parsed = new Date(`${value}T00:00:00Z`);
+  if (
+    Number.isNaN(parsed.getTime()) ||
+    parsed.getUTCFullYear() !== Number(match[1]) ||
+    parsed.getUTCMonth() + 1 !== Number(match[2]) ||
+    parsed.getUTCDate() !== Number(match[3])
+  ) {
     throw new Error(`Invalid ${label}: ${value}`);
   }
 }
@@ -695,6 +865,39 @@ for (const law of Object.values(LAWS)) {
   }
   const sourceIds = new Set(law.officialSources.map((source) => source.sourceId));
   if (sourceIds.size !== law.officialSources.length) throw new Error(`${law.id} has duplicate source ids`);
+  if (
+    law.review.automatedSourceCheckStatus === "passed" &&
+    law.review.automatedAccessLimitedSourceIds.length > 0
+  ) {
+    throw new Error(`${law.id} cannot list access-limited sources while the automated check passed`);
+  }
+  if (
+    law.review.automatedSourceCheckStatus === "access_limited" &&
+    law.review.automatedAccessLimitedSourceIds.length === 0
+  ) {
+    throw new Error(`${law.id} must identify each access-limited source`);
+  }
+  if (
+    new Set(law.review.automatedAccessLimitedSourceIds).size !==
+    law.review.automatedAccessLimitedSourceIds.length
+  ) {
+    throw new Error(`${law.id} has duplicate access-limited source IDs`);
+  }
+  if (
+    new Set(law.review.automatedAllowlistSourceIds).size !==
+    law.review.automatedAllowlistSourceIds.length
+  ) {
+    throw new Error(`${law.id} has duplicate automation-allowlist source IDs`);
+  }
+  for (const sourceId of law.review.automatedAccessLimitedSourceIds) {
+    if (!sourceIds.has(sourceId)) throw new Error(`${law.id} access limit references unknown source ${sourceId}`);
+    if (!law.review.automatedAllowlistSourceIds.includes(sourceId)) {
+      throw new Error(`${law.id} access-limited source ${sourceId} is missing from the automation allowlist`);
+    }
+  }
+  for (const sourceId of law.review.automatedAllowlistSourceIds) {
+    if (!sourceIds.has(sourceId)) throw new Error(`${law.id} allowlist references unknown source ${sourceId}`);
+  }
   for (const source of law.officialSources) {
     assertIsoDate(`${source.sourceId}.retrievedAt`, source.retrievedAt);
     for (const field of [
@@ -757,6 +960,13 @@ export function getLegalReviewStatus(asOf: Date = new Date()): LegalReviewStatus
     sourceDataVersion: LEGAL_SOURCE_DATA_VERSION,
     checkerVersion: CHECKER_VERSION,
     reviewer: LEGAL_REVIEWER,
+    reviewRecordId: oldestReview.reviewRecordId,
+    reviewAuthorizationState: lawStatuses.every(
+      (status) => status.reviewAuthorizationState === oldestReview.reviewAuthorizationState,
+    )
+      ? oldestReview.reviewAuthorizationState
+      : "invalid",
+    reviewMetadataLinked: lawStatuses.every((status) => status.reviewMetadataLinked),
     overdueLawIds,
   };
 }
@@ -779,6 +989,8 @@ export interface ResultProvenance {
   automatedSourceCheckNote: string;
   checkerVersion: string;
   templateVersion: string | null;
+  reviewRecordId: string;
+  reviewAuthorizationState: ReviewAuthorizationState;
 }
 
 export interface DisclosureExample {
@@ -1019,6 +1231,8 @@ export function evaluate(a: CheckerAnswers, asOf: Date = new Date()): LawResult[
         automatedSourceCheckNote: review.automatedSourceCheckNote,
         checkerVersion: result.law.review.checkerVersion,
         templateVersion: result.sampleDisclosure?.templateVersion ?? null,
+        reviewRecordId: review.reviewRecordId,
+        reviewAuthorizationState: review.reviewAuthorizationState,
       },
     };
   });

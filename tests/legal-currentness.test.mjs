@@ -203,6 +203,7 @@ test("FTC screening does not reuse one disclosure across different relationships
 test("EU currentness copy limits the Article 50(2) transition precisely", async () => {
   const pages = await readFile(new URL("../src/lib/lawPages.ts", import.meta.url), "utf8");
   const requirements = LAWS.euArt50.requires.join("\n");
+  const qualifications = LAWS.euArt50.exceptions.join("\n");
 
   assert.equal(LEGAL_REVIEW_DATE, "2026-08-02");
   assert.equal(LEGAL_CONTENT_MODIFIED_DATE, "2026-08-29");
@@ -211,6 +212,16 @@ test("EU currentness copy limits the Article 50(2) transition precisely", async 
   assert.match(requirements, /Regulation \(EU\) 2026\/1744 delays only that paragraph/i);
   assert.match(requirements, /placed on the market before August 2, 2026/i);
   assert.match(requirements, /does not postpone the other Article 50 duties/i);
+  assert.match(qualifications, /obvious to a reasonably well-informed, observant, and circumspect person/i);
+  assert.match(qualifications, /public crime-reporting caveat/i);
+  assert.match(qualifications, /standard editing/i);
+  assert.match(qualifications, /does not substantially alter.*input data or its semantics/i);
+  assert.match(qualifications, /Article 50\(3\).*law-enforcement exception.*appropriate safeguards/i);
+  assert.match(qualifications, /artistic, creative, satirical, fictional, or analogous works or programmes/i);
+  assert.match(qualifications, /disclosure is still required/i);
+  assert.match(qualifications, /not a blanket exemption/i);
+  assert.match(qualifications, /public-interest text.*human review or editorial control/i);
+  assert.match(qualifications, /holds editorial responsibility/i);
   assert.match(pages, /Article 111\(4\)/);
   assert.match(pages, /does not postpone Article 50\(1\), 50\(3\), or 50\(4\)/);
   assert.match(pages, /guidelines are non-binding/i);
@@ -225,9 +236,51 @@ test("EU currentness copy limits the Article 50(2) transition precisely", async 
   assert.match(sources, /document\/130916/);
 });
 
+test("FTC catalog keeps nonbinding Part 255 separate from binding Part 465", () => {
+  const guides = LAWS.ftc.officialSources.find(
+    (source) => source.sourceId === "us-ftc-endorsement-guides",
+  );
+  const reviewsRule = LAWS.ftc.officialSources.find(
+    (source) => source.sourceId === "us-ftc-consumer-review-rule",
+  );
+  const qualifications = LAWS.ftc.exceptions.join("\n");
+
+  assert.equal(guides?.bindingEffect, "administrative_interpretation_not_standalone_rule");
+  assert.equal(reviewsRule?.bindingEffect, "binding_rule");
+  assert.match(reviewsRule?.notes ?? "", /does not amend Part 255/i);
+  assert.match(qualifications, /separate binding Consumer Reviews and Testimonials Rule/i);
+  assert.match(qualifications, /does not amend Part 255, make the Guides binding/i);
+  assert.match(LAWS.ftc.penalty, /Guides do not themselves have the force of law/i);
+});
+
+test("New York automation note records the two observed 403s and unobserved Governor block", () => {
+  const note = LAWS.nySynthetic.review.automatedSourceCheckNote;
+
+  assert.equal(LAWS.nySynthetic.review.automatedSourceCheckStatus, "access_limited");
+  assert.match(note, /HTTP 403.*two New York legislative pages/i);
+  assert.match(note, /§ 396-b and S\.8420-A/i);
+  assert.match(note, /Governor-page block was not observed/i);
+  assert.match(note, /allowlist and metadata require review/i);
+  assert.match(note, /automated coverage remains limited despite manual opening/i);
+  assert.doesNotMatch(note, /blocked on three New York official pages/i);
+});
+
+test("California B.O.T. Act catalog states the bot definition and platform qualification", () => {
+  const definitions = LAWS.caBot.definitions.join("\n");
+  const qualifications = LAWS.caBot.exceptions.join("\n");
+
+  assert.match(definitions, /automated online account/i);
+  assert.match(definitions, /all or substantially all.*actions or posts.*not the result of a person/i);
+  assert.match(definitions, /public-facing internet website, web application, or digital application/i);
+  assert.match(qualifications, /Section 17942\(c\)/i);
+  assert.match(qualifications, /does not impose a duty on service providers of online platforms/i);
+  assert.match(qualifications, /web-hosting and internet-service providers/i);
+});
+
 test("California currentness copy integrates AB 853 and keeps SB 1000 proposed", async () => {
   const pages = await readFile(new URL("../src/lib/lawPages.ts", import.meta.url), "utf8");
   const requirements = LAWS.caSb942.requires.join("\n");
+  const qualifications = LAWS.caSb942.exceptions.join("\n");
 
   assert.match(LAWS.caSb942.name, /as amended by AB 853/i);
   assert.match(LAWS.caSb942.timingSummary, /operative August 2, 2026/i);
@@ -238,6 +291,9 @@ test("California currentness copy integrates AB 853 and keeps SB 1000 proposed",
   assert.match(requirements, /GenAI system hosting platform/);
   assert.match(requirements, /capture devices/);
   assert.match(requirements, /third-party licensee/);
+  assert.match(qualifications, /large-online-platform definition excludes/i);
+  assert.match(qualifications, /broadband internet access services/i);
+  assert.match(qualifications, /telecommunications services/i);
   assert.match(pages, /SB 1000 is not current law/);
   assert.match(LAWS.caSb942.officialSources.map((source) => source.title).join("\n"), /AB 853 chaptered amendment/);
   assert.match(pages, /Section 22757\.5 excludes/);
