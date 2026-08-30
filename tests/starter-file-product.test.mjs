@@ -226,7 +226,7 @@ test("exports escape user text and expose required source and review metadata", 
   assert.doesNotMatch(printable, /<script>alert\("project"\)<\/script>/);
   assert.match(printable, /&lt;script&gt;alert\(&quot;project&quot;\)&lt;\/script&gt;/);
   assert.match(printable, /connect-src 'none'/);
-  assert.doesNotMatch(printable, /<script[ >]/i);
+  assert.equal(printable.toLowerCase().includes("<script"), false);
   assert.match(markdown, /Legal source data version:/);
   assert.match(markdown, /Last substantive human review:/);
   assert.match(markdown, /Next review due:/);
@@ -393,7 +393,9 @@ test("overdue bundle disables actions in HTML, at runtime, and in print CSS", as
   assert.match(html, /\.form-panel>h2,\.form-panel>\.privacy,\.form-panel form\{display:none\}/);
   assert.match(html, /window\.addEventListener\("beforeprint", function \(\) \{ gate\(\); \}\)/);
 
-  const scripts = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].map((match) => match[1]);
+  const scripts = [...html.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script\s*>/gi)].map(
+    (match) => match[1],
+  );
   assert.equal(scripts.length, 2);
   assert.doesNotThrow(() => new vm.Script(scripts.join("\n")));
 });

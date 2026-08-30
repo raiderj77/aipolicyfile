@@ -106,8 +106,7 @@ function escapeHtml(value) {
 
 function escapeMarkdown(value) {
   return String(value)
-    .replaceAll("\\", "\\\\")
-    .replace(/([`*_{}\[\]<>#+!|])/g, "\\$1")
+    .replace(/([\\`*_{}\[\]<>#+!|])/g, "\\$1")
     .replace(/\r?\n/g, " ")
     .trim();
 }
