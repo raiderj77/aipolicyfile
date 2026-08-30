@@ -8,6 +8,7 @@ import {
   ANALYTICS_CONSENT_WITHDRAWN,
   buildAnalyticsPageContext,
   buildAnalyticsPageView,
+  createGtagCommandQueue,
   GA4_CONFIG,
   GA4_MEASUREMENT_ID,
 } from "@/lib/analytics";
@@ -16,7 +17,7 @@ type Consent = "granted" | "denied";
 
 declare global {
   interface Window {
-    dataLayer?: unknown[][];
+    dataLayer?: IArguments[];
     gtag?: (...args: unknown[]) => void;
   }
 }
@@ -28,7 +29,7 @@ const CONFIGURED_KEY = "aipolicyfile:analytics-configured";
 
 function ensureAnalyticsQueue() {
   window.dataLayer = window.dataLayer || [];
-  window.gtag = window.gtag || ((...args: unknown[]) => window.dataLayer?.push(args));
+  window.gtag = window.gtag || createGtagCommandQueue(window.dataLayer);
 }
 
 function prepareDeniedConsentDefault() {
