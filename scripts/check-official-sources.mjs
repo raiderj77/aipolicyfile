@@ -132,8 +132,10 @@ try {
   );
   if (!response.ok) throw new Error(`HTTP ${response.status}`);
   const statusPage = await response.text();
-  if (!/Active Bill\s*-\s*Passed/i.test(statusPage)) {
-    failures.push("ca-sb1000-2025-2026: official status no longer says 'Active Bill - Passed'; substantive review required");
+  if (!/Active Bill\s*-\s*Enrolled/i.test(statusPage)) {
+    failures.push(
+      "ca-sb1000-2025-2026: official status no longer says 'Active Bill - Enrolled'; substantive review required",
+    );
   }
 } catch (error) {
   failures.push(`ca-sb1000-2025-2026: status monitor failed (${error instanceof Error ? error.message : String(error)})`);

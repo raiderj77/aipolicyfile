@@ -294,9 +294,9 @@ export const LAW_PAGES: LawPage[] = [
         ],
       },
       {
-        heading: "Pending SB 1000 is not current law",
+        heading: "Enrolled SB 1000 is not current law",
         paragraphs: [
-          "An August 29, 2026 automated source check found that SB 1000 passed the Legislature with an urgency clause, the Senate concurred in Assembly amendments on August 27, and the bill was ordered to engrossing and enrolling. The latest official text was amended August 21. The official status still identified it as an active bill rather than chaptered law, so it must not be treated as current law. Substantive human review of the changed text remains overdue.",
+          "A September 9, 2026 automated source check found that SB 1000 was enrolled on August 30 and presented to the Governor on September 2. The latest official text was amended August 21. The official status identifies it as an active enrolled bill rather than chaptered law, so it must not be treated as current law. Substantive human review of the changed text remains overdue.",
           "Before relying on a classification, verify the current codified chapter and the official SB 1000 status. Product architecture, audience measurements, and the statute can all change.",
         ],
       },
@@ -319,8 +319,8 @@ export const LAW_PAGES: LawPage[] = [
         a: "The chapter and covered-provider duties became operative August 2, 2026. The large-online-platform and GenAI-hosting provisions specify January 1, 2027, and the capture-device provision specifies January 1, 2028.",
       },
       {
-        q: "Did pending SB 1000 already remove the one-million threshold?",
-        a: "No. An August 29, 2026 automated check found SB 1000 had passed the Legislature and was ordered to enrolling, but the official status still showed an active bill rather than chaptered law. The current codified covered-provider definition still includes the threshold; verify the official status before relying on this answer.",
+        q: "Did enrolled SB 1000 already remove the one-million threshold?",
+        a: "No. A September 9, 2026 automated check found SB 1000 was enrolled and presented to the Governor, but the official status still showed an active bill rather than chaptered law. The current codified covered-provider definition still includes the threshold; verify the official status before relying on this answer.",
       },
     ],
   },

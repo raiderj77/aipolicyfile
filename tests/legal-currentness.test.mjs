@@ -205,7 +205,7 @@ test("EU currentness copy limits the Article 50(2) transition precisely", async 
   const requirements = LAWS.euArt50.requires.join("\n");
 
   assert.equal(LEGAL_REVIEW_DATE, "2026-08-02");
-  assert.equal(LEGAL_CONTENT_MODIFIED_DATE, "2026-08-29");
+  assert.equal(LEGAL_CONTENT_MODIFIED_DATE, "2026-09-09");
   assert.equal(LEGAL_REVIEW_LABEL, "August 2, 2026");
   assert.equal(NEXT_LEGAL_REVIEW_DUE, "2026-08-09");
   assert.match(requirements, /Regulation \(EU\) 2026\/1744 delays only that paragraph/i);
@@ -225,9 +225,16 @@ test("EU currentness copy limits the Article 50(2) transition precisely", async 
   assert.match(sources, /document\/130916/);
 });
 
-test("California currentness copy integrates AB 853 and keeps SB 1000 proposed", async () => {
+test("California currentness copy integrates AB 853 and keeps enrolled SB 1000 non-current", async () => {
   const pages = await readFile(new URL("../src/lib/lawPages.ts", import.meta.url), "utf8");
+  const monitor = await readFile(
+    new URL("../scripts/check-official-sources.mjs", import.meta.url),
+    "utf8",
+  );
   const requirements = LAWS.caSb942.requires.join("\n");
+  const sb1000 = LAWS.caSb942.officialSources.find(
+    (source) => source.sourceId === "ca-sb1000-2025-2026",
+  );
 
   assert.match(LAWS.caSb942.name, /as amended by AB 853/i);
   assert.match(LAWS.caSb942.timingSummary, /operative August 2, 2026/i);
@@ -239,6 +246,13 @@ test("California currentness copy integrates AB 853 and keeps SB 1000 proposed",
   assert.match(requirements, /capture devices/);
   assert.match(requirements, /third-party licensee/);
   assert.match(pages, /SB 1000 is not current law/);
+  assert.equal(sb1000?.legalStatus, "enrolled_presented_to_governor_not_chaptered");
+  assert.equal(sb1000?.officialPageLastUpdated, "2026-09-02");
+  assert.equal(sb1000?.retrievedAt, "2026-09-09");
+  assert.match(sb1000?.notes ?? "", /presented to the Governor September 2/i);
+  assert.match(pages, /presented to the Governor on September 2/i);
+  assert.match(monitor, /Active Bill\\s\*-\\s\*Enrolled/i);
+  assert.doesNotMatch(monitor, /Active Bill\\s\*-\\s\*Passed/i);
   assert.match(LAWS.caSb942.officialSources.map((source) => source.title).join("\n"), /AB 853 chaptered amendment/);
   assert.match(pages, /Section 22757\.5 excludes/);
   assert.doesNotMatch(pages, /chapter became operative January 1, 2026/i);
