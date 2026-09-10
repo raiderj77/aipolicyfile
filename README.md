@@ -42,8 +42,9 @@ per-framework review metadata, checker logic, and result provenance live in
 and consume the centralized source records. The last substantive human review was
 August 2, 2026 and the scheduled review date was August 9, 2026. An AI-assisted
 comparison against official sources found material corrections on August 29, 2026.
-A deterministic monitor separately checked official links, recorded fingerprints,
-current FTC text, and pending SB 1000 status. Neither process replaced substantive
+A deterministic monitor last checked official links, recorded fingerprints,
+current FTC text, and SB 1000 status on September 9, 2026. It found SB 1000 enrolled
+and presented to the Governor but not chaptered. Neither process replaced substantive
 human review, so dependent output remains visibly overdue.
 
 Standing rule for this site: it gives educational information, never legal

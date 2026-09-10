@@ -4,12 +4,12 @@
 
 export const LEGAL_REVIEW_DATE = "2026-08-02";
 export const LEGAL_REVIEW_LABEL = "August 2, 2026";
-export const LEGAL_CONTENT_MODIFIED_DATE = "2026-08-29";
+export const LEGAL_CONTENT_MODIFIED_DATE = "2026-09-09";
 export const NEXT_LEGAL_REVIEW_DUE = "2026-08-09";
-export const LAST_AUTOMATED_SOURCE_CHECK_DATE = "2026-08-29";
-export const LAST_AUTOMATED_SOURCE_CHECK_LABEL = "August 29, 2026";
-export const LEGAL_SOURCE_DATA_VERSION = "legal-catalog-2026-08-29.1";
-export const CHECKER_VERSION = "checker-2026-08-29.1";
+export const LAST_AUTOMATED_SOURCE_CHECK_DATE = "2026-09-09";
+export const LAST_AUTOMATED_SOURCE_CHECK_LABEL = "September 9, 2026";
+export const LEGAL_SOURCE_DATA_VERSION = "legal-catalog-2026-09-09.1";
+export const CHECKER_VERSION = "checker-2026-09-09.1";
 export const LEGAL_REVIEWER = "Jason Ramirez (site owner; not an attorney)";
 
 export type LawId = "ftc" | "euArt50" | "nySynthetic" | "caBot" | "caSb942";
@@ -629,16 +629,17 @@ export const LAWS: Record<LawId, Law> = {
       {
         sourceId: "ca-sb1000-2025-2026",
         authority: "California Legislature",
-        title: "Pending SB 1000 official status and history",
+        title: "SB 1000 official status and history",
         jurisdiction: "California",
         sourceType: "pending_bill",
-        legalStatus: "passed_legislature_not_chaptered",
+        legalStatus: "enrolled_presented_to_governor_not_chaptered",
         bindingEffect: "not_current_law",
         canonicalUrl: "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB1000",
         documentId: "20250SB1000",
-        officialPageLastUpdated: "2026-08-27",
-        retrievedAt: "2026-08-29",
-        notes: "Passed the Legislature and was ordered to enrolling; verify chaptering before treating it as law.",
+        officialPageLastUpdated: "2026-09-02",
+        retrievedAt: "2026-09-09",
+        notes:
+          "Enrolled August 30 and presented to the Governor September 2; verify approval, veto, or chaptering before treating it as law.",
       },
       {
         sourceId: "ca-ab853-2025",
@@ -667,10 +668,16 @@ export const LAWS: Record<LawId, Law> = {
     ],
     review: {
       ...COMMON_REVIEW,
-      sourceDataVersion: "ca-ai-transparency-2026-08-29.1",
+      sourceDataVersion: "ca-ai-transparency-2026-09-09.1",
       templateVersion: null,
     },
     changeHistory: [
+      {
+        date: "2026-09-09",
+        summary:
+          "Automated status check found SB 1000 enrolled and presented to the Governor but not chaptered; retained current codified thresholds and kept substantive review overdue.",
+        sourceIds: ["ca-bpc-chapter-25", "ca-sb1000-2025-2026"],
+      },
       {
         date: "2026-08-29",
         summary: "Automated status check found SB 1000 passed the Legislature and ordered to enrolling but not chaptered; retained current codified thresholds and marked substantive review overdue.",
@@ -856,7 +863,7 @@ const UNRESOLVED_FACTS: Record<LawId, string[]> = {
     "The operator's exact statutory role and California connection",
     "Whether the applicable user, visitor, platform, hosting, licensing, or device thresholds are met",
     "Which staged operative date and technical duty applies",
-    "Whether pending SB 1000 has since been chaptered or otherwise changed",
+    "Whether enrolled SB 1000 has since been approved, vetoed, chaptered, or otherwise changed",
   ],
 };
 
@@ -992,7 +999,7 @@ export function evaluate(a: CheckerAnswers, asOf: Date = new Date()): LawResult[
           status: "review",
           headline: "A California AI Transparency Act business role may need review.",
           detail:
-            "Your answer groups several different statutory roles and dates. Confirm whether you are a covered provider, affected third-party licensee, large online platform, GenAI system hosting platform, or capture device manufacturer, then review the provisions and operative date for that role. An August 29 automated source check found SB 1000 passed the Legislature and was ordered to enrolling, but it was still pending and not current law; substantive human review remains overdue.",
+            "Your answer groups several different statutory roles and dates. Confirm whether you are a covered provider, affected third-party licensee, large online platform, GenAI system hosting platform, or capture device manufacturer, then review the provisions and operative date for that role. A September 9 automated source check found SB 1000 enrolled and presented to the Governor on September 2, but not chaptered as current law; substantive human review remains overdue.",
         }
       : {
           law: LAWS.caSb942,

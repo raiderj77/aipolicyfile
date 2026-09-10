@@ -104,6 +104,16 @@ export default function EditorialStandardsPage() {
               </thead>
               <tbody className="divide-y divide-slate-200">
                 <tr>
+                  <td className="whitespace-nowrap px-4 py-3 align-top">September 9, 2026</td>
+                  <td className="px-4 py-3">
+                    The deterministic source monitor found that SB 1000 is now enrolled and was
+                    presented to the Governor on September 2, but is not chaptered. Public status
+                    copy and structured source metadata were updated without changing the August 2
+                    substantive-review date or clearing the overdue warning. This automated check
+                    did not replace substantive human review.
+                  </td>
+                </tr>
+                <tr>
                   <td className="whitespace-nowrap px-4 py-3 align-top">August 29, 2026</td>
                   <td className="px-4 py-3">
                     An AI-assisted comparison against official sources found that the New York guide had retained

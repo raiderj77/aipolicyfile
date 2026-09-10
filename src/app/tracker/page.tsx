@@ -146,9 +146,10 @@ export default function TrackerPage() {
             AB 853 amended the California AI Transparency Act. The chapter and covered-provider
             duties became operative August 2, 2026; the added large-online-platform and GenAI-hosting
             provisions specify January 1, 2027, and the capture-device provision specifies January 1,
-            2028. An August 29 automated check found SB 1000 had passed the Legislature and was
-            ordered to enrolling, but the official status still showed an active bill rather than
-            chaptered law. SB 1000 is not current law. Substantive review of the August 21 text remains overdue.
+            2028. A September 9 automated check found SB 1000 was enrolled on August 30 and
+            presented to the Governor on September 2, but the official status still showed an
+            active bill rather than chaptered law. SB 1000 is not current law. Substantive review
+            of the August 21 text remains overdue.
           </p>
           <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2">
             <a
@@ -165,7 +166,7 @@ export default function TrackerPage() {
               rel="noopener noreferrer"
               className="font-semibold text-indigo-700 underline underline-offset-2"
             >
-              Check pending SB 1000 status
+              Check SB 1000 status
             </a>
           </div>
         </div>
