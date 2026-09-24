@@ -186,6 +186,20 @@ test("illustrative disclosure wording carries a version or is explicitly absent"
   assert.equal(eu?.provenance.templateVersion, eu?.sampleDisclosure?.templateVersion);
 });
 
+test("New York automated-source limits match the currently blocked official pages", async () => {
+  const monitor = await readFile(
+    new URL("../scripts/check-official-sources.mjs", import.meta.url),
+    "utf8",
+  );
+
+  assert.match(monitor, /\["ny-gbl-396-b", new Set/);
+  assert.match(monitor, /\["ny-s8420-a", new Set/);
+  assert.doesNotMatch(monitor, /\["ny-s8420-effective-date-announcement", new Set/);
+  assert.match(LAWS.nySynthetic.review.automatedSourceCheckNote, /two New York Legislature pages/i);
+  assert.match(LAWS.nySynthetic.review.automatedSourceCheckNote, /governor's effective-date announcement is retrieved/i);
+  assert.equal(LAWS.nySynthetic.review.automatedSourceCheckStatus, "access_limited");
+});
+
 test("FTC screening does not reuse one disclosure across different relationships", () => {
   const result = evaluate({ ...allNo, publish: true, sponsored: true }).find(
     (item) => item.law.id === "ftc",

@@ -6,7 +6,6 @@ const BLOCKED_STATUS = new Set([401, 403, 429]);
 const EXPECTED_AUTOMATION_BLOCKS = new Map([
   ["ny-gbl-396-b", new Set([403, 429])],
   ["ny-s8420-a", new Set([403, 429])],
-  ["ny-s8420-effective-date-announcement", new Set([403, 429])],
 ]);
 const failures = [];
 const warnings = [];
