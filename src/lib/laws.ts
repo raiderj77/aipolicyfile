@@ -490,7 +490,7 @@ export const LAWS: Record<LawId, Law> = {
       templateVersion: "ny-gbl-396-b-disclosure-en-v1",
       automatedSourceCheckStatus: "access_limited",
       automatedSourceCheckNote:
-        "Direct automation was blocked on three New York official pages. They were separately opened on August 29, 2026, but automated coverage remains limited.",
+        "Direct automation remains blocked on two New York Legislature pages. The governor's effective-date announcement is retrieved by the automated monitor, but coverage remains limited until the enacted and codified text can also be checked automatically.",
     },
     changeHistory: [
       {
