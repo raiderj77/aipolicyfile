@@ -1,5 +1,6 @@
 import { createHash } from "node:crypto";
-import { LAWS } from "../src/lib/laws.ts";
+import { CA_SIGNING_ANNOUNCEMENT_URL, LAWS } from "../src/lib/laws.ts";
+import { hasCaliforniaSigningAnnouncement } from "./california-signing-status.mjs";
 
 const USER_AGENT = "AI-Policy-File-source-monitor/1.0 (+https://aipolicyfile.com/editorial-standards)";
 const BLOCKED_STATUS = new Set([401, 403, 429]);
@@ -127,17 +128,17 @@ if (!ftc?.contentSha256) {
 
 try {
   const response = await fetchWithRetry(
-    "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB1000",
+    CA_SIGNING_ANNOUNCEMENT_URL,
   );
   if (!response.ok) throw new Error(`HTTP ${response.status}`);
   const statusPage = await response.text();
-  if (!/Active Bill\s*-\s*Enrolled/i.test(statusPage)) {
+  if (!hasCaliforniaSigningAnnouncement(statusPage)) {
     failures.push(
-      "ca-sb1000-2025-2026: official status no longer says 'Active Bill - Enrolled'; substantive review required",
+      "ca-governor-ai-signing-2026-09-30: expected SB 1000 and AB 2713 signing announcement not found; source review required",
     );
   }
 } catch (error) {
-  failures.push(`ca-sb1000-2025-2026: status monitor failed (${error instanceof Error ? error.message : String(error)})`);
+  failures.push(`ca-governor-ai-signing-2026-09-30: signing-announcement monitor failed (${error instanceof Error ? error.message : String(error)})`);
 }
 
 for (const warning of warnings.sort()) console.warn(`SOURCE MONITOR WARNING: ${warning}`);
@@ -149,6 +150,6 @@ if (failures.length) {
   console.log(
     `Official-source monitor completed with no detected source change: ${uniqueCanonicalSources.length} links ` +
       `(${warnings.length} explicit access warning${warnings.length === 1 ? "" : "s"}), ` +
-      `${sources.filter((source) => source.contentSha256).length} stored snapshots, FTC current text, and SB 1000 status checked.`,
+      `${sources.filter((source) => source.contentSha256).length} stored snapshots, FTC current text, and California signing announcement checked. Final enacted text review remains separate.`,
   );
 }

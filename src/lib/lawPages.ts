@@ -261,7 +261,7 @@ export const LAW_PAGES: LawPage[] = [
     slug: "california-sb-942",
     title: "California AI Transparency Act: SB 942 as Amended by AB 853",
     metaDescription:
-      "A source-based review of California's current AI Transparency Act, including the SB 942 provider duties, AB 853 platform additions, staged dates, and pending SB 1000.",
+      "A source-based review of California's AI Transparency Act. The Governor announced signing SB 1000 and AB 2713; reconciliation with their final enacted text remains overdue.",
     intro:
       "California's current AI Transparency Act began with SB 942 and was amended by AB 853. It assigns different duties and operative dates to covered providers, affected third-party licensees, large online platforms, GenAI hosting platforms, and capture device manufacturers. Merely using an AI tool does not by itself establish one of those roles.",
     sections: [
@@ -294,10 +294,10 @@ export const LAW_PAGES: LawPage[] = [
         ],
       },
       {
-        heading: "Enrolled SB 1000 is not current law",
+        heading: "SB 1000 and AB 2713 signing announced; text review overdue",
         paragraphs: [
-          "A September 9, 2026 automated source check found that SB 1000 was enrolled on August 30 and presented to the Governor on September 2. The latest official text was amended August 21. The official status identifies it as an active enrolled bill rather than chaptered law, so it must not be treated as current law. Substantive human review of the changed text remains overdue.",
-          "Before relying on a classification, verify the current codified chapter and the official SB 1000 status. Product architecture, audience measurements, and the statute can all change.",
+          "The Governor announced signing SB 1000 and AB 2713 on September 30, 2026. This summary has not yet been reconciled with their final enacted text. Substantive human review remains overdue.",
+          "Before relying on a classification, verify the current codified chapter and the final enacted text and operative dates of SB 1000 and AB 2713. Product architecture, audience measurements, and the statute can all change.",
         ],
       },
     ],
@@ -319,8 +319,8 @@ export const LAW_PAGES: LawPage[] = [
         a: "The chapter and covered-provider duties became operative August 2, 2026. The large-online-platform and GenAI-hosting provisions specify January 1, 2027, and the capture-device provision specifies January 1, 2028.",
       },
       {
-        q: "Did enrolled SB 1000 already remove the one-million threshold?",
-        a: "No. A September 9, 2026 automated check found SB 1000 was enrolled and presented to the Governor, but the official status still showed an active bill rather than chaptered law. The current codified covered-provider definition still includes the threshold; verify the official status before relying on this answer.",
+        q: "Has this summary been reconciled with SB 1000 and AB 2713?",
+        a: "The Governor announced signing SB 1000 and AB 2713 on September 30, 2026. This summary has not yet been reconciled with their final enacted text. Signing does not establish when each provision becomes effective or operative; verify the final enacted text before relying on this summary.",
       },
     ],
   },

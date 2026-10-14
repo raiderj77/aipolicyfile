@@ -104,6 +104,18 @@ export default function EditorialStandardsPage() {
               </thead>
               <tbody className="divide-y divide-slate-200">
                 <tr>
+                  <td className="whitespace-nowrap px-4 py-3 align-top">October 14, 2026</td>
+                  <td className="px-4 py-3">
+                    Corrected the prior pending-status statement after verifying the Governor&apos;s
+                    September 30 announcement of signing SB 1000 and AB 2713. The summary has not
+                    been reconciled with their final enacted text. Existing substantive provisions,
+                    human-review dates, and the overdue warning remain unchanged. See the{" "}
+                    <a href="/corrections#2026-10-14-ca-signing-status" className="underline">
+                      correction record
+                    </a>.
+                  </td>
+                </tr>
+                <tr>
                   <td className="whitespace-nowrap px-4 py-3 align-top">September 9, 2026</td>
                   <td className="px-4 py-3">
                     The deterministic source monitor found that SB 1000 is now enrolled and was

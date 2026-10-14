@@ -4,13 +4,16 @@
 
 export const LEGAL_REVIEW_DATE = "2026-08-02";
 export const LEGAL_REVIEW_LABEL = "August 2, 2026";
-export const LEGAL_CONTENT_MODIFIED_DATE = "2026-09-09";
+export const LEGAL_CONTENT_MODIFIED_DATE = "2026-10-14";
 export const NEXT_LEGAL_REVIEW_DUE = "2026-08-09";
 export const LAST_AUTOMATED_SOURCE_CHECK_DATE = "2026-09-09";
 export const LAST_AUTOMATED_SOURCE_CHECK_LABEL = "September 9, 2026";
-export const LEGAL_SOURCE_DATA_VERSION = "legal-catalog-2026-09-09.1";
-export const CHECKER_VERSION = "checker-2026-09-09.1";
+export const LEGAL_SOURCE_DATA_VERSION = "legal-catalog-2026-10-14.1";
+export const CHECKER_VERSION = "checker-2026-10-14.1";
 export const LEGAL_REVIEWER = "Jason Ramirez (site owner; not an attorney)";
+
+export const CA_SIGNING_NOTICE = "The Governor announced signing SB 1000 and AB 2713 on September 30, 2026. This summary has not yet been reconciled with their final enacted text.";
+export const CA_SIGNING_ANNOUNCEMENT_URL = "https://www.gov.ca.gov/2026/09/30/californias-nation-leading-ai-framework-just-got-stronger-governor-newsom-signs-more-first-in-the-nation-worker-protections-and-more/";
 
 export type LawId = "ftc" | "euArt50" | "nySynthetic" | "caBot" | "caSb942";
 
@@ -578,7 +581,7 @@ export const LAWS: Record<LawId, Law> = {
     name: "California AI Transparency Act (SB 942, as amended by AB 853)",
     shortName: "California AI Transparency Act",
     jurisdiction: "California",
-    status: "in_force_with_staged_duties_and_pending_amendment",
+    status: "signed_amendments_announced_final_text_review_overdue",
     timingSummary: "Chapter operative August 2, 2026; added platform duties begin January 1, 2027 and capture-device duties January 1, 2028",
     whoItHits:
       "Defined covered providers and affected third-party licensees; defined large online platforms and GenAI system hosting platforms beginning January 1, 2027; and defined capture device manufacturers for specified devices beginning January 1, 2028.",
@@ -631,15 +634,28 @@ export const LAWS: Record<LawId, Law> = {
         authority: "California Legislature",
         title: "SB 1000 official status and history",
         jurisdiction: "California",
-        sourceType: "pending_bill",
-        legalStatus: "enrolled_presented_to_governor_not_chaptered",
-        bindingEffect: "not_current_law",
+        sourceType: "bill_status",
+        legalStatus: "signing_announced_final_text_unreviewed",
+        bindingEffect: "final_enacted_text_not_reconciled",
         canonicalUrl: "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB1000",
         documentId: "20250SB1000",
         officialPageLastUpdated: "2026-09-02",
         retrievedAt: "2026-09-09",
         notes:
-          "Enrolled August 30 and presented to the Governor September 2; verify approval, veto, or chaptering before treating it as law.",
+          "This Legislature page was last retrieved September 9. The Governor's September 30 announcement, recorded separately below, announces signing SB 1000. Final enacted text and effective/operative dates have not been reconciled; substantive human review remains overdue.",
+      },
+      {
+        sourceId: "ca-governor-ai-signing-2026-09-30",
+        authority: "Governor of California",
+        title: "September 30 announcement of signing SB 1000 and AB 2713",
+        jurisdiction: "California",
+        sourceType: "official_signing_announcement",
+        legalStatus: "signing_announced_final_text_unreviewed",
+        bindingEffect: "announcement_not_substitute_for_enacted_text",
+        canonicalUrl: CA_SIGNING_ANNOUNCEMENT_URL,
+        publishedDate: "2026-09-30",
+        retrievedAt: "2026-10-14",
+        notes: CA_SIGNING_NOTICE,
       },
       {
         sourceId: "ca-ab853-2025",
@@ -668,10 +684,18 @@ export const LAWS: Record<LawId, Law> = {
     ],
     review: {
       ...COMMON_REVIEW,
-      sourceDataVersion: "ca-ai-transparency-2026-09-09.1",
+      sourceDataVersion: "ca-ai-transparency-2026-10-14.1",
+      automatedSourceCheckStatus: "access_limited",
+      automatedSourceCheckNote:
+        "The Governor's signing announcement was verified October 14, 2026. Legislature status retrieval was blocked; the last complete automated check date is retained. Final enacted text has not been reconciled and substantive human review remains overdue.",
       templateVersion: null,
     },
     changeHistory: [
+      {
+        date: "2026-10-14",
+        summary: CA_SIGNING_NOTICE + " Corrected the prior pending-status claim; retained the existing substantive summary, human-review dates, and overdue warning.",
+        sourceIds: ["ca-governor-ai-signing-2026-09-30", "ca-sb1000-2025-2026"],
+      },
       {
         date: "2026-09-09",
         summary:
@@ -863,7 +887,7 @@ const UNRESOLVED_FACTS: Record<LawId, string[]> = {
     "The operator's exact statutory role and California connection",
     "Whether the applicable user, visitor, platform, hosting, licensing, or device thresholds are met",
     "Which staged operative date and technical duty applies",
-    "Whether enrolled SB 1000 has since been approved, vetoed, chaptered, or otherwise changed",
+    "How the final enacted text of SB 1000 and AB 2713 changes the existing summary, and when each provision becomes effective or operative",
   ],
 };
 
@@ -999,14 +1023,14 @@ export function evaluate(a: CheckerAnswers, asOf: Date = new Date()): LawResult[
           status: "review",
           headline: "A California AI Transparency Act business role may need review.",
           detail:
-            "Your answer groups several different statutory roles and dates. Confirm whether you are a covered provider, affected third-party licensee, large online platform, GenAI system hosting platform, or capture device manufacturer, then review the provisions and operative date for that role. A September 9 automated source check found SB 1000 enrolled and presented to the Governor on September 2, but not chaptered as current law; substantive human review remains overdue.",
+            "Your answer groups several different statutory roles and dates. Confirm whether you are a covered provider, affected third-party licensee, large online platform, GenAI system hosting platform, or capture device manufacturer, then review the provisions and operative date for that role. " + CA_SIGNING_NOTICE + " Substantive human review remains overdue.",
         }
       : {
           law: LAWS.caSb942,
           status: "lower",
           headline: "Lower apparent relevance based on your answers.",
           detail:
-            "Your answers did not identify one of the screened provider, licensee, platform, hosting, or device-manufacturer roles. Ordinary use of a third-party AI tool does not by itself make a business one of those regulated entities, but the current statutory definitions and staged dates control.",
+            "Your answers did not identify one of the screened provider, licensee, platform, hosting, or device-manufacturer roles. Ordinary use of a third-party AI tool does not by itself make a business one of those regulated entities, but the current statutory definitions and staged dates control. " + CA_SIGNING_NOTICE,
         },
   );
 
