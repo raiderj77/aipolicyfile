@@ -146,10 +146,9 @@ export default function TrackerPage() {
             AB 853 amended the California AI Transparency Act. The chapter and covered-provider
             duties became operative August 2, 2026; the added large-online-platform and GenAI-hosting
             provisions specify January 1, 2027, and the capture-device provision specifies January 1,
-            2028. A September 9 automated check found SB 1000 was enrolled on August 30 and
-            presented to the Governor on September 2, but the official status still showed an
-            active bill rather than chaptered law. SB 1000 is not current law. Substantive review
-            of the August 21 text remains overdue.
+            2028. The Governor announced signing SB 1000 and AB 2713 on September 30, 2026.
+            This summary has not yet been reconciled with their final enacted text.
+            Substantive human review remains overdue.
           </p>
           <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2">
             <a
@@ -167,6 +166,14 @@ export default function TrackerPage() {
               className="font-semibold text-indigo-700 underline underline-offset-2"
             >
               Check SB 1000 status
+            </a>
+            <a
+              href="https://www.gov.ca.gov/2026/09/30/californias-nation-leading-ai-framework-just-got-stronger-governor-newsom-signs-more-first-in-the-nation-worker-protections-and-more/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-indigo-700 underline underline-offset-2"
+            >
+              Read the Governor&apos;s signing announcement
             </a>
           </div>
         </div>

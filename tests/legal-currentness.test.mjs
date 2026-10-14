@@ -171,7 +171,7 @@ test("every framework exposes structured source, review, scope, and change metad
   assert.equal(LAWS.nySynthetic.review.automatedSourceCheckStatus, "access_limited");
   assert.ok(
     Object.values(LAWS)
-      .filter((law) => law.id !== "nySynthetic")
+      .filter((law) => !["nySynthetic", "caSb942"].includes(law.id))
       .every((law) => law.review.automatedSourceCheckStatus === "passed"),
   );
 });
@@ -219,7 +219,7 @@ test("EU currentness copy limits the Article 50(2) transition precisely", async 
   const requirements = LAWS.euArt50.requires.join("\n");
 
   assert.equal(LEGAL_REVIEW_DATE, "2026-08-02");
-  assert.equal(LEGAL_CONTENT_MODIFIED_DATE, "2026-09-09");
+  assert.equal(LEGAL_CONTENT_MODIFIED_DATE, "2026-10-14");
   assert.equal(LEGAL_REVIEW_LABEL, "August 2, 2026");
   assert.equal(NEXT_LEGAL_REVIEW_DUE, "2026-08-09");
   assert.match(requirements, /Regulation \(EU\) 2026\/1744 delays only that paragraph/i);
@@ -239,7 +239,7 @@ test("EU currentness copy limits the Article 50(2) transition precisely", async 
   assert.match(sources, /document\/130916/);
 });
 
-test("California currentness copy integrates AB 853 and keeps enrolled SB 1000 non-current", async () => {
+test("California copy records the signing announcement without certifying substantive review", async () => {
   const pages = await readFile(new URL("../src/lib/lawPages.ts", import.meta.url), "utf8");
   const monitor = await readFile(
     new URL("../scripts/check-official-sources.mjs", import.meta.url),
@@ -259,13 +259,16 @@ test("California currentness copy integrates AB 853 and keeps enrolled SB 1000 n
   assert.match(requirements, /GenAI system hosting platform/);
   assert.match(requirements, /capture devices/);
   assert.match(requirements, /third-party licensee/);
-  assert.match(pages, /SB 1000 is not current law/);
-  assert.equal(sb1000?.legalStatus, "enrolled_presented_to_governor_not_chaptered");
+  assert.match(pages, /The Governor announced signing SB 1000 and AB 2713 on September 30, 2026/);
+  assert.match(pages, /This summary has not yet been reconciled with their final enacted text/);
+  assert.match(pages, /Signing does not establish when each provision becomes effective or operative/);
+  assert.doesNotMatch(pages, /SB 1000 is not current law|pending SB 1000/);
+  assert.equal(sb1000?.legalStatus, "signing_announced_final_text_unreviewed");
   assert.equal(sb1000?.officialPageLastUpdated, "2026-09-02");
   assert.equal(sb1000?.retrievedAt, "2026-09-09");
-  assert.match(sb1000?.notes ?? "", /presented to the Governor September 2/i);
-  assert.match(pages, /presented to the Governor on September 2/i);
-  assert.match(monitor, /Active Bill\\s\*-\\s\*Enrolled/i);
+  assert.match(sb1000?.notes ?? "", /Final enacted text and effective\/operative dates have not been reconciled/i);
+  assert.match(monitor, /hasCaliforniaSigningAnnouncement/);
+  assert.doesNotMatch(monitor, /Active Bill\\s\*-\\s\*Enrolled/i);
   assert.doesNotMatch(monitor, /Active Bill\\s\*-\\s\*Passed/i);
   assert.match(LAWS.caSb942.officialSources.map((source) => source.title).join("\n"), /AB 853 chaptered amendment/);
   assert.match(pages, /Section 22757\.5 excludes/);

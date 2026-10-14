@@ -20,6 +20,26 @@ export interface CorrectionRecord {
 
 export const CORRECTIONS: CorrectionRecord[] = [
   {
+    id: "2026-10-14-ca-signing-status",
+    date: "2026-10-14",
+    frameworkId: "caSb942",
+    title: "California signing announcement supersedes the pending-status statement",
+    priorInformation:
+      "The tracker, California guide, checker explanation, and source metadata described SB 1000 as enrolled and not current law based on a September 9 status check.",
+    correctedInformation: "The Governor announced signing SB 1000 and AB 2713 on September 30, 2026. This summary has not yet been reconciled with their final enacted text.",
+    reason:
+      "The Governor's official September 30 announcement lists both bills among legislation signed. This supports correcting the signing status, not certifying substantive duties or effective dates.",
+    officialSources: [{ label: "Governor's September 30 signing announcement", url: "https://www.gov.ca.gov/2026/09/30/californias-nation-leading-ai-framework-just-got-stronger-governor-newsom-signs-more-first-in-the-nation-worker-protections-and-more/" }],
+    affectedCheckerVersions: ["checker-2026-09-09.1"],
+    affectedTemplates: ["No illustrative wording or template changed."],
+    affectedGeneratedDocuments: "No customer documents were accessed or assessed in this correction.",
+    affectedUsers: "No customer records were accessed; the affected population has not been assessed.",
+    reviewer: "Codex official-source verification; no attorney review claimed; no substantive human review claimed.",
+    resolution:
+      "Corrected signing-status copy and provenance, added the official announcement, and updated the status monitor. Existing substantive provisions, human-review dates and SOURCE REVIEW OVERDUE remain unchanged; reconciliation with final enacted text is outstanding.",
+    status: "corrected-review-overdue",
+  },
+  {
     id: "2026-08-29-ny-gbl-396-b-enacted-text",
     date: "2026-08-29",
     frameworkId: "nySynthetic",
