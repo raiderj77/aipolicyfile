@@ -129,18 +129,28 @@ test("analytics disclosure matches the verified privacy-limited GA property and 
 });
 
 test("dependency, CI, and canonical-host controls cover the full release", async () => {
-  const [pkg, ci, freshness, config] = await Promise.all([
+  const [pkg, ci, auditPolicy, auditDocs, freshness, config] = await Promise.all([
     read("../package.json"),
     read("../.github/workflows/ci.yml"),
+    read("../scripts/check-dependency-audit.mjs"),
+    read("../docs/dependency-security.md"),
     read("../.github/workflows/legal-freshness.yml"),
     read("../next.config.ts"),
   ]);
-  assert.match(pkg, /"brace-expansion@<2": "1\.1\.18"/);
-  assert.match(pkg, /"brace-expansion": "5\.0\.9"/);
+  assert.match(pkg, /"next": "16\.3\.8"/);
+  assert.match(pkg, /"eslint-config-next": "16\.3\.8"/);
+  assert.match(pkg, /"brace-expansion@<2": "1\.1\.21"/);
+  assert.match(pkg, /"brace-expansion": "5\.0\.12"/);
   assert.match(pkg, /"js-yaml": "4\.3\.2"/);
   assert.match(pkg, /"nanoid": "3\.3\.18"/);
-  assert.match(ci, /npm audit --audit-level=high/);
-  assert.doesNotMatch(ci, /audit --omit=dev/);
+  assert.match(pkg, /"sharp": "0\.35\.5"/);
+  assert.match(pkg, /"source-map-js": "1\.2\.2"/);
+  assert.match(ci, /npm run audit:ci/);
+  assert.match(auditPolicy, /runAudit\(\["--omit=dev"\]\)/);
+  assert.match(auditPolicy, /GHSA-vfj7-8cjw-p6xm/);
+  assert.match(auditPolicy, /2026-11-13T23:59:59Z/);
+  assert.match(auditDocs, /Production dependencies have no audit exceptions/);
+  assert.match(auditDocs, /fails on any\s+new audit finding/);
   assert.match(freshness, /name: Legal review deadline/);
   assert.match(freshness, /cron: "19 15 \* \* \*"/);
   assert.match(freshness, /npm run check:official-sources/);
