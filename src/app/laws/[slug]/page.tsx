@@ -148,9 +148,17 @@ export default async function LawPage({
         </Link>
       </p>
       <p className="mt-2 text-sm text-slate-600">
-        Educational information, not legal advice. Facts checked against the
-        official text linked below, last substantively reviewed {review.reviewedLabel}. This page does
-        not determine whether the rule applies to you.
+        Educational information, not legal advice.{" "}
+        {page.lawId === "caSb942" ? (
+          <>
+            Last substantive human source review: {review.reviewedLabel}. The later limited correction
+            used cross-checked reproductions of the chaptered text because direct Legislature retrieval
+            was blocked. It does not replace substantive human review.
+          </>
+        ) : (
+          <>Facts checked against the official text linked below, last substantively reviewed {review.reviewedLabel}.</>
+        )}{" "}
+        This page does not determine whether the rule applies to you.
       </p>
       <div className="mt-6">
         <SourceReviewNotice />

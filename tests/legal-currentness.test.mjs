@@ -286,6 +286,17 @@ test("California copy reconciles selected chaptered changes without certifying s
   assert.doesNotMatch(pages, /chapter became operative January 1, 2026/i);
 });
 
+test("California guide introduction separates the human review from the limited correction", async () => {
+  const route = await readFile(new URL("../src/app/laws/[slug]/page.tsx", import.meta.url), "utf8");
+  const intro = route.slice(route.indexOf("Educational information, not legal advice."), route.indexOf("This page does not determine whether the rule applies to you."));
+  const [californiaIntro, otherIntro] = intro.split(") : (");
+  assert.match(californiaIntro, /page\.lawId === "caSb942"/);
+  assert.match(californiaIntro, /Last substantive human source review: \{review\.reviewedLabel\}/);
+  assert.match(californiaIntro, /cross-checked reproductions of the chaptered text because direct Legislature retrieval\s+was blocked/);
+  assert.doesNotMatch(californiaIntro, /Facts checked against the official text linked below/);
+  assert.match(otherIntro, /Facts checked against the official text linked below/);
+});
+
 test("checker flow retains all questions and exposes mobile and assistive safeguards", async () => {
   const checker = await readFile(
     new URL("../src/app/checker/CheckerClient.tsx", import.meta.url),
@@ -295,7 +306,7 @@ test("checker flow retains all questions and exposes mobile and assistive safegu
   assert.doesNotMatch(checker, /setStep\(5\)|skip straight to results/i);
   assert.match(checker, /publicly accessible in California, regardless of visitor or user count/i);
   assert.doesNotMatch(checker, /1,000,000 monthly visitors or users/i);
-  assert.match(checker, /more than 2,000,000 unique monthly users/i);
+  assert.match(checker, /qualifying large online platform that exceeded 2,000,000 unique monthly users during the preceding 12 months/i);
   assert.match(checker, /model weights available for download/i);
   assert.match(checker, /capture devices for sale in California/i);
   assert.match(checker, /affected third-party licensee/i);
