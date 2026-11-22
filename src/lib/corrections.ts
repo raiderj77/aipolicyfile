@@ -20,6 +20,30 @@ export interface CorrectionRecord {
 
 export const CORRECTIONS: CorrectionRecord[] = [
   {
+    id: "2026-11-22-ca-chaptered-scope",
+    date: "2026-11-22",
+    frameworkId: "caSb942",
+    title: "California guide and checker retained superseded covered-provider rules",
+    priorInformation:
+      "The guide, FAQ and checker still used the earlier one-million-user threshold, and guidance described the prior manifest-disclosure option and provider revocation rule.",
+    correctedInformation:
+      "SB 1000 removed the covered-provider user-count threshold and manifest-disclosure option requirement, updated the disclosure verification and latent-disclosure provisions, and changed the licensing, exclusion and enforcement provisions. AB 2713 revised the separate large-online-platform duties operative January 1, 2027.",
+    reason:
+      "A comparison of independently hosted chaptered-text reproductions identified outdated guidance. Direct Legislature retrieval was blocked; the scope of this correction is limited and does not replace substantive human review.",
+    officialSources: [
+      { label: "California Legislature: SB 1000 (Chapter 861)", url: "https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260SB1000" },
+      { label: "California Legislature: AB 2713 (Chapter 856)", url: "https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260AB2713" },
+    ],
+    affectedCheckerVersions: ["checker-2026-10-14.1", "checker-2026-11-22.1"],
+    affectedTemplates: ["No illustrative wording or template changed."],
+    affectedGeneratedDocuments: "Tracker CSV and llms.txt inherit the updated California summary and source status. No customer documents were accessed.",
+    affectedUsers: "No customer records were accessed; the affected population and individual checker choices have not been assessed.",
+    reviewer: "AI-assisted limited chaptered-text comparison; no attorney review claimed; no substantive human review claimed.",
+    resolution:
+      "Corrected the guide, FAQ and FAQ structured data, tracker, and checker question and guidance; retained educational screening, substantive review dates, and SOURCE REVIEW OVERDUE.",
+    status: "corrected-review-overdue",
+  },
+  {
     id: "2026-10-14-ca-signing-status",
     date: "2026-10-14",
     frameworkId: "caSb942",
