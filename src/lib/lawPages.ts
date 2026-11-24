@@ -259,44 +259,46 @@ export const LAW_PAGES: LawPage[] = [
   {
     lawId: "caSb942",
     slug: "california-sb-942",
-    title: "California AI Transparency Act: SB 942 as Amended by AB 853",
+    title: "California AI Transparency Act: SB 942 and Later Amendments",
     metaDescription:
-      "A source-based review of California's AI Transparency Act. The Governor announced signing SB 1000 and AB 2713; reconciliation with their final enacted text remains overdue.",
+      "An educational summary of selected SB 1000 and AB 2713 changes to California’s AI Transparency Act. Substantive human source review remains overdue.",
     intro:
-      "California's current AI Transparency Act began with SB 942 and was amended by AB 853. It assigns different duties and operative dates to covered providers, affected third-party licensees, large online platforms, GenAI hosting platforms, and capture device manufacturers. Merely using an AI tool does not by itself establish one of those roles.",
+      "California's AI Transparency Act began with SB 942 and was amended by AB 853, SB 1000 and AB 2713. It assigns different duties and operative dates to covered providers, affected third-party licensees, large online platforms, GenAI hosting platforms, and capture device manufacturers. Merely using an AI tool does not by itself establish one of those roles.",
     sections: [
       {
-        heading: "Covered-provider duties operative August 2, 2026",
+        heading: "Who is a covered provider after SB 1000?",
         paragraphs: [
-          "Current Business and Professions Code Section 22757.1 defines a covered provider as a person that creates, codes, or otherwise produces a generative AI system with more than 1,000,000 monthly visitors or users that is publicly accessible within California. Applying each part requires product, control, audience, and accessibility evidence.",
+          "SB 1000 (Chapter 861) took effect September 30, 2026 as an urgency statute. Under amended Business and Professions Code Section 22757.1(e), a covered provider creates, codes, or otherwise produces a generative AI system publicly accessible within California. The amendment removed the previous one-million-user threshold for covered providers. The separate large-online-platform definition still has its own size threshold.",
           "An ordinary user of a third-party AI tool is not automatically the provider of that tool. That does not establish that no other law applies to the user's content or business.",
         ],
       },
       {
-        heading: "Detection and disclosure provisions",
+        heading: "Verification tools and latent disclosures",
         paragraphs: [
-          "Section 22757.2 requires a covered provider to make a no-cost AI detection tool for specified image, video, and audio content created or altered by its system. The section addresses system-provenance output, personal-provenance limits, public access, uploads or URLs, an API, feedback, and retention restrictions; the exact text controls.",
-          "Section 22757.3 addresses a user option for manifest disclosures and provider-supplied latent disclosures in specified image, video, and audio content or combinations of those media. Do not expand those media-specific provisions into a claim that every AI-generated text item needs a label under the current California chapter.",
+          "Section 22757.2 requires a covered provider to make a no-cost disclosure verification tool available for image, video, audio, or combinations created or altered by its system, excluding statutory minor modifications. Read the section for system provenance output, privacy and consent, public access, upload or URL inputs, API access, feedback, and conditions for relying on a third-party tool.",
+          "Section 22757.3(a) requires technically feasible latent disclosures in covered image, video, or audio content, or combinations, created or altered by the provider’s system, excluding statutory minor modifications. The latent disclosure must state whether the system created or altered the content. SB 1000 removed the prior requirement to offer users a manifest-disclosure option. Do not infer a blanket visible-label requirement for text from these media-specific provisions.",
         ],
       },
       {
-        heading: "AB 853 added roles with later dates",
+        heading: "Large online platforms, hosting and capture devices",
         paragraphs: [
-          "Beginning January 1, 2027, Section 22757.3.1 requires a defined large online platform that exceeded 2,000,000 unique monthly users during the preceding 12 months to address qualifying provenance detection, disclosure, inspection, and stripping. The definition and broadband and telecommunications exclusions should be reviewed in full.",
+          "Section 22757.3.1, as amended by AB 2713 (Chapter 856), becomes operative January 1, 2027. It addresses provenance detection, a user interface indicating relevant provenance or signatures, access to inspect system provenance data, and a prohibition on knowing stripping to the extent technically feasible. The section-wide standards limitation applies to data and signatures that are not compliant or interoperable with widely adopted specifications issued by an established standards-setting body. The interface and inspection duties do not require retention, display, or download of personal information.",
+          "The large-online-platform definition separately retains more than 2,000,000 unique monthly users during the preceding 12 months, plus conditions on the type and activity of the platform and exclusions for broadband and telecommunications services.",
           "Also beginning January 1, 2027, Section 22757.3.2 bars a defined GenAI hosting platform from knowingly making available a GenAI system that does not place disclosures under Section 22757.3. The hosting definition includes a California-resident download element that must be read in the current code. Section 22757.3.3 adds technically feasible latent-disclosure duties for specified capture devices first produced for sale in California on or after January 1, 2028; a person exclusively engaged in assembly is excluded from the capture-device-manufacturer definition.",
         ],
       },
       {
-        heading: "Licensing, enforcement, and an exemption",
+        heading: "Licensing, enforcement, and exclusions",
         paragraphs: [
-          "The covered-provider provisions include third-party licensing duties and a 96-hour revocation rule when the stated knowledge and system-modification conditions are met. After that revocation, the affected third-party licensee must cease using the licensed system. Section 22757.4 sets a $5,000 civil penalty per violation and treats each day as a discrete violation for covered providers, large online platforms, and capture device manufacturers. The specified third-party-licensee cease-use violation has a separate injunctive-relief and fees provision.",
-          "Section 22757.5 excludes a product, service, website, or application that provides exclusively non-user-generated video game, television, streaming, movie, or interactive experiences. The word exclusively and the actual product facts matter.",
+          "Section 22757.3(b) requires covered providers to notify third parties of their obligations when providing a license. If the provider knows an identifiable licensee modified the licensed system so it no longer complies, the provider has 72 hours from discovery to terminate authorization or give the statutory notice. A licensee receiving that notice must fix the system or stop using or making it available and report its action to the provider within 96 hours of receiving notice. The provider reports qualifying failures to the Attorney General. This provision does not require provider monitoring or investigation.",
+          "Section 22757.5 excludes offerings that provide exclusively non-user-generated videogames. Before January 1, 2029, it also excludes GenAI systems designed primarily as assistive technology, as defined in the statute. On and after that date, covered latent disclosures must also state whether the system is designed primarily as assistive technology. Review the separate false-representation rule.",
+          "Section 22757.4 generally sets a $5,000 civil penalty per violation and treats each day as a separate violation for covered providers, large online platforms, and capture device manufacturers. The specified false representation that a system is designed primarily as assistive technology is dealt with separately in Sections 22757.3(d) and 22757.4.1: $50,000 per violation under the latter section, which is repealed January 1, 2029.",
         ],
       },
       {
-        heading: "SB 1000 and AB 2713 signing announced; text review overdue",
+        heading: "Chaptered amendments and source-review limits",
         paragraphs: [
-          "The Governor announced signing SB 1000 and AB 2713 on September 30, 2026. This summary has not yet been reconciled with their final enacted text. Substantive human review remains overdue.",
+          "The Governor announced signing SB 1000 and AB 2713 on September 30, 2026. This limited correction uses cross-checked reproductions of the chaptered text; direct Legislature retrieval was blocked and substantive human review remains overdue.",
           "Before relying on a classification, verify the current codified chapter and the final enacted text and operative dates of SB 1000 and AB 2713. Product architecture, audience measurements, and the statute can all change.",
         ],
       },
@@ -304,23 +306,23 @@ export const LAW_PAGES: LawPage[] = [
     faq: [
       {
         q: "Does the Act apply because my business uses an AI writing tool?",
-        a: "Use of a third-party tool alone does not establish that the business is a covered provider, affected licensee, large online platform, GenAI hosting platform, or capture device manufacturer. A licensee's cease-use duty arises only under the current provision's stated licensing, modification, knowledge, and revocation conditions.",
+        a: "Use of a third-party tool alone does not establish that the business is a covered provider, affected licensee, large online platform, GenAI hosting platform, or capture device manufacturer. Separate licensing duties can apply when a business licenses and modifies a covered provider’s system; check the facts and statutory conditions.",
       },
       {
-        q: "Does the one-million threshold mean California users only?",
-        a: "The definition states more than 1,000,000 monthly visitors or users and separately requires public accessibility within California. It does not state that every counted visitor or user must be in California.",
+        q: "Is there still a one-million-user threshold for covered providers?",
+        a: "No. SB 1000 removed the covered-provider user-count threshold. It retained the requirement that the system be publicly accessible in California. The separate large-online-platform definition still has a user-count threshold.",
       },
       {
         q: "Does the current Act require visible labels on AI-generated text?",
-        a: "The current covered-provider manifest- and latent-disclosure provisions identify image, video, and audio content or combinations of those media. Review the full text and other laws before drawing a conclusion about text.",
+        a: "Section 22757.3(a) addresses latent disclosures for specified image, video, and audio content or combinations of those media, not a blanket visible-label requirement for text. Check the full chapter and other applicable laws.",
       },
       {
         q: "When do the Act's duties become operative?",
-        a: "The chapter and covered-provider duties became operative August 2, 2026. The large-online-platform and GenAI-hosting provisions specify January 1, 2027, and the capture-device provision specifies January 1, 2028.",
+        a: "The chapter was originally operative August 2, 2026. SB 1000’s urgency amendments took effect September 30, 2026. The large-online-platform and GenAI-hosting provisions specify January 1, 2027, and the capture-device provision specifies January 1, 2028, for the specified devices.",
       },
       {
-        q: "Has this summary been reconciled with SB 1000 and AB 2713?",
-        a: "The Governor announced signing SB 1000 and AB 2713 on September 30, 2026. This summary has not yet been reconciled with their final enacted text. Signing does not establish when each provision becomes effective or operative; verify the final enacted text before relying on this summary.",
+        q: "What sources were used for the SB 1000 and AB 2713 correction?",
+        a: "The Governor announced signing SB 1000 and AB 2713 on September 30, 2026. This limited correction uses cross-checked reproductions of the chaptered text; direct Legislature retrieval was blocked and substantive human review remains overdue.",
       },
     ],
   },

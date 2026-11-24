@@ -215,7 +215,7 @@ test("legal review dates are bounded and overdue status propagates to every outp
 
 test("material legal corrections are structured, versioned, and publicly rendered", async () => {
   const page = await readFile(new URL("../src/app/corrections/page.tsx", import.meta.url), "utf8");
-  assert.equal(CORRECTIONS.length, 4);
+  assert.equal(CORRECTIONS.length, 5);
   assert.deepEqual(
     new Set(CORRECTIONS.map((correction) => correction.frameworkId)),
     new Set(["nySynthetic", "caBot", "euArt50", "caSb942"]),

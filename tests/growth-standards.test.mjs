@@ -80,9 +80,9 @@ test("the linkable tracker is source-backed, downloadable, and non-conclusive", 
   assert.match(tracker, /"@type": "Dataset"/);
   assert.match(tracker, /"@type": "DataDownload"/);
   assert.match(tracker, /Regulation \(EU\) 2026\/1744/);
-  assert.match(tracker, /California AB 853 amendment/);
-  assert.match(tracker, /The Governor announced signing SB 1000 and AB 2713 on September 30, 2026/);
-  assert.match(tracker, /This summary has not yet been reconciled with their final enacted text/);
+  assert.match(tracker, /California AI Transparency Act amendments/);
+  assert.match(tracker, /statute September 30, 2026 and removed the covered-provider user-count threshold/);
+  assert.match(tracker, /Legislature retrieval was blocked\. Substantive human review remains overdue/);
   assert.doesNotMatch(tracker, /SB 1000 is not current law/);
   assert.match(tracker, /does not decide which law/);
   assert.match(csvRoute, /Content-Disposition/);

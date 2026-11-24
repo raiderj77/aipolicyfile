@@ -140,15 +140,15 @@ export default function TrackerPage() {
 
         <div className="mt-6 border-t border-amber-200 pt-6">
           <h3 className="font-display text-lg font-semibold text-slate-900">
-            California AB 853 amendment and staged dates
+            California AI Transparency Act amendments and staged dates
           </h3>
           <p className="mt-2 leading-relaxed text-slate-700">
-            AB 853 amended the California AI Transparency Act. The chapter and covered-provider
-            duties became operative August 2, 2026; the added large-online-platform and GenAI-hosting
-            provisions specify January 1, 2027, and the capture-device provision specifies January 1,
-            2028. The Governor announced signing SB 1000 and AB 2713 on September 30, 2026.
-            This summary has not yet been reconciled with their final enacted text.
-            Substantive human review remains overdue.
+            The original chapter became operative August 2, 2026. SB 1000 took effect as an urgency
+            statute September 30, 2026 and removed the covered-provider user-count threshold. The
+            large-online-platform duties as amended by AB 2713 and the GenAI-hosting provisions
+            specify January 1, 2027; specified capture-device duties begin January 1, 2028.
+            This limited correction uses cross-checked chaptered-text reproductions because direct
+            Legislature retrieval was blocked. Substantive human review remains overdue.
           </p>
           <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2">
             <a
@@ -160,12 +160,20 @@ export default function TrackerPage() {
               Read the current codified chapter
             </a>
             <a
-              href="https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB1000"
+              href="https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260SB1000"
               target="_blank"
               rel="noopener noreferrer"
               className="font-semibold text-indigo-700 underline underline-offset-2"
             >
-              Check SB 1000 status
+              Read chaptered SB 1000
+            </a>
+            <a
+              href="https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260AB2713"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-indigo-700 underline underline-offset-2"
+            >
+              Read chaptered AB 2713
             </a>
             <a
               href="https://www.gov.ca.gov/2026/09/30/californias-nation-leading-ai-framework-just-got-stronger-governor-newsom-signs-more-first-in-the-nation-worker-protections-and-more/"
