@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Space_Grotesk } from "next/font/google";
+import Image from "next/image";
 import Link from "next/link";
 import { AnalyticsConsent } from "@/components/AnalyticsConsent";
 import { serializeJsonLd } from "@/lib/jsonLd";
@@ -13,6 +14,7 @@ const spaceGrotesk = Space_Grotesk({
 
 const siteDescription =
   "Free educational checker that flags AI disclosure rules creators and small businesses may want to review, with links to official sources.";
+const logoMark = "/logo-mark.svg";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://aipolicyfile.com"),
@@ -27,6 +29,7 @@ export const metadata: Metadata = {
   publisher: "AI Policy File",
   category: "Legal education",
   alternates: { canonical: "/" },
+  icons: { icon: { url: logoMark, type: "image/svg+xml", sizes: "any" } },
   verification: {
     google: "ozOeVL-jcqo8z6PPEKzQaXFENpf5nTXFOsPxEqfVUoU",
   },
@@ -109,7 +112,8 @@ export default function RootLayout({
         />
         <header className="border-b border-slate-200 bg-white">
           <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4 sm:px-6">
-            <Link href="/" className="whitespace-nowrap font-display text-base font-bold tracking-tight sm:text-lg">
+            <Link href="/" aria-label="AI Policy File" className="inline-flex items-center gap-2 whitespace-nowrap font-display text-base font-bold tracking-tight sm:text-lg">
+              <Image src={logoMark} alt="AI Policy File" width={24} height={24} />
               AI Policy File
             </Link>
             <nav aria-label="Primary" className="flex items-center gap-2 text-xs font-medium text-slate-600 sm:gap-5 sm:text-sm">
