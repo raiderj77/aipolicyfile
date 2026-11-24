@@ -90,7 +90,7 @@ test("decision table always returns one card for every screened framework", () =
       },
     },
     {
-      name: "large generative-AI provider",
+      name: "California-accessible GenAI producer, including below the old user threshold",
       answers: { ...allNo, bigProvider: true },
       expected: {
         ftc: "lower",
@@ -219,7 +219,7 @@ test("EU currentness copy limits the Article 50(2) transition precisely", async 
   const requirements = LAWS.euArt50.requires.join("\n");
 
   assert.equal(LEGAL_REVIEW_DATE, "2026-08-02");
-  assert.equal(LEGAL_CONTENT_MODIFIED_DATE, "2026-10-14");
+  assert.equal(LEGAL_CONTENT_MODIFIED_DATE, "2026-11-22");
   assert.equal(LEGAL_REVIEW_LABEL, "August 2, 2026");
   assert.equal(NEXT_LEGAL_REVIEW_DUE, "2026-08-09");
   assert.match(requirements, /Regulation \(EU\) 2026\/1744 delays only that paragraph/i);
@@ -239,7 +239,7 @@ test("EU currentness copy limits the Article 50(2) transition precisely", async 
   assert.match(sources, /document\/130916/);
 });
 
-test("California copy records the signing announcement without certifying substantive review", async () => {
+test("California copy reconciles selected chaptered changes without certifying substantive review", async () => {
   const pages = await readFile(new URL("../src/lib/lawPages.ts", import.meta.url), "utf8");
   const monitor = await readFile(
     new URL("../scripts/check-official-sources.mjs", import.meta.url),
@@ -250,7 +250,7 @@ test("California copy records the signing announcement without certifying substa
     (source) => source.sourceId === "ca-sb1000-2025-2026",
   );
 
-  assert.match(LAWS.caSb942.name, /as amended by AB 853/i);
+  assert.match(LAWS.caSb942.name, /SB 942, as amended/i);
   assert.match(LAWS.caSb942.timingSummary, /operative August 2, 2026/i);
   assert.match(LAWS.caSb942.timingSummary, /January 1, 2027/);
   assert.match(LAWS.caSb942.timingSummary, /January 1, 2028/);
@@ -260,19 +260,41 @@ test("California copy records the signing announcement without certifying substa
   assert.match(requirements, /capture devices/);
   assert.match(requirements, /third-party licensee/);
   assert.match(pages, /The Governor announced signing SB 1000 and AB 2713 on September 30, 2026/);
-  assert.match(pages, /This summary has not yet been reconciled with their final enacted text/);
-  assert.match(pages, /Signing does not establish when each provision becomes effective or operative/);
+  assert.match(pages, /direct Legislature retrieval was blocked and substantive human review remains overdue/);
+  assert.match(pages, /removed the previous one-million-user threshold for covered providers/);
+  assert.match(pages, /Section 22757\.3\.1, as amended by AB 2713 \(Chapter 856\), becomes operative January 1, 2027/);
+  assert.match(pages, /72 hours from discovery/);
+  assert.match(pages, /96 hours of receiving notice/);
+  assert.match(pages, /exclusively non-user-generated videogames/);
+  assert.match(pages, /statutory minor modifications/);
+  assert.match(pages, /removed the prior requirement to offer users a manifest-disclosure option/);
+  assert.doesNotMatch(pages + requirements, /1,000,000 monthly visitors|96-hour revocation|manifest-option/);
+  const chapteredSB = LAWS.caSb942.officialSources.find(({ sourceId }) => sourceId === "ca-sb1000-ch861-2026");
+  const chapteredAB = LAWS.caSb942.officialSources.find(({ sourceId }) => sourceId === "ca-ab2713-ch856-2026");
+  assert.equal(chapteredSB?.effectiveDate, "2026-09-30");
+  assert.equal(chapteredAB?.applicableDate, "2027-01-01");
   assert.doesNotMatch(pages, /SB 1000 is not current law|pending SB 1000/);
   assert.equal(sb1000?.legalStatus, "signing_announced_final_text_unreviewed");
   assert.equal(sb1000?.officialPageLastUpdated, "2026-09-02");
   assert.equal(sb1000?.retrievedAt, "2026-09-09");
-  assert.match(sb1000?.notes ?? "", /Final enacted text and effective\/operative dates have not been reconciled/i);
+  assert.match(sb1000?.notes ?? "", /archived September status record did not establish the enacted text/i);
   assert.match(monitor, /hasCaliforniaSigningAnnouncement/);
   assert.doesNotMatch(monitor, /Active Bill\\s\*-\\s\*Enrolled/i);
   assert.doesNotMatch(monitor, /Active Bill\\s\*-\\s\*Passed/i);
   assert.match(LAWS.caSb942.officialSources.map((source) => source.title).join("\n"), /AB 853 chaptered amendment/);
   assert.match(pages, /Section 22757\.5 excludes/);
   assert.doesNotMatch(pages, /chapter became operative January 1, 2026/i);
+});
+
+test("California guide introduction separates the human review from the limited correction", async () => {
+  const route = await readFile(new URL("../src/app/laws/[slug]/page.tsx", import.meta.url), "utf8");
+  const intro = route.slice(route.indexOf("Educational information, not legal advice."), route.indexOf("This page does not determine whether the rule applies to you."));
+  const [californiaIntro, otherIntro] = intro.split(") : (");
+  assert.match(californiaIntro, /page\.lawId === "caSb942"/);
+  assert.match(californiaIntro, /Last substantive human source review: \{review\.reviewedLabel\}/);
+  assert.match(californiaIntro, /cross-checked reproductions of the chaptered text because direct Legislature retrieval\s+was blocked/);
+  assert.doesNotMatch(californiaIntro, /Facts checked against the official text linked below/);
+  assert.match(otherIntro, /Facts checked against the official text linked below/);
 });
 
 test("checker flow retains all questions and exposes mobile and assistive safeguards", async () => {
@@ -282,8 +304,9 @@ test("checker flow retains all questions and exposes mobile and assistive safegu
   );
 
   assert.doesNotMatch(checker, /setStep\(5\)|skip straight to results/i);
-  assert.match(checker, /more than 1,000,000 monthly visitors or users/i);
-  assert.match(checker, /more than 2,000,000 unique monthly users/i);
+  assert.match(checker, /publicly accessible in California, regardless of visitor or user count/i);
+  assert.doesNotMatch(checker, /1,000,000 monthly visitors or users/i);
+  assert.match(checker, /qualifying large online platform that exceeded 2,000,000 unique monthly users during the preceding 12 months/i);
   assert.match(checker, /model weights available for download/i);
   assert.match(checker, /capture devices for sale in California/i);
   assert.match(checker, /affected third-party licensee/i);

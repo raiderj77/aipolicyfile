@@ -58,7 +58,7 @@ const QUESTIONS: Question[] = [
   {
     key: "bigProvider",
     text: "Do you run or license a GenAI provider, large online platform, model-hosting service, or capture-device business connected to California?",
-    help: "This includes creating a public GenAI system with more than 1,000,000 monthly visitors or users; being its affected third-party licensee; operating a qualifying platform with more than 2,000,000 unique monthly users; making GenAI source code or model weights available for download by a California resident; or manufacturing capture devices for sale in California. A manufacturer exclusively assembling devices is excluded from that definition. Simply using a third-party AI tool does not count.",
+    help: "This includes creating, coding, or otherwise producing a GenAI system publicly accessible in California, regardless of visitor or user count; being its affected third-party licensee; operating a qualifying large online platform that exceeded 2,000,000 unique monthly users during the preceding 12 months; making GenAI source code or model weights available for download by a California resident; or manufacturing capture devices for sale in California. A manufacturer exclusively assembling devices is excluded from that definition. Simply using a third-party AI tool does not count.",
   },
 ];
 

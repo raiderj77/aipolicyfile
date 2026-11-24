@@ -24,7 +24,7 @@ export default function AboutPage() {
           creators and small businesses: FTC endorsement guidance, EU AI
           Act Article 50, New York&apos;s synthetic performer disclosure law, the
           California B.O.T. Act, and California&apos;s AI Transparency Act (SB 942
-          as amended by AB 853). They were written for different audiences, use
+          as amended). They were written for different audiences, use
           different definitions, and take effect on different dates. Determining
           which one governs a particular activity requires more facts than a short
           online checker can collect.
