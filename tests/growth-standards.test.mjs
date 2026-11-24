@@ -139,7 +139,7 @@ test("dependency, CI, and canonical-host controls cover the full release", async
     read("../.github/workflows/legal-freshness.yml"),
     read("../next.config.ts"),
   ]);
-  assert.match(pkg, /"next": "16\.3\.8"/);
+  assert.match(pkg, /"next": "16\.4\.5"/);
   assert.match(pkg, /"eslint-config-next": "16\.3\.8"/);
   assert.match(pkg, /"brace-expansion@<2": "1\.1\.21"/);
   assert.match(pkg, /"brace-expansion": "5\.0\.12"/);
